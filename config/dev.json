@@ -1,1 +1,18 @@
-{}
+{
+    "useCSRFProtection": true,
+    "security": {
+      "referrerPolicy": "origin"
+    },
+    "appInsights": {
+      "instrumentationKey": false
+    },
+    "session": {
+      "secret": "abc",
+      "redis": {
+        "host": "",
+        "password": ""
+      }
+    }
+    
+  }
+  

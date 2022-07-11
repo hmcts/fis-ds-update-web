@@ -1,3 +1,5 @@
+import path from 'path';
+
 import { Application } from 'express';
 import { glob } from 'glob';
 
@@ -14,7 +16,7 @@ export class PublicRoutesEnabler {
    */
   enableFor(app: Application): void {
     glob
-      .sync(__dirname + '/routes/**/*.+(ts|js)')
+      .sync(path.join(__dirname + '../routes/**/*.+(ts|js)'))
       .map(filename => require(filename))
       .forEach(route => route.default(app));
   }

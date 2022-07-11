@@ -1,6 +1,8 @@
+// eslint-disable-next-line import/no-unresolved
+import HTTPSTATUS from '@utils/httpStatus';
 import { Application, Request, Response } from 'express';
 
-import { HTTPError } from '../HttpError';
+import { HTTPError } from '../../HttpError';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -14,7 +16,7 @@ export class RouteExceptionHandler {
   /* A middleware that handles the 404 Not Found error. */
   static NOTFOUND_HANDLER = (app: Application): void => {
     app.use((req, res) => {
-      res.status(404);
+      res.status(HTTPSTATUS.CODE().NOT_FOUND);
       res.render('not-found');
     });
   };
@@ -29,7 +31,7 @@ export class RouteExceptionHandler {
       // set locals, only providing error in development
       res.locals.message = err.message;
       // res.locals.error = env === 'development' ? err : {};
-      res.status(err.status || 500);
+      res.status(err.status || HTTPSTATUS.CODE().INTERNAL_SERVER_ERROR);
       res.render('error');
     });
   };
