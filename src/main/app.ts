@@ -6,11 +6,10 @@ import { AppInsights } from './modules/appinsights';
 import { Helmet } from './modules/helmet';
 import { Nunjucks } from './modules/nunjucks';
 import { PropertiesVolume } from './modules/properties-volume';
+import { RoutesEnabler } from './routes';
 import { ExpressAppConfigurations } from './settings/appConfigurations/appConfigurations';
 import { SessionStorage } from './settings/redis/redis';
-import { PublicRoutesEnabler } from './settings/routeEnabler/routeEnabler';
 import { RouteExceptionHandler } from './settings/routeExceptions/routesExceptions';
-
 /* Checking if the environment is development or not. */
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
@@ -29,11 +28,11 @@ new ExpressAppConfigurations().enableFor(app);
    This is a session registry and makes session data available
 */
 new SessionStorage().enableFor(app);
-new PublicRoutesEnabler().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
+new RoutesEnabler().enableFor(app);
 new RouteExceptionHandler().enableFor(app);
 
 setupDev(app, developmentMode);
