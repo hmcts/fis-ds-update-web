@@ -1,34 +1,34 @@
 import config = require('config');
 import express from 'express';
-//import { glob } from 'glob';
 
+import { setupDev } from './development';
 import { AppInsights } from './modules/appinsights';
 import { Helmet } from './modules/helmet';
 import { Nunjucks } from './modules/nunjucks';
 import { PropertiesVolume } from './modules/properties-volume';
 import { ExpressAppConfigurations } from './settings/appConfigurations/appConfigurations';
-import { SessionSystemConfigurations } from './settings/redis/redis';
+import { SessionStorage } from './settings/redis/redis';
 import { PublicRoutesEnabler } from './settings/routeEnabler/routeEnabler';
 import { RouteExceptionHandler } from './settings/routeExceptions/routesExceptions';
 
-const { setupDev } = require('./development');
-
+/* Checking if the environment is development or not. */
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
 
 export const app = express();
+/* Setting the environment variable for the app. */
 app.locals.ENV = env;
 
 /* 
 * @SystemConfigurations
-Enabling the ExpressAppConfigurations, PublicRoutesEnabler, PropertiesVolume, AppInsights, Nunjucks,
+Enabling the SessionStorage, ExpressAppConfigurations, PublicRoutesEnabler, PropertiesVolume, AppInsights, Nunjucks,
 Helmet, and RouteExceptionHandler. */
 new ExpressAppConfigurations().enableFor(app);
 
 /* Enabling the session for the app.
    This is a session registry and makes session data available
 */
-new SessionSystemConfigurations.AppSessionConfigurator().enableFor(app);
+new SessionStorage().enableFor(app);
 new PublicRoutesEnabler().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new AppInsights().enable();

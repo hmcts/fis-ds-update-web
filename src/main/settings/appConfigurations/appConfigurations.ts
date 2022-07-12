@@ -4,9 +4,6 @@ import * as bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express, { Application } from 'express';
 import favicon from 'serve-favicon';
-/* It takes an express application as an argument, and then it finds all the files in the routes folder
-that end in .ts or .js, and then it requires each of those files, and then it calls the default
-export of each of those files, passing in the express application */
 
 export class ExpressAppConfigurations {
   /**

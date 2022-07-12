@@ -9,87 +9,63 @@ import FileStoreFactory from 'session-file-store';
 // eslint-disable-next-line import/no-unresolved
 import { SessionConfigurableProperties, SessionCookieExpiryMaxAge } from './type';
 
-/* The below code is creating a new class named AppSessionConfigurator. This class has a method named
-enableFor which takes an argument of type Application. This method is then parsing the cookie from
-the request and creating a new instance of the StoreConfigurator class. The method is then using the
-session middleware and passing in the configuration options. */
-const RedisStore = ConnectRedis(session);
-const FileStore = FileStoreFactory(session);
+export class SessionStorage {
+  /* Creating a new session store for Redis and FileStore. */
+  public static RedisStore = ConnectRedis(session);
+  public static FileStore = FileStoreFactory(session);
 
-const SessionProperties: SessionConfigurableProperties = {
-  PORT: 6380,
-  TLS: true,
-  CONNECTION_TIMEOUT: 15000,
-};
+  /* Defining the default values for the session properties. */
+  public static SessionProperties: SessionConfigurableProperties = {
+    PORT: 6380,
+    TLS: true,
+    CONNECTION_TIMEOUT: 15000,
+    COOKIE_MAX_AGE: 21,
+  };
 
-/* Creating a new class named StoreConfigurator. This class has a method named configuration
-which takes an argument of type Application. This method is then parsing the cookie from the request
-and creating a new instance of the StoreConfigurator class. The method is then using the session
-middleware and passing in the configuration options. */
-namespace SessionStoreConfigurations {
-  /* The StoreConfigurator class is a class that has a configuration method that takes an Application
- object as a parameter and returns void. */
-  export class StoreConfigurator {
-    /**
-     * If the redis host is set in the configuration, then create a redis client and return a redis
-     * store, otherwise return a file store
-     * @param {Application} app - Application - The express application instance
-     * @returns A new instance of the RedisStore class.
-     */
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    public configuration(app: Application): session.Store {
-      const redisHost = config.get('session.redis.host');
-      if (redisHost) {
-        const client = redis.createClient({
-          url: redisHost,
-          password: config.get('session.redis.key') as string,
-          port: Number(SessionProperties.PORT),
-          tls: SessionProperties.TLS,
-          connect_timeout: SessionProperties.CONNECTION_TIMEOUT,
-        });
+  /* Setting the cookieMaxAge to the value of the SessionProperties.COOKIE_MAX_AGE * (60 * 1000) */
+  public static cookieMaxAge: SessionCookieExpiryMaxAge = SessionStorage.SessionProperties.COOKIE_MAX_AGE * (60 * 1000);
 
-        app.locals.redisClient = client;
-        return new RedisStore({ client });
-      }
-      return new FileStore({ path: '/tmp' });
-    }
+  /**
+   * It enables the session middleware for the given Express application
+   * @param {Application} app - Application - The express application object
+   */
+  public enableFor(app: Application): void {
+    app.use(cookieParser());
+    app.use(
+      session({
+        name: 'ds-ui-session',
+        resave: false,
+        saveUninitialized: false,
+        secret: config.get('session.secret'),
+        cookie: {
+          httpOnly: true,
+          maxAge: SessionStorage.cookieMaxAge,
+        },
+        rolling: true, // Renew the cookie for another 20 minutes on each request
+        store: this.getStore(app),
+      })
+    );
   }
-}
 
-/* The above code is creating a new class named AppSessionConfigurator. This class has a method named
-enableFor which takes an argument of type Application. This method is then parsing the cookie from
-the request and creating a new instance of the StoreConfigurator class. The method is then using the
-session middleware and passing in the configuration options. */
-export namespace SessionSystemConfigurations {
-  /* Defining a constant named SessionCookieExpiryAge with a value of 21 minutes. */
-  export const SessionCookieExpiryAge: SessionCookieExpiryMaxAge = 21 * (60 * 1000);
-
-  export class AppSessionConfigurator {
-    /**
-     * It enables the session for the application
-     * @param {Application} app - Application - The express application instance.
-     */
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    public enableFor(app: Application): void {
-      /* Parsing the cookie from the request. */
-      app.use(cookieParser());
-      /* Creating a new instance of the StoreConfigurator class. */
-      const { StoreConfigurator } = SessionStoreConfigurations;
-      const InstanceOfStoreConfig = new StoreConfigurator();
-      app.use(
-        session({
-          name: 'ds-update-ui-session',
-          resave: false,
-          saveUninitialized: false,
-          secret: config.get('session.secret'),
-          cookie: {
-            httpOnly: true,
-            maxAge: SessionSystemConfigurations.SessionCookieExpiryAge,
-          },
-          rolling: true, // Renew the cookie for another 20 minutes on each request
-          store: InstanceOfStoreConfig.configuration(app),
-        })
-      );
+  /**
+   * If the redis host is set, create a redis client and return a redis store, otherwise return a file
+   * store
+   * @param {Application} app - Application - The express application
+   * @returns A new instance of the RedisStore class.
+   */
+  private getStore(app: Application) {
+    const redisHost = config.get('session.redis.host');
+    if (redisHost) {
+      const client = redis.createClient({
+        host: redisHost as string,
+        password: config.get('session.redis.key') as string,
+        port: SessionStorage.SessionProperties.PORT,
+        tls: SessionStorage.SessionProperties.TLS,
+        connect_timeout: SessionStorage.SessionProperties.CONNECTION_TIMEOUT,
+      });
+      app.locals.redisClient = client;
+      return new SessionStorage.RedisStore({ client });
     }
+    return new SessionStorage.FileStore({ path: '/tmp' });
   }
 }
