@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { HTTPCODES } from './types';
 /**
  * The function HTTPSTATUS returns a function that returns a number.
