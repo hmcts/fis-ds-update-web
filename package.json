@@ -8,7 +8,7 @@
   "scripts": {
     "start": "NODE_ENV=production ./node_modules/.bin/ts-node -r tsconfig-paths/register src/main/server.ts",
     "start:dev": "nodemon --config nodemon.json",
-    "lint": "sass-lint -v -q && eslint . --ext .js,.ts",
+    "lint": "tsc --noEmit -p tsconfig.eslint.json && eslint . --ext .js,.ts",
     "build": "yarn webpack --config webpack.config.js",
     "build:prod": "NODE_ENV=production yarn webpack --mode production --config webpack.config.js",
     "test": "jest",
@@ -22,11 +22,11 @@
     "cichecks": "yarn && yarn build && yarn lint  && yarn test && yarn test:routes &&  yarn test:a11y"
   },
   "dependencies": {
+    "@hmcts/frontend": "^0.0.50-alpha",
     "@hmcts/info-provider": "^1.0.0",
     "@hmcts/nodejs-healthcheck": "^1.7.0",
     "@hmcts/nodejs-logging": "^3.0.2",
     "@hmcts/properties-volume": "^0.0.13",
-    "@hmcts/frontend": "^0.0.50-alpha",
     "@types/config": "^0.0.41",
     "@types/cookie-parser": "^1.4.2",
     "@types/csurf": "^1.9.36",
@@ -101,7 +101,6 @@
     "playwright": "^1.18.1",
     "prettier": "^2.5.1",
     "request": "^2.88.0",
-    "sass-lint": "^1.13.1",
     "sass-loader": "^12.4.0",
     "sinon": "^12.0.1",
     "sinon-chai": "^3.4.0",
