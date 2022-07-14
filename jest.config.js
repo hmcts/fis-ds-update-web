@@ -1,21 +1,10 @@
 module.exports = {
-  roots: ['<rootDir>/src/main'],
-  testRegex: '(/src/test/.*|\\.test)\\.(ts|js)$',
+  roots: ['<rootDir>/src/test/unit'],
+  testRegex: '(/src/test/.*|\\.(test|spec))\\.(ts|js)$',
+  moduleFileExtensions: ['ts', 'js'],
   testEnvironment: 'node',
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.ts?$': 'ts-jest',
   },
-  moduleFileExtensions: ['ts', 'js', 'json'],
-  setupFilesAfterEnv: ['jest-extended'],
-  moduleNameMapper: {
-    '@hmcts/nodejs-logging': '<rootDir>/src/test/unit/mocks/hmcts/nodejs-logging',
-  },
-  coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
-    },
-  },
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
