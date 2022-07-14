@@ -3,6 +3,13 @@ module.exports = {
   env: { browser: true, es6: true, node: true },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier', 'import', 'jest'],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   extends: [
     'eslint:recommended',
     'plugin:import/errors',
@@ -24,6 +31,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-shadow': 'error',
+    "@typescript-eslint/no-namespace": "off",
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
