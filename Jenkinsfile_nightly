@@ -1,0 +1,71 @@
+#!groovy
+
+properties([
+// H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
+pipelineTriggers([cron('H 05 * * *')]),
+parameters([
+  string(name: 'FRONTEND_URL', defaultValue: 'https://fis-ds-update-web.aat.platform.hmcts.net/', description: 'The URL you want to run tests against'),
+  string(name: 'FUNCTIONAL_TESTS_WORKERS',
+    defaultValue: '2',
+    description: 'Number of workers running functional tests'),
+  ])
+])
+
+@Library("Infrastructure")
+import uk.gov.hmcts.contino.AppPipelineConfig
+
+def type = "nodejs"
+def product = "fis"
+def component = "ds-web"
+
+// SAUCELABS config - configured on Jenkins
+env.SAUCE_USERNAME = 'username'
+env.SAUCE_ACCESS_KEY = 'privatekey'
+//env.SAUCE_TUNNEL_IDENTIFIER = 'reformtunnel'
+
+def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
+
+static Map<String, Object> secret(String secretName, String envVariable) {
+  [$class     : 'AzureKeyVaultSecret',
+   secretType : 'Secret',
+   name       : secretName,
+   envVariable: envVariable
+  ]
+}
+
+def secrets = [
+  'fis-${env}'    :[
+    secret('idam-ui-secret', 'IDAM_SECRET'),
+    secret('idam-system-user-password', 'TEST_PASSWORD'),
+    secret('citizen-user', 'CITIZEN_USERNAME'),
+    secret('citizen-password', 'CITIZEN_PASSWORD')
+  ],
+  's2s-${env}': [
+    secret('microservicekey-ds-ui', 'SERVICE_AUTH_SECRET')
+  ]
+]
+
+def pipelineConf = new AppPipelineConfig()
+pipelineConf.vaultSecrets = secrets
+
+withNightlyPipeline(type, product, component) {
+  env.TEST_URL = "https://fis-ds-update-web.aat.platform.hmcts.net/?edgecaseType=FMP"
+  env.DS_UI_URL = params.FRONTEND_URL
+  enableCrossBrowserTest(60)
+  //enableFullFunctionalTest(120)
+  loadVaultSecrets(secrets)
+  //  enablePactAs([ AppPipelineDsl.PactRoles.CONSUMER ])
+  //  enableFortifyScan()
+  //  enableSecurityScan()
+
+after('test') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'coverage/**/*'
+  }
+
+  before('crossBrowserTest') {
+
+  }
+  after('crossBrowserTest') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'output/**/*'
+  }
+}
