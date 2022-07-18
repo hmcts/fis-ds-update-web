@@ -17,6 +17,7 @@ src/main/resources/localhost-ssl
 
 coverage
 output
+test-results
 
 node-rpm-packaging/
 mochawesome-report/
