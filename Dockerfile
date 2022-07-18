@@ -13,4 +13,4 @@ FROM base as runtime
 RUN rm -rf webpack/ webpack.config.js
 COPY --from=build $WORKDIR/src/main ./src/main
 
-EXPOSE 4000
+EXPOSE 3100
