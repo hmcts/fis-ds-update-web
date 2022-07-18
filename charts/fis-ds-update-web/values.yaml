@@ -1,8 +1,8 @@
 nodejs:
   applicationPort: 3100
-  aadIdentityName: rpe
+  aadIdentityName: fis
   ingressHost: fis-ds-update-web.{{ .Values.global.environment }}.platform.hmcts.net
-  image: 'hmctspublic.azurecr.io/rpe/expressjs-template:latest'
+  image: 'hmctspublic.azurecr.io/fis/ds-update-web:latest'
   #  Uncomment once the vault containing the app insights key has been set up
   #  keyVaults:
   #    rpe:

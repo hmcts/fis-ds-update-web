@@ -1,0 +1,16 @@
+security:
+  referrerPolicy: 'origin'
+port: 3100
+timeout: 30000
+health:
+  timeout: 5000
+  deadline: 15000
+session:
+  secret: 'local'
+  redis:
+    host:
+    key:
+e2e:
+  userTestPassword: ''
+appInsights:
+  instrumentationKey:

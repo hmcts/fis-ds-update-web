@@ -1,8 +1,7 @@
-// eslint-disable-next-line import/no-unresolved
-import HTTPSTATUS from '@utils/httpStatus';
 import { Application, Request, Response } from 'express';
 
 import { HTTPError } from '../../HttpError';
+import HTTPSTATUS from '../../utils/httpStatus/index';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
