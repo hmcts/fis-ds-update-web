@@ -4,14 +4,3 @@ nodejs:
   ingressHost: fis-ds-update-web.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'hmctspublic.azurecr.io/fis/ds-update-web:latest'
   environment:
-    REDIS_HOST: 'fis-ds-web-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net'
-  #  Uncomment once the vault containing the app insights key has been set up
-  #  keyVaults:
-  #    rpe:
-  #      secrets:
-  #        - AppInsightsInstrumentationKey
-  keyVaults:
-    fis:
-      secrets:
-        - redis-access-key
-        - AppInsightsInstrumentationKey
