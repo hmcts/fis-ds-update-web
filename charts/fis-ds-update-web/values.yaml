@@ -8,11 +8,11 @@ nodejs:
     NODE_ENV: production
     REFORM_TEAM: fis
     REFORM_SERVICE_NAME: fis-ds-update-web
-    REDIS_HOST: 'fis-ds-web-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net'
+    #REDIS_HOST: 'fis-ds-web-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net'
 
-  keyVaults:
-    fis:
-      secrets:
-        - redis-access-key
-        - AppInsightsInstrumentationKey
+  # keyVaults:
+     #fis:
+      # secrets:
+       #  - redis-access-key
+        # - AppInsightsInstrumentationKey
 
