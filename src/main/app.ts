@@ -8,7 +8,7 @@ import { Nunjucks } from './modules/nunjucks';
 import { PropertiesVolume } from './modules/properties-volume';
 import { RoutesEnabler } from './routes';
 import { ExpressAppConfigurations } from './settings/appConfigurations/appConfigurations';
-import { SessionStorage } from './settings/redis/redis';
+//import { SessionStorage } from './settings/redis/redis';
 import { RouteExceptionHandler } from './settings/routeExceptions/routesExceptions';
 /* Checking if the environment is development or not. */
 const env = process.env.NODE_ENV || 'development';
@@ -27,7 +27,7 @@ new ExpressAppConfigurations().enableFor(app);
 /* Enabling the session for the app.
    This is a session registry and makes session data available
 */
-new SessionStorage().enableFor(app);
+//new SessionStorage().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
