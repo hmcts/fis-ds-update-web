@@ -12,11 +12,3 @@ data "azurerm_subnet" "core_infra_redis_subnet" {
   resource_group_name = "core-infra-${var.env}"
 }
 
-module "fis-ds-update-web-session-storage" {
-  source   = "git@github.com:hmcts/cnp-module-redis?ref=master"
-  product  = "${var.product}-${var.component}-session-storage"
-  location = var.location
-  env      = var.env
-  subnetid = data.azurerm_subnet.core_infra_redis_subnet.id
-  common_tags  = var.common_tags
-}
