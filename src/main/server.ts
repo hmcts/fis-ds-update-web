@@ -45,7 +45,7 @@ new Routes().enableFor(app);
 
 setupDev(app, developmentMode);
 
-const port: number = parseInt(process.env.PORT || '3001', 10);
+const port: number = parseInt(process.env.PORT || '3100', 10);
 if (app.locals.ENV === 'development') {
   const server = app.listen(port, () => {
     logger.info(`Application started: http://localhost:${port}`);
