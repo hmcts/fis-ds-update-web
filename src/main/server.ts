@@ -8,6 +8,7 @@ import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
 import { ErrorHandler } from './modules/error-handler';
+import { HealthCheck } from './modules/health';
 import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
@@ -26,6 +27,7 @@ const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 app.locals.ENV = env;
 app.enable('trust proxy');
+new HealthCheck().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new ErrorHandler().handleNextErrorsFor(app);
 new Nunjucks().enableFor(app);
