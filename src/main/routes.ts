@@ -5,10 +5,10 @@ import { Application, RequestHandler } from 'express';
 import { GetController } from './app/controller/GetController';
 import { PostController } from './app/controller/PostController';
 import { stepsWithContent } from './steps';
+import { CookiesGetController } from './steps/cookies/get';
 import { ErrorController } from './steps/error/error.controller';
 import { HomeGetController } from './steps/home/get';
 import { COOKIES_PAGE, HOME_URL } from './steps/urls';
-import { CookiesGetController } from './steps/cookies/get';
 
 export class Routes {
   /**
