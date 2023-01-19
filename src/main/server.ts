@@ -8,6 +8,7 @@ import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
 import { ErrorHandler } from './modules/error-handler';
+import { FileUpload } from './modules/fileupload';
 import { HealthCheck } from './modules/health';
 import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
@@ -40,6 +41,7 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
+new FileUpload().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new LanguageToggle().enableFor(app);

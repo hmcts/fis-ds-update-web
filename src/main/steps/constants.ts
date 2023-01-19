@@ -9,6 +9,7 @@ export enum Sections {
   AboutApplicantCase = 'aboutApplicantCase',
   AboutCaAndDaRespondentCase = 'aboutCaAndDaRespondentCase',
   EdgeCase = 'edgeCase',
+  uploadDocuments = 'upload-documents'
 }
 
 export interface Step {

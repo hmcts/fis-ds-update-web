@@ -1,0 +1,109 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "common/fileupload/macro.njk" import fileUpload %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+
+{% if FileErrors.length > 0 %}
+{{ govukErrorSummary({
+  titleText: "There is a problem",
+  errorList: FileErrors
+}) }}
+
+{%endif%}
+
+<h1 class="govuk-heading-xl govuk-!-margin-top-7">{{title}}</h1>
+
+{{ govukTextarea({
+  name: "more-detail",
+  id: "more-detail",
+  label: {
+    text: paragraph1,
+    classes: "govuk-label-s",
+    isPageHeading: true
+  }
+}) }}
+
+<p class="govuk-body">{{uploadedDocumentsSubTitle}}</p>
+<ul class="govuk-list govuk-list--bullet">
+{% for item in uploadDocumentsBullets %}
+        <li>{{item | safe}}</li>
+{% endfor %}
+</ul>
+<p class="govuk-body">{{caseRelevancySubTitle}}</p>
+
+
+{% set uploadReqTest = ""%}
+{% for item in uploadHelpBullets %}
+    {% set uploadReqTest = uploadReqTest + "<li>" + item + "</li>"%}
+{% endfor %}
+{% set requirementTest = "<ul class='govuk-list govuk-list--bullet'>" + uploadReqTest + "</ul>" %}
+
+{{ govukDetails({
+  summaryText: fileUploadRequirementsLabel,
+  text: requirementTest | safe
+}) }}
+<p class="govuk-body">{{guideText}}</p>
+
+
+    {% if document.id !== undefined and document.id !== '' %}
+  <div id="uploadGroup" tabindex="0" class="uploadGroup">
+    <h2 class="govuk-heading-s">{{ uploadFiles }}</h2>
+    <p class="govuk-body govuk-section-break  govuk-!-padding-bottom-3{% if uploadedDocuments|length %} hidden{% endif %}" id="noFilesUploaded">{{ noFilesUploaded }}</p>
+    <ul id="filesUploaded" class="govuk-list">
+        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break">
+          <dt class="govuk-summary-list__value"> {{ document.filename }} </dt>
+          {% set documentId = document.id %}
+          <dd class="govuk-summary-list__actions">
+          <a href="{{postURL}}?removeId={{documentId}}" class="govuk-link--no-visited-state float-right ">{{ remove }}</a>
+        </dd>
+        </li>
+    </ul>
+  </div>   
+  {%endif%}
+    <p class="govuk-body">
+    {{ fileFormats }}<br>
+    {{ fileSize }}
+  </p>
+  
+<div class="govuk-form-group govuk-inset-text">
+ <form action="{{postURL}}/upload-documents" method="post" enctype="multipart/form-data">
+ <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+      {{ govukFileUpload({
+  id: "file-upload-1",
+  name: "documents",
+  classes: "govuk-!-margin-bottom-3",
+  label: {
+    text: "Upload a file"
+  }
+}) }}
+{{ govukInput({
+  label: {
+    text: documentListLabel,
+    classes: "govuk-label-s",
+    isPageHeading: false
+  },
+  id: "event-name",
+  name: "event-name"
+}) }}
+  {{ govukButton({
+          text: uploadButton,
+          type: "upload document",
+          classes: "govuk-button--secondary govuk-!-margin-top-5 govuk--custom__button"
+        }) }}
+
+</form>  
+
+  </div>
+
+
+
+{% endblock %}
+
+
