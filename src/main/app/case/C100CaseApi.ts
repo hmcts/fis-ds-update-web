@@ -1,4 +1,3 @@
-
 export interface DocumentUploadResponse {
   status: string;
   document: {
@@ -9,4 +8,3 @@ export interface DocumentUploadResponse {
     document_creation_date: string;
   };
 }
-

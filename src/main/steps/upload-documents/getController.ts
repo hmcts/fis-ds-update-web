@@ -1,10 +1,10 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { FieldPrefix } from 'app/case/case';
-import { GetController, TranslationFn } from 'app/controller/GetController';
-import { AppRequest } from 'app/controller/AppRequest';
-import { UPLOAD_DOCUMENT } from 'steps/urls';
+import { FieldPrefix } from '../../app/case/case';
+import { AppRequest } from '../../app/controller/AppRequest';
+import { GetController, TranslationFn } from '../../app/controller/GetController';
+import { UPLOAD_DOCUMENT } from '../../steps/urls';
 
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyType = any;

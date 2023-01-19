@@ -5,26 +5,29 @@ import { FormContent } from '../../app/form/Form';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: 'Upload documents',
-  paragraph1: "You can upload additional documents, files or other evidence to support your case. You can also add information below that is relevant to the case.",
-  uploadedDocumentsSubTitle: "Uploaded documents can include:",
+  paragraph1:
+    'You can upload additional documents, files or other evidence to support your case. You can also add information below that is relevant to the case.',
+  uploadedDocumentsSubTitle: 'Uploaded documents can include:',
   uploadDocumentsBullets: [
-    "copies of any relevant correspondence or documentation",
-    "audio or video recordings",
-    "written statements",
-    "related reports",
+    'copies of any relevant correspondence or documentation',
+    'audio or video recordings',
+    'written statements',
+    'related reports',
   ],
   caseRelevancySubTitle: 'For each document uploaded you must state why it is relevant to the case.',
-  fileUploadRequirementsLabel: "File upload requirements",
+  fileUploadRequirementsLabel: 'File upload requirements',
   uploadHelpBullets: [
-    "File formats: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF, MP4",
-    "File size per document: up to 20 megabytes (MB)",
-    "File size per multimedia file: 500 megabytes (MB)",
-    "Files cannot be password protected",
+    'File formats: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF, MP4',
+    'File size per document: up to 20 megabytes (MB)',
+    'File size per multimedia file: 500 megabytes (MB)',
+    'Files cannot be password protected',
   ],
-  guideText: "You cannot upload executable (.exe) or zip files because of virus risks. If you delete an uploaded file, you also delete the file description.",
+  guideText:
+    'You cannot upload executable (.exe) or zip files because of virus risks. If you delete an uploaded file, you also delete the file description.',
   titleForFile: 'Select documents to upload',
   uploadButton: 'Upload file',
-  documentListLabel: `List the description of each document uploaded on separate lines. For example, "1. Witness statement requested by the d2"`,
+  documentListLabel:
+    'List the description of each document uploaded on separate lines. For example, "1. Witness statement requested by the d2"',
   errors: {
     documentUpload: {
       required: 'Please choose a file.',
@@ -34,32 +37,33 @@ export const en = () => ({
             Upload your file again in the correct format`,
     },
   },
-
-  
 });
 
 export const cy = () => ({
   title: 'Upload documents - welsh',
-  paragraph1: "You can upload additional documents, files or other evidence to support your case. You can also add information below that is relevant to the case. - welsh",
-  uploadedDocumentsSubTitle: "Uploaded documents can include: - welsh",
+  paragraph1:
+    'You can upload additional documents, files or other evidence to support your case. You can also add information below that is relevant to the case. - welsh',
+  uploadedDocumentsSubTitle: 'Uploaded documents can include: - welsh',
   uploadDocumentsBullets: [
-    "copies of any relevant correspondence or documentation - welsh",
-    "audio or video recordings - welsh",
-    "written statements - welsh",
-    "related reports - welsh",
+    'copies of any relevant correspondence or documentation - welsh',
+    'audio or video recordings - welsh',
+    'written statements - welsh',
+    'related reports - welsh',
   ],
   caseRelevancySubTitle: 'For each document uploaded you must state why it is relevant to the case. - welsh',
-  fileUploadRequirementsLabel: "File upload requirements - welsh",
+  fileUploadRequirementsLabel: 'File upload requirements - welsh',
   uploadHelpBullets: [
-    "File formats: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF, MP4 - welsh",
-    "File size per document: up to 20 megabytes (MB) - welsh",
-    "File size per multimedia file: 500 megabytes (MB) - welsh",
-    "Files cannot be password protected - welsh",
+    'File formats: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF, MP4 - welsh',
+    'File size per document: up to 20 megabytes (MB) - welsh',
+    'File size per multimedia file: 500 megabytes (MB) - welsh',
+    'Files cannot be password protected - welsh',
   ],
-  guideText: "You cannot upload executable (.exe) or zip files because of virus risks. If you delete an uploaded file, you also delete the file description. - welsh",
+  guideText:
+    'You cannot upload executable (.exe) or zip files because of virus risks. If you delete an uploaded file, you also delete the file description. - welsh',
   titleForFile: 'Select documents to upload - welsh',
   uploadButton: 'Upload file - welsh',
-  documentListLabel: `List the description of each document uploaded on separate lines. For example, "1. Witness statement requested by the d2 - welsh"`,
+  documentListLabel:
+    'List the description of each document uploaded on separate lines. For example, "1. Witness statement requested by the d2 - welsh"',
   errors: {
     documentUpload: {
       required: 'Please choose a file. - welsh',
@@ -69,7 +73,6 @@ export const cy = () => ({
             Upload your file again in the correct format - welsh`,
     },
   },
-
 });
 
 const languages = {
@@ -91,8 +94,6 @@ export const form: FormContent = {
       labelHidden: true,
       value: 'true',
     },
-    
-    
   },
   submit: {
     text: l => l.onlycontinue,

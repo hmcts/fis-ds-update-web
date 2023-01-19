@@ -10,8 +10,7 @@ import { C100DocumentInfo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
-import { UPLOAD_DOCUMENT } from 'steps/urls';
-
+import { UPLOAD_DOCUMENT } from '../../steps/urls';
 
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
@@ -30,8 +29,8 @@ export default class UploadDocumentController {
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
     if (req.session) {
-      req!.session!.errors = [];
-  }
+      req.session.errors = [];
+    }
     // req!.session!.errors = [];
     let paramCert = '';
     let fileNamePrefix = '';
@@ -39,7 +38,7 @@ export default class UploadDocumentController {
     if (req.url.includes(UPLOAD_DOCUMENT)) {
       paramCert = 'uploaded_document';
       fileNamePrefix = 'ds_user';
-    } 
+    }
 
     const certificate = req.session?.userCase?.[paramCert] as C100DocumentInfo;
 
@@ -134,16 +133,16 @@ export default class UploadDocumentController {
       });
       // Uncomment below checks, once there are validations in place
 
-    // } else if (!isValidFileFormat(files)) {
-    //   this.uploadFileError(req, res, redirectUrl, {
-    //     propertyName: 'document',
-    //     errorType: 'fileFormat',
-    //   });
-    // } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-    //   this.uploadFileError(req, res, redirectUrl, {
-    //     propertyName: 'document',
-    //     errorType: 'fileSize',
-    //   });
+      // } else if (!isValidFileFormat(files)) {
+      //   this.uploadFileError(req, res, redirectUrl, {
+      //     propertyName: 'document',
+      //     errorType: 'fileFormat',
+      //   });
+      // } else if (isFileSizeGreaterThanMaxAllowed(files)) {
+      //   this.uploadFileError(req, res, redirectUrl, {
+      //     propertyName: 'document',
+      //     errorType: 'fileSize',
+      //   });
     } else {
       const { documents }: any = files;
 
