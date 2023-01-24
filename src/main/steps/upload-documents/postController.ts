@@ -5,6 +5,7 @@ import { Response } from 'express';
 import FormData from 'form-data';
 import { isNull } from 'lodash';
 
+import { uploadDocument } from '../../../main/app/fileUpload/documentUpload';
 import { DocumentUploadResponse } from '../../app/case/C100CaseApi';
 import { C100DocumentInfo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
@@ -156,8 +157,11 @@ export default class UploadDocumentController {
         filename: `${fileNamePrefix}${dateOfSystem}.${extensionType}`,
       });
       try {
-        const responseBody: DocumentUploadResponse = await req.locals.C100Api.uploadDocument(formData);
-        const { document_url, document_filename, document_binary_url } = responseBody['document'];
+        const responseBody: DocumentUploadResponse = await uploadDocument(formData);
+        console.log({ responseBody });
+
+        /**
+         *  const { document_url, document_filename, document_binary_url } = responseBody['document'];
         req.session.userCase[paramCert] = {
           id: document_url.split('/')[document_url.split('/').length - 1],
           url: document_url,
@@ -168,7 +172,9 @@ export default class UploadDocumentController {
         req.session.save(() => {
           res.redirect(redirectUrl);
         });
+         */
       } catch (error) {
+        console.log({ error });
         res.json(error);
       }
     }

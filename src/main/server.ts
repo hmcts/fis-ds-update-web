@@ -15,6 +15,7 @@ import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { PropertiesVolume } from './modules/properties-volume';
 import { Routes } from './routes';
+import { SessionStorage } from './settings/redis/redis';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -28,6 +29,7 @@ const logger: LoggerInstance = Logger.getLogger('server');
 const app = express();
 app.locals.ENV = env;
 app.enable('trust proxy');
+new SessionStorage().enableFor(app);
 new HealthCheck().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new ErrorHandler().handleNextErrorsFor(app);
@@ -45,6 +47,8 @@ new FileUpload().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new LanguageToggle().enableFor(app);
+//api for session
+app.get('/api/v1/session', (req, res) => res.json(req.session));
 new Routes().enableFor(app);
 
 setupDev(app, developmentMode);

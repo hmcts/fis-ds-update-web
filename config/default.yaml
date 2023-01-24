@@ -10,6 +10,8 @@ session:
   redis:
     host:
     key:
+api:
+  cos: 'https//fis-cos-api-pr-140.service.core-compute-preview.internal'    
 e2e:
   userTestPassword: ''
 appInsights:
