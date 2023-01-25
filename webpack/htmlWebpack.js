@@ -1,11 +1,7 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-
-/**
- * const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-
-const cssPath = path.resolve(__dirname, '../src/main/public/main-dev.css');
-const jsPath = path.resolve(__dirname, '../src/main/public/main-dev.js');
+const cssPath = path.resolve(__dirname, '../src/main/steps/common/webpack/css-template.njk');
+const jsPath = path.resolve(__dirname, '../src/main/steps/common/webpack/js-template.njk');
 
 const cssWebPackPlugin = new HtmlWebpackPlugin({
   template: cssPath,
@@ -23,11 +19,4 @@ const jsWebPackPlugin = new HtmlWebpackPlugin({
 
 module.exports = {
   plugins: [cssWebPackPlugin, jsWebPackPlugin],
-};
- * 
- */
-
-
-module.exports = {
-  plugins: [],
 };

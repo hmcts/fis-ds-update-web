@@ -1,17 +1,50 @@
-import { Application } from 'express';
-import { glob } from 'glob';
+import fs from 'fs';
 
-export class RoutesEnabler {
+import { Application, RequestHandler } from 'express';
+
+import { GetController } from './app/controller/GetController';
+import { PostController } from './app/controller/PostController';
+import { stepsWithContent } from './steps';
+import { CookiesGetController } from './steps/cookies/get';
+import { ErrorController } from './steps/error/error.controller';
+import { HomeGetController } from './steps/home/get';
+import { COOKIES_PAGE, HOME_URL } from './steps/urls';
+
+export class Routes {
   /**
-   * It takes an express application as an argument, and then it finds all the files in the routes folder
-   * that end in .ts or .js, and then it requires each of those files, and then it calls the default
-   * export of each of those files, passing in the express application
-   * @param {Application} app - Application - The express application instance.
+   *
+   * @param app
    */
-  enableFor(app: Application): void {
-    glob
-      .sync(__dirname + '/routes/**/*.+(ts|js)')
-      .map(filename => require(filename))
-      .forEach(route => route.default(app));
+  public enableFor(app: Application): void {
+    const { errorHandler } = app.locals;
+    const errorController = new ErrorController();
+
+    app.get(HOME_URL, errorHandler(new HomeGetController().get));
+    app.get(COOKIES_PAGE, errorHandler(new CookiesGetController().get));
+
+    for (const step of stepsWithContent) {
+      const files = fs.readdirSync(`${step.stepDir}`);
+
+      const getControllerFileName = files.find(item => /get/i.test(item) && !/test/i.test(item));
+      const getController = getControllerFileName
+        ? require(`${step.stepDir}/${getControllerFileName}`).default
+        : GetController;
+
+      app.get(step.url, errorHandler(new getController(step.view, step.generateContent).get));
+
+      if (step.form) {
+        const postControllerFileName = files.find(item => /post/i.test(item) && !/test/i.test(item));
+        const postController = postControllerFileName
+          ? require(`${step.stepDir}/${postControllerFileName}`).default
+          : PostController;
+        app.post(step.url, errorHandler(new postController(step.form.fields).post));
+      }
+    }
+
+    /**
+     * @POST_ROUTES
+     */
+
+    app.use(errorController.notFound as unknown as RequestHandler);
   }
 }
