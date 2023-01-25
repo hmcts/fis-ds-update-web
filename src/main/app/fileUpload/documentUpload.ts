@@ -1,6 +1,29 @@
-import { DocumentUploadResponse } from '../../app/case/C100CaseApi';
+import axios from 'axios';
 import config from 'config';
+
+export enum DOCUMENT_MANAGEMENT_CONFIGURATIONS {
+  UPLOAD_URL = '/doc/dss-orhestration/dss/upload',
+  REMOVE_URL = '/doc/dss-orhestration/{documentId}/delete',
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const uploadDocument = async (formData): Promise<DocumentUploadResponse> => {
-  return formData;
+export const documentManagementInstance = (authToken: string) => {
+  return axios.create({
+    baseURL: config.get('api.cos'),
+    headers: { ServiceAuthorization: authToken },
+    maxContentLength: Infinity,
+    maxBodyLength: Infinity,
+  });
+};
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const uploadDocument = async (formData, req, caseTypeOfApplication, s2sToken) => {
+  const doucmentUploadendpoint =
+    DOCUMENT_MANAGEMENT_CONFIGURATIONS.UPLOAD_URL + `?caseTypeOfApplication=${caseTypeOfApplication}`;
+  const formHeaders = formData.getHeaders();
+  const serverResponse = await documentManagementInstance(s2sToken).post(doucmentUploadendpoint, formData, {
+    headers: {
+      ...formHeaders,
+    },
+  });
+  return serverResponse;
 };

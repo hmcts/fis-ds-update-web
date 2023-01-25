@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
 import autobind from 'autobind-decorator';
+import config from 'config';
 import { Response } from 'express';
 import FormData from 'form-data';
 import { isNull } from 'lodash';
 
 import { uploadDocument } from '../../../main/app/fileUpload/documentUpload';
-import { DocumentUploadResponse } from '../../app/case/C100CaseApi';
 import { C100DocumentInfo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
+import { RpeApi } from '../../app/s2s/rpeAuth';
 import { UPLOAD_DOCUMENT } from '../../steps/urls';
-
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
@@ -157,8 +157,17 @@ export default class UploadDocumentController {
         filename: `${fileNamePrefix}${dateOfSystem}.${extensionType}`,
       });
       try {
-        const responseBody: DocumentUploadResponse = await uploadDocument(formData);
-        console.log({ responseBody });
+        const seviceAuthToken = await RpeApi.getRpeToken();
+        const s2sToken = seviceAuthToken.data;
+        console.log({s2sToken});
+        const uploadDocumentResponseBody = await uploadDocument(
+          formData,
+          req,
+          config.get('app.caseTypeOfApplication'),
+          s2sToken
+        );
+        console.log({ uploadDocumentResponseBody });
+        console.log({ paramCert });
 
         /**
          *  const { document_url, document_filename, document_binary_url } = responseBody['document'];
