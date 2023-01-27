@@ -29,6 +29,7 @@ export const en = () => ({
   documentListLabel:
     'List the description of each document uploaded on separate lines. For example, "1. Witness statement requested by the d2"',
   delete: 'Delete',
+  fileuploaded: 'Files uploaded',
   errors: {
     documentUpload: {
       required: 'Please choose a file.',
@@ -66,6 +67,7 @@ export const cy = () => ({
   documentListLabel:
     'List the description of each document uploaded on separate lines. For example, "1. Witness statement requested by the d2 - welsh"',
   delete: 'Delete - welsh',
+  fileuploaded: 'Files uploaded - welsh',
   errors: {
     documentUpload: {
       required: 'Please choose a file. - welsh',

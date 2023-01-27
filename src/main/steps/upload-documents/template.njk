@@ -54,15 +54,21 @@
 
 
     <ul id="filesUploaded" class="govuk-list">
+         {% if uploadedDocuments.length > 0 %}
+        <h3> {{fileuploaded}} </h3>
+         {% endif %}
       {% for document in uploadedDocuments %}
-        <li class="uploadedFile govuk-!-padding-top-2 govuk-!-padding-bottom-3 govuk-section-break">
+        <li class="uploadedFile govuk-section-break">
               <dt class="govuk-summary-list__value"> {{ document.fileName }} </dt>
               {% set documentId = document.documentId %}
               <dd class="govuk-summary-list__actions">
-              <a href="{{postURL}}?removeId={{documentId}}" class="govuk-link--no-visited-state float-right ">{{ delete }}</a>
+              <a href="{{postURL}}?removeId={{documentId}}" class="govuk-link--no-visited-state ">{{ delete }}</a>
             </dd>
             </li>
     {% endfor %}
+     {% if uploadedDocuments.length > 0 %}
+        <hr>
+         {% endif %}
     </ul>
 
     <p class="govuk-body">

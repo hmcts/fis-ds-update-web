@@ -24,14 +24,13 @@ export const uploadDocument = async (formData, caseTypeOfApplication, s2sToken) 
   const axiosHeaders = {
     ServiceAuthorization: `Bearer ${s2sToken}`,
     'Content-Type': 'multipart/form-data',
-    Accept: 'application/json',
   };
   const serverResponse = await documentManagementInstance().post(doucmentUploadendpoint, formData, {
     headers: {
       ...formHeaders,
       ...axiosHeaders,
     },
-    httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+    httpsAgent: new https.Agent({ rejectUnauthorized: true }),
   });
   return serverResponse;
 };
