@@ -4,8 +4,9 @@ import { Response } from 'express';
 import { FieldPrefix } from '../../app/case/case';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../app/controller/GetController';
+//import { deleteDocument } from '../../app/fileUpload/documentManager';
+import { RpeApi } from '../../app/s2s/rpeAuth';
 import { UPLOAD_DOCUMENT } from '../../steps/urls';
-
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AnyType = any;
 
@@ -35,12 +36,13 @@ export default class DocumentUpload extends GetController {
 
   public removeExistingConsentDocument = async (documentId: string, req: AppRequest, res: Response): Promise<void> => {
     try {
-      await req.locals.C100Api.deleteDocument(documentId);
-
-      if (req.session.userCase?.co_certificate) {
-        req.session.userCase.co_certificate = undefined;
-      }
-
+      const seviceAuthToken = await RpeApi.getRpeToken();
+      const s2sToken = seviceAuthToken.data;
+      console.log({ s2sToken });
+      // await deleteDocument(s2sToken, documentId);
+      req.session['caseDocuments'] = req.session['caseDocuments'].filter(
+        document => document.documentId !== documentId
+      );
       req.session.save(error => {
         if (error) {
           throw error;

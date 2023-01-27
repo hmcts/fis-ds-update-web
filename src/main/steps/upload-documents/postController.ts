@@ -6,10 +6,10 @@ import { Response } from 'express';
 import FormData from 'form-data';
 import { isNull } from 'lodash';
 
-import { uploadDocument } from '../../../main/app/fileUpload/documentUpload';
 import { C100DocumentInfo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
+import { uploadDocument } from '../../app/fileUpload/documentManager';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
 import { RpeApi } from '../../app/s2s/rpeAuth';
 import { UPLOAD_DOCUMENT } from '../../steps/urls';

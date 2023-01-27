@@ -34,3 +34,15 @@ export const uploadDocument = async (formData, caseTypeOfApplication, s2sToken) 
   });
   return serverResponse;
 };
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const deleteDocument = async (s2sToken, documentID) => {
+  const doucmentRemovalendpoint = DOCUMENT_MANAGEMENT_CONFIGURATIONS.REMOVE_URL.split('{documentId}').join(documentID);
+  const axiosHeaders = {
+    ServiceAuthorization: `Bearer ${s2sToken}`,
+  };
+  const serverResponse = await documentManagementInstance().delete(doucmentRemovalendpoint, {
+    headers: { ...axiosHeaders },
+  });
+  return serverResponse;
+};
