@@ -159,31 +159,26 @@ export default class UploadDocumentController {
       try {
         const seviceAuthToken = await RpeApi.getRpeToken();
         const s2sToken = seviceAuthToken.data;
-        console.log({s2sToken});
+        console.log({ s2sToken });
         const uploadDocumentResponseBody = await uploadDocument(
           formData,
-          req,
           config.get('app.caseTypeOfApplication'),
           s2sToken
         );
         console.log({ uploadDocumentResponseBody });
         console.log({ paramCert });
-
-        /**
-         *  const { document_url, document_filename, document_binary_url } = responseBody['document'];
-        req.session.userCase[paramCert] = {
-          id: document_url.split('/')[document_url.split('/').length - 1],
-          url: document_url,
-          filename: document_filename,
-          binaryUrl: document_binary_url,
-        };
-
-        req.session.save(() => {
-          res.redirect(redirectUrl);
-        });
-         */
+        const { url, fileName, documentId, binaryUrl } = uploadDocumentResponseBody['document'];
+        req.session['caseDocuments'].push({ url, fileName, documentId, binaryUrl });
+        req.session.save(() => res.redirect(redirectUrl));
       } catch (error) {
         console.log({ error });
+        /** redundant code */
+        req.session['caseDocuments'].push({
+          url: 'dsdsds',
+          fileName: 'apple.png',
+          documentId: 'ab',
+          binaryUrl: 'ls.html',
+        });
         res.json(error);
       }
     }

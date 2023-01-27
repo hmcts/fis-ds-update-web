@@ -23,11 +23,13 @@ export default class DocumentUpload extends GetController {
     if (res.headersSent || res.locals.isError) {
       return;
     }
-
+    if (!req.session.hasOwnProperty('caseDocuments')) {
+      req.session['caseDocuments'] = [];
+    }
     if (req.query.hasOwnProperty('removeId')) {
       this.removeExistingConsentDocument(req.query.removeId as string, req, res);
     } else {
-      super.get(req, res);
+      super.get(req, res, { uploadedDocuments: req.session['caseDocuments'] });
     }
   }
 

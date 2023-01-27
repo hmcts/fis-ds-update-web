@@ -1,3 +1,5 @@
+import https from 'https';
+
 import axios from 'axios';
 import config from 'config';
 
@@ -10,20 +12,21 @@ export enum DOCUMENT_MANAGEMENT_CONFIGURATIONS {
 export const documentManagementInstance = (authToken: string) => {
   return axios.create({
     baseURL: config.get('api.cos'),
-    headers: { ServiceAuthorization: authToken },
+    headers: { ServiceAuthorization: authToken, 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
     maxContentLength: Infinity,
     maxBodyLength: Infinity,
   });
 };
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const uploadDocument = async (formData, req, caseTypeOfApplication, s2sToken) => {
+export const uploadDocument = async (formData, caseTypeOfApplication, s2sToken) => {
   const doucmentUploadendpoint =
     DOCUMENT_MANAGEMENT_CONFIGURATIONS.UPLOAD_URL + `?caseTypeOfApplication=${caseTypeOfApplication}`;
   const formHeaders = formData.getHeaders();
-  const serverResponse = await documentManagementInstance(s2sToken).post(doucmentUploadendpoint, formData, {
+  const serverResponse = await documentManagementInstance(`Bearer ${s2sToken}`).post(doucmentUploadendpoint, formData, {
     headers: {
       ...formHeaders,
     },
+    httpsAgent: new https.Agent({ rejectUnauthorized: false }),
   });
   return serverResponse;
 };

@@ -15,7 +15,8 @@ export type TranslationFn = (content: CommonContent) => PageContent;
 export class GetController {
   constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
 
-  public async get(req: AppRequest, res: Response): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public async get(req: AppRequest, res: Response, renderableContents?): Promise<void> {
     if (res.locals.isError || res.headersSent) {
       // If there's an async error, it will have already rendered an error page upstream,
       // so we don't want to call render again
@@ -54,6 +55,7 @@ export class GetController {
      */
     const viewData = {
       ...content,
+      ...renderableContents,
     };
     //Add caption only if it exists else it will be rendered by specific page
     if (captionValue) {
