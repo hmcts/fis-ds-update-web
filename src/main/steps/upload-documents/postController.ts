@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
+//import https from 'https';
+
 import autobind from 'autobind-decorator';
+//import axios from 'axios';
 import config from 'config';
 import { Response } from 'express';
 import FormData from 'form-data';
@@ -32,6 +35,7 @@ export default class UploadDocumentController {
     if (req.session) {
       req.session.errors = [];
     }
+
     // req!.session!.errors = [];
     let paramCert = '';
     let fileNamePrefix = '';
@@ -152,42 +156,23 @@ export default class UploadDocumentController {
       const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
       const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
 
+      console.log(req.files);
       formData.append('file', documents.data, {
         contentType: documents.mimetype,
         filename: `${fileNamePrefix}${dateOfSystem}.${extensionType}`,
       });
+      formData.append('caseTypeOfApplication', config.get('app.caseTypeOfApplication'));
       try {
         const seviceAuthToken = await RpeApi.getRpeToken();
         const s2sToken = seviceAuthToken.data;
-        console.log({ s2sToken });
-        const uploadDocumentResponseBody = await uploadDocument(
-          formData,
-          config.get('app.caseTypeOfApplication'),
-          s2sToken
-        );
-        console.log({ uploadDocumentResponseBody });
-        console.log({ paramCert });
-        const { url, fileName, documentId, binaryUrl } = uploadDocumentResponseBody['document'];
+        const uploadDocumentResponseBody = await uploadDocument(formData, s2sToken);
+        const { url, fileName, documentId, binaryUrl } = uploadDocumentResponseBody['data']['document'];
         req.session['caseDocuments'].push({ url, fileName, documentId, binaryUrl });
         req.session.save(() => res.redirect(redirectUrl));
       } catch (error) {
-        console.log({ error });
-        /** redundant code */
-        req.session['caseDocuments'].push({
-          url: 'dsdsds',
-          fileName: 'apple.png',
-          documentId: 'ab',
-          binaryUrl: 'ls.html',
-        });
-        res.json(error);
+        res.render('error.njk');
       }
     }
-    /**
-     * It's a function that handles errors that occur during the upload process
-     * @param req - AppRequest<AnyObject>
-     * @param res - Response<any, Record<string, any>>
-     * @param {string} [errorMessage] - The error message to be displayed.
-     */
   }
 
   /**

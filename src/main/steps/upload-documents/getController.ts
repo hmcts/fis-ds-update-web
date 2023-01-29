@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { FieldPrefix } from '../../app/case/case';
 import { AppRequest } from '../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../app/controller/GetController';
-//import { deleteDocument } from '../../app/fileUpload/documentManager';
+import { deleteDocument } from '../../app/fileUpload/documentManager';
 import { RpeApi } from '../../app/s2s/rpeAuth';
 import { UPLOAD_DOCUMENT } from '../../steps/urls';
 //eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -38,8 +38,8 @@ export default class DocumentUpload extends GetController {
     try {
       const seviceAuthToken = await RpeApi.getRpeToken();
       const s2sToken = seviceAuthToken.data;
-      console.log({ s2sToken });
-      // await deleteDocument(s2sToken, documentId);
+      const deletedoc = await deleteDocument(s2sToken, documentId);
+      console.log({ deletedoc });
       req.session['caseDocuments'] = req.session['caseDocuments'].filter(
         document => document.documentId !== documentId
       );
