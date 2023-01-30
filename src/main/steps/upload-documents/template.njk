@@ -63,7 +63,7 @@
               <dt class="govuk-summary-list__value"> {{ document.fileName }} </dt>
               {% set documentId = document.documentId %}
               <dd class="govuk-summary-list__actions">
-              <a href="{{postURL}}?removeId={{documentId}}" class="govuk-link--no-visited-state ">{{ delete }}</a>
+              <a href="{{postURL}}?removeId={{documentId}}" class="govuk-link--no-visited-state">{{ delete }}</a>
             </dd>
             </li>
     {% endfor %}
