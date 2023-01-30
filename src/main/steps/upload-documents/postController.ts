@@ -12,7 +12,6 @@ import { AnyObject, PostController } from '../../app/controller/PostController';
 import { uploadDocument } from '../../app/fileUpload/documentManager';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
 import { RpeApi } from '../../app/s2s/rpeAuth';
-import { UPLOAD_DOCUMENT } from '../../steps/urls';
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
@@ -33,21 +32,12 @@ export default class UploadDocumentController {
       req.session.errors = [];
     }
 
-    // req!.session!.errors = [];
-    let paramCert = '';
-
-    if (req.url.includes(UPLOAD_DOCUMENT)) {
-      paramCert = 'uploaded_document';
-    }
-
-    const certificate = req.session?.userCase?.[paramCert] as C100DocumentInfo;
-
     if (req.body.saveAndComeLater) {
       this.parent.post(req, res);
-    } else if (this.checkSaveandContinueDocumentExist(req, certificate)) {
+    } else if (this.checkSaveandContinueDocumentExist(req)) {
       this.parent.redirect(req, res, '');
     } else {
-      this.checkFileCondition(certificate, req, res, req.originalUrl, files);
+      this.checkFileCondition(req, res, req.originalUrl, files);
     }
   }
 
@@ -57,8 +47,8 @@ export default class UploadDocumentController {
    * @param certificate
    * @returns
    */
-  public checkSaveandContinueDocumentExist = (req: AppRequest<AnyObject>, certificate: C100DocumentInfo): any => {
-    return req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(certificate);
+  public checkSaveandContinueDocumentExist = (req: AppRequest<AnyObject>): any => {
+    return req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(req.session['caseDocuments']);
   };
 
   /**
@@ -85,14 +75,13 @@ export default class UploadDocumentController {
    */
   //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public checkFileCondition(
-    certificate: C100DocumentInfo,
     req: AppRequest<AnyObject>,
     res: Response<any, Record<string, any>>,
     redirectUrl: string,
     //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     files: any
   ) {
-    if (this.checkIfDocumentAlreadyExist(certificate)) {
+    if (this.checkIfDocumentAlreadyExist(req.session['caseDocuments'])) {
       req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
       req.session.save(err => {
         if (err) {
