@@ -59,6 +59,7 @@
          {% endif %}
       {% for document in uploadedDocuments %}
         <li class="uploadedFile govuk-section-break">
+            <dt class="govuk-summary-list__value"> {{documentInLanguage}} {{loop.index}} </dt>
               <dt class="govuk-summary-list__value"> {{ document.fileName }} </dt>
               {% set documentId = document.documentId %}
               <dd class="govuk-summary-list__actions">

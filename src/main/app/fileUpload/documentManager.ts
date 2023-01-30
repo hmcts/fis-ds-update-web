@@ -5,7 +5,7 @@ import config from 'config';
 
 export enum DOCUMENT_MANAGEMENT_CONFIGURATIONS {
   UPLOAD_URL = '/doc/dss-orhestration/dss/upload',
-  REMOVE_URL = '/doc/dss-orhestration/{documentId}/delete',
+  REMOVE_URL = '/doc/dss-orhestration/dss/{documentId}/delete',
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -31,6 +31,7 @@ export const deleteDocument = async (s2sToken, documentID) => {
     headers: {
       ServiceAuthorization: `Bearer ${s2sToken}`,
     },
+    data: {},
     httpsAgent: new https.Agent({ rejectUnauthorized: false }),
   });
   return response;

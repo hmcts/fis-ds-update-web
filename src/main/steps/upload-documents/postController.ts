@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
-//import https from 'https';
-
 import autobind from 'autobind-decorator';
-//import axios from 'axios';
 import config from 'config';
 import { Response } from 'express';
 import FormData from 'form-data';
@@ -38,11 +35,9 @@ export default class UploadDocumentController {
 
     // req!.session!.errors = [];
     let paramCert = '';
-    let fileNamePrefix = '';
 
     if (req.url.includes(UPLOAD_DOCUMENT)) {
       paramCert = 'uploaded_document';
-      fileNamePrefix = 'ds_user';
     }
 
     const certificate = req.session?.userCase?.[paramCert] as C100DocumentInfo;
@@ -52,7 +47,7 @@ export default class UploadDocumentController {
     } else if (this.checkSaveandContinueDocumentExist(req, certificate)) {
       this.parent.redirect(req, res, '');
     } else {
-      this.checkFileCondition(certificate, req, res, req.originalUrl, files, fileNamePrefix, paramCert);
+      this.checkFileCondition(certificate, req, res, req.originalUrl, files, paramCert);
     }
   }
 
@@ -96,7 +91,6 @@ export default class UploadDocumentController {
     redirectUrl: string,
     //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     files: any,
-    fileNamePrefix: string,
     paramCert: string
   ) {
     if (this.checkIfDocumentAlreadyExist(certificate)) {
@@ -108,7 +102,7 @@ export default class UploadDocumentController {
         res.redirect(redirectUrl);
       });
     } else {
-      this.checkFileValidation(files, req, res, redirectUrl, fileNamePrefix, paramCert);
+      this.checkFileValidation(files, req, res, redirectUrl, paramCert);
     }
   }
 
@@ -128,7 +122,6 @@ export default class UploadDocumentController {
     req: AppRequest<AnyObject>,
     res: Response<any, Record<string, any>>,
     redirectUrl: string,
-    fileNamePrefix: string,
     paramCert: string
   ) {
     if (this.fileNullCheck(files)) {
@@ -152,14 +145,9 @@ export default class UploadDocumentController {
       const { documents }: any = files;
 
       const formData: FormData = new FormData();
-
-      const dateOfSystem = new Date().toLocaleString('en-GB').split(',')[0].split('/').join('');
-      const extensionType = documents.name.split('.')[documents.name.split('.').length - 1];
-
-      console.log(req.files);
       formData.append('file', documents.data, {
         contentType: documents.mimetype,
-        filename: `${fileNamePrefix}${dateOfSystem}.${extensionType}`,
+        filename: `${documents.name}`,
       });
       formData.append('caseTypeOfApplication', config.get('app.caseTypeOfApplication'));
       try {
@@ -167,10 +155,17 @@ export default class UploadDocumentController {
         const s2sToken = seviceAuthToken.data;
         const uploadDocumentResponseBody = await uploadDocument(formData, s2sToken);
         const { url, fileName, documentId, binaryUrl } = uploadDocumentResponseBody['data']['document'];
-        req.session['caseDocuments'].push({ url, fileName, documentId, binaryUrl });
+        req.session['caseDocuments'].push({
+          url,
+          fileName,
+          documentId,
+          binaryUrl,
+          description: req.body['event-name'],
+        });
         req.session.save(() => res.redirect(redirectUrl));
       } catch (error) {
-        res.render('error.njk');
+        console.log(error);
+        res.redirect('/500');
       }
     }
   }
