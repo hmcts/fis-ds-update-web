@@ -47,7 +47,7 @@ export default class UploadDocumentController {
     } else if (this.checkSaveandContinueDocumentExist(req, certificate)) {
       this.parent.redirect(req, res, '');
     } else {
-      this.checkFileCondition(certificate, req, res, req.originalUrl, files, paramCert);
+      this.checkFileCondition(certificate, req, res, req.originalUrl, files);
     }
   }
 
@@ -90,8 +90,7 @@ export default class UploadDocumentController {
     res: Response<any, Record<string, any>>,
     redirectUrl: string,
     //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    files: any,
-    paramCert: string
+    files: any
   ) {
     if (this.checkIfDocumentAlreadyExist(certificate)) {
       req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
@@ -102,7 +101,7 @@ export default class UploadDocumentController {
         res.redirect(redirectUrl);
       });
     } else {
-      this.checkFileValidation(files, req, res, redirectUrl, paramCert);
+      this.checkFileValidation(files, req, res, redirectUrl);
     }
   }
 
@@ -121,8 +120,7 @@ export default class UploadDocumentController {
     files: any,
     req: AppRequest<AnyObject>,
     res: Response<any, Record<string, any>>,
-    redirectUrl: string,
-    paramCert: string
+    redirectUrl: string
   ) {
     if (this.fileNullCheck(files)) {
       this.uploadFileError(req, res, redirectUrl, {
