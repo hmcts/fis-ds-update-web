@@ -6,6 +6,9 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
+
+{% set selectedFileType = "image/jpeg,image/png,application/pdf,image/jpg,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/rtf"%}
+
 {% extends "common/template.njk" %}
 
 {% block page_content %}
@@ -83,6 +86,10 @@
       {{ govukFileUpload({
   id: "file-upload-1",
   name: "documents",
+     attributes: {
+            multiple: false,
+            accept: selectedFileType
+  },
   classes: "govuk-!-margin-bottom-3",
   label: {
     text: "Upload a file"

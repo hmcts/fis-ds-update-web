@@ -17,7 +17,7 @@ export const en = () => ({
   caseRelevancySubTitle: 'For each document uploaded you must state why it is relevant to the case.',
   fileUploadRequirementsLabel: 'File upload requirements',
   uploadHelpBullets: [
-    'File formats: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF, MP4',
+    'File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF',
     'File size per document: up to 20 megabytes (MB)',
     'File size per multimedia file: 500 megabytes (MB)',
     'Files cannot be password protected',
@@ -56,7 +56,7 @@ export const cy = () => ({
   caseRelevancySubTitle: 'For each document uploaded you must state why it is relevant to the case. - welsh',
   fileUploadRequirementsLabel: 'File upload requirements - welsh',
   uploadHelpBullets: [
-    'File formats: MS Word, MS Excel, PDF, JPG, GIF, PNG, TXT, RTF, MP4 - welsh',
+    'File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF - welsh',
     'File size per document: up to 20 megabytes (MB) - welsh',
     'File size per multimedia file: 500 megabytes (MB) - welsh',
     'Files cannot be password protected - welsh',
