@@ -97,11 +97,13 @@
 <div class="govuk-form-group govuk-inset-text">
  <form action="{{postURL}}/upload-documents" method="post" enctype="multipart/form-data">
  <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
-  <div class="govuk-form-group--error">
+  <div class=" {% if FileErrors.length > 0  %}govuk-form-group--error {%endif%}">
  <p> {{uploadAFile}} </p>
+ {%if FileErrors.length > 0  %}
   <p id="passport-issued-error" class="govuk-error-message">
-      <span class="govuk-visually-hidden">Error:</span> {{errorMessage}}
+      <span class="govuk-visually-hidden"></span> {{errorMessage}}
     </p>
+  {%endif%}  
       {{ govukFileUpload({
   id: "file-upload-1",
   name: "documents",
@@ -112,7 +114,6 @@
   classes: "govuk-!-margin-bottom-3"
 }) }}
 </div>
-<p> Error <p>
 {{ govukInput({
   label: {
     text: documentListLabel,
