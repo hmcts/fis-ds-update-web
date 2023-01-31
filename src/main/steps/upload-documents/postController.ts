@@ -117,17 +117,16 @@ export default class UploadDocumentController {
         errorType: 'required',
       });
       // Uncomment below checks, once there are validations in place
-
-      // } else if (!isValidFileFormat(files)) {
-      //   this.uploadFileError(req, res, redirectUrl, {
-      //     propertyName: 'document',
-      //     errorType: 'fileFormat',
-      //   });
-      // } else if (isFileSizeGreaterThanMaxAllowed(files)) {
-      //   this.uploadFileError(req, res, redirectUrl, {
-      //     propertyName: 'document',
-      //     errorType: 'fileSize',
-      //   });
+    } else if (!this.isValidFileFormat(files)) {
+      this.uploadFileError(req, res, redirectUrl, {
+        propertyName: 'fileValidation',
+        errorType: 'required',
+      });
+    } else if (this.isFileSizeGreaterThanMaxAllowed(files)) {
+      this.uploadFileError(req, res, redirectUrl, {
+        propertyName: 'fileSize',
+        errorType: 'required',
+      });
     } else {
       const { documents }: any = files;
 
@@ -180,5 +179,18 @@ export default class UploadDocumentController {
       }
       res.redirect(redirectUrl);
     });
+  }
+
+  private isValidFileFormat(files) {
+    const { documents } = files;
+    const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
+    const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png', 'pdf', 'doc', 'docx', 'rtf', 'xlsx'];
+    return AllowedFileExtentionList.indexOf(extension) > -1;
+  }
+
+  private isFileSizeGreaterThanMaxAllowed(files) {
+    const uploadPolicySizeForFiles = Number(config.get('uploadPolicy.documentSize')) * 1000000;
+    const { documents } = files;
+    return documents.size > uploadPolicySizeForFiles;
   }
 }

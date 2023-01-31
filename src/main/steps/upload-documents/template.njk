@@ -14,9 +14,26 @@
 {% block page_content %}
 
 {% if FileErrors.length > 0 %}
+
+{% set errorList = []%}
+{% set errorMessage = ""%}
+
+{% for error in FileErrors %}
+{% if error.propertyName === 'fileSize'%}
+ {% set errorList = (errorList.push({text: errors.documentUpload.fileSize , href: '#file-upload-1'}), errorList) %}
+  {% set errorMessage =errors.documentUpload.fileSize  %}
+ {%elif error.propertyName === 'fileValidation'%}
+  {% set errorList = (errorList.push({text: errors.documentUpload.fileFormat , href: '#file-upload-1'}), errorList) %}
+    {% set errorMessage = errors.documentUpload.fileFormat  %}
+{%else%}
+ {% set errorList = (errorList.push({text: errors.fileSize.required , href: '#file-upload-1'}), errorList) %}
+     {% set errorMessage = errors.fileSize.required  %}
+{%endif%}
+{% endfor %}
+
 {{ govukErrorSummary({
-  titleText: "There is a problem",
-  errorList: FileErrors
+  titleText: errorSummaryMessage,
+   errorList: errorList
 }) }}
 
 {%endif%}
@@ -53,9 +70,6 @@
   text: requirementTest | safe
 }) }}
 <p class="govuk-body">{{guideText}}</p>
-
-
-
     <ul id="filesUploaded" class="govuk-list">
          {% if uploadedDocuments.length > 0 %}
         <h3> {{fileuploaded}} </h3>
@@ -83,6 +97,11 @@
 <div class="govuk-form-group govuk-inset-text">
  <form action="{{postURL}}/upload-documents" method="post" enctype="multipart/form-data">
  <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+  <div class="govuk-form-group--error">
+ <p> {{uploadAFile}} </p>
+  <p id="passport-issued-error" class="govuk-error-message">
+      <span class="govuk-visually-hidden">Error:</span> {{errorMessage}}
+    </p>
       {{ govukFileUpload({
   id: "file-upload-1",
   name: "documents",
@@ -90,11 +109,10 @@
             multiple: false,
             accept: selectedFileType
   },
-  classes: "govuk-!-margin-bottom-3",
-  label: {
-    text: "Upload a file"
-  }
+  classes: "govuk-!-margin-bottom-3"
 }) }}
+</div>
+<p> Error <p>
 {{ govukInput({
   label: {
     text: documentListLabel,

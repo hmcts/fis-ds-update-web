@@ -21,6 +21,7 @@ export default class DocumentUpload extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
+    console.log({ sessionError: req.session.errors });
     if (res.headersSent || res.locals.isError) {
       return;
     }
@@ -30,7 +31,7 @@ export default class DocumentUpload extends GetController {
     if (req.query.hasOwnProperty('removeId')) {
       this.removeExistingConsentDocument(req.query.removeId as string, req, res);
     } else {
-      super.get(req, res, { uploadedDocuments: req.session['caseDocuments'] });
+      super.get(req, res, { uploadedDocuments: req.session['caseDocuments'], FileErrors: req.session.errors });
     }
   }
 
@@ -38,8 +39,7 @@ export default class DocumentUpload extends GetController {
     try {
       const seviceAuthToken = await RpeApi.getRpeToken();
       const s2sToken = seviceAuthToken.data;
-      const deletedoc = await deleteDocument(s2sToken, documentId);
-      console.log({ deletedoc });
+      await deleteDocument(s2sToken, documentId);
       req.session['caseDocuments'] = req.session['caseDocuments'].filter(
         document => document.documentId !== documentId
       );

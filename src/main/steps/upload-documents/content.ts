@@ -31,6 +31,8 @@ export const en = () => ({
   delete: 'Delete',
   documentInLanguage: 'Document',
   fileuploaded: 'Files uploaded',
+  errorSummaryMessage: 'There is a problem',
+  uploadAFile: 'Upload a file',
   errors: {
     documentUpload: {
       required: 'Please choose a file.',
@@ -70,6 +72,8 @@ export const cy = () => ({
   delete: 'Delete - welsh',
   documentInLanguage: 'Document - welsh',
   fileuploaded: 'Files uploaded - welsh',
+  errorSummaryMessage: 'There is a problem - welsh',
+  uploadAFile: 'Upload a file - welsh',
   errors: {
     documentUpload: {
       required: 'Please choose a file. - welsh',
@@ -88,12 +92,6 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    // documentList:{
-    //   id: 'documentList',
-    //   type: "text",
-    //   label: l => l.documentListLabel,
-    //   labelSize: null,
-    // },
     documentUpload: {
       type: 'hidden',
       label: l => l.uploadFiles,
@@ -103,9 +101,6 @@ export const form: FormContent = {
   },
   submit: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 
