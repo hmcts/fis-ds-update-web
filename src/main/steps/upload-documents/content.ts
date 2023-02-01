@@ -40,6 +40,10 @@ export const en = () => ({
             Maximum file size allowed is 20MB`,
       fileFormat: `The file you uploaded is in the wrong format.
             Upload your file again in the correct format`,
+      selectFileToUpload: 'Select a file to upload',
+      uploadError: 'The selected file could not be uploaded – try again',
+      maxFileError: 'You can only select up to 10 files at the same time',
+      fileDescriptionRequired: 'Enter a description for the file selected for upload',
     },
   },
 });
@@ -81,6 +85,10 @@ export const cy = () => ({
             Maximum file size allowed is 20MB - welsh`,
       fileFormat: `The file you uploaded is in the wrong format.
             Upload your file again in the correct format - welsh`,
+      selectFileToUpload: 'Select a file to upload - welsh',
+      uploadError: 'The selected file could not be uploaded – try again - welsh',
+      maxFileError: 'You can only select up to 10 files at the same time - welsh',
+      fileDescriptionRequired: 'Enter a description for the file selected for upload - welsh',
     },
   },
 });

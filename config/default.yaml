@@ -15,6 +15,7 @@ api:
   serviceAuth: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal' 
 uploadPolicy:
   documentSize: 20 
+  maxNoOfFiles: 10
 app:
   caseTypeOfApplication: 'RELADOP'  
 e2e:

@@ -8,7 +8,7 @@ import { isNull } from 'lodash';
 
 import { C100DocumentInfo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { AnyObject, PostController } from '../../app/controller/PostController';
+import { AnyObject } from '../../app/controller/PostController';
 import { uploadDocument } from '../../app/fileUpload/documentManager';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
 import { RpeApi } from '../../app/s2s/rpeAuth';
@@ -16,63 +16,26 @@ import { RpeApi } from '../../app/s2s/rpeAuth';
 PostDocumentUploader method */
 @autobind
 export default class UploadDocumentController {
-  private parent;
+  //private parent;
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    this.parent = new PostController(fields);
+    //  this.parent = new PostController(fields);
   }
-  /**
-   * A recursive function that calls itself.
-   * @param req - AppRequest<AnyObject>
-   * @param {Response} res - Response - This is the response object txhat will be sent back to the client.
-   */
-
+  
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
     if (req.session) {
       req.session.errors = [];
     }
-
-    if (req.body.saveAndComeLater) {
-      this.parent.post(req, res);
-    } else if (this.checkSaveandContinueDocumentExist(req)) {
-      this.parent.redirect(req, res, '');
-    } else {
-      this.checkFileCondition(req, res, req.originalUrl, files);
-    }
+    this.checkFileCondition(req, res, req.originalUrl, files);
   }
 
-  /**
-   *
-   * @param req
-   * @param certificate
-   * @returns
-   */
-  public checkSaveandContinueDocumentExist = (req: AppRequest<AnyObject>): any => {
-    return req.body.saveAndContinue && this.checkIfDocumentAlreadyExist(req.session['caseDocuments']);
-  };
-
-  /**
-   *
-   * @param document
-   * @returns
-   */
-  public checkIfDocumentAlreadyExist = (document: C100DocumentInfo): boolean => {
-    if (document?.id) {
+  public checkIfMaxDocumentUploaded = (document: C100DocumentInfo[]): boolean => {
+    if (document.length > Number(config.get('uploadPolicy.maxNoOfFiles')) - 1) {
       return true;
     }
     return false;
   };
 
-  /**
-   *
-   * @param certificate
-   * @param req
-   * @param res
-   * @param redirectUrl
-   * @param files
-   * @param fileNamePrefix
-   * @param paramCert
-   */
   //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public checkFileCondition(
     req: AppRequest<AnyObject>,
@@ -81,8 +44,8 @@ export default class UploadDocumentController {
     //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     files: any
   ) {
-    if (this.checkIfDocumentAlreadyExist(req.session['caseDocuments'])) {
-      req.session.errors = [{ propertyName: 'document', errorType: 'multipleFiles' }];
+    if (this.checkIfMaxDocumentUploaded(req.session['caseDocuments'])) {
+      req.session.errors = [{ propertyName: 'maxFileError', errorType: 'required' }];
       req.session.save(err => {
         if (err) {
           throw err;
@@ -94,15 +57,6 @@ export default class UploadDocumentController {
     }
   }
 
-  /**
-   *
-   * @param files
-   * @param req
-   * @param res
-   * @param redirectUrl
-   * @param fileNamePrefix
-   * @param paramCert
-   */
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async checkFileValidation(
     // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -113,7 +67,7 @@ export default class UploadDocumentController {
   ) {
     if (this.fileNullCheck(files)) {
       this.uploadFileError(req, res, redirectUrl, {
-        propertyName: 'document',
+        propertyName: 'selectFileToUpload',
         errorType: 'required',
       });
       // Uncomment below checks, once there are validations in place
@@ -125,6 +79,11 @@ export default class UploadDocumentController {
     } else if (this.isFileSizeGreaterThanMaxAllowed(files)) {
       this.uploadFileError(req, res, redirectUrl, {
         propertyName: 'fileSize',
+        errorType: 'required',
+      });
+    } else if (req.body['event-name'] === '') {
+      this.uploadFileError(req, res, redirectUrl, {
+        propertyName: 'fileDescriptionRequired',
         errorType: 'required',
       });
     } else {
@@ -150,8 +109,10 @@ export default class UploadDocumentController {
         });
         req.session.save(() => res.redirect(redirectUrl));
       } catch (error) {
-        console.log(error);
-        res.redirect('/500');
+        this.uploadFileError(req, res, redirectUrl, {
+          propertyName: 'uploadError',
+          errorType: 'required',
+        });
       }
     }
   }
