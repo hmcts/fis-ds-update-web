@@ -16,11 +16,7 @@ import { RpeApi } from '../../app/s2s/rpeAuth';
 PostDocumentUploader method */
 @autobind
 export default class UploadDocumentController {
-  //private parent;
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {
-    //  this.parent = new PostController(fields);
-  }
-  
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {}
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
     if (req.session) {
