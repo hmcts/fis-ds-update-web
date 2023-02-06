@@ -1,4 +1,3 @@
-
 import { mockRequest } from '../../../test/unit/mocks/mockRequest';
 import { mockResponse } from '../../../test/unit/mocks/mockResponse';
 import { FieldPrefix } from '../../app/case/case';
