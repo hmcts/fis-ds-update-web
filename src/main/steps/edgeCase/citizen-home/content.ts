@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
+import { isFieldFilledIn } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -12,7 +12,6 @@ export const en = () => ({
   errors: {
     applicantCaseName: {
       required: 'Case Name is required',
-      invalid: 'Please enter a valid case name to proceed',
     },
   },
 });
@@ -25,7 +24,6 @@ export const cy = () => ({
   errors: {
     applicantCaseName: {
       required: 'Case Name is required - welsh',
-      invalid: 'Please enter a valid case name to proceed - welsh',
     },
   },
 });
@@ -37,18 +35,14 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    subheadings: {
-      id: 'subHeading',
-      type: 'textAndHtml',
-      textAndHtml: l => l.subheadings,
-    },
     applicantCaseName: {
       id: 'applicantCaseName',
+      name: 'applicantCaseName',
       type: 'text',
       classes: 'govuk-input--width-20',
       hint: hint => hint.caseNameHint,
       labelSize: null,
-      validator: atLeastOneFieldIsChecked,
+      validator: isFieldFilledIn,
     },
   },
   submit: {

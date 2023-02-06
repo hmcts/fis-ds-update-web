@@ -16,6 +16,7 @@ import { Nunjucks } from './modules/nunjucks';
 import { PropertiesVolume } from './modules/properties-volume';
 import { Routes } from './routes';
 import { SessionStorage } from './settings/redis/redis';
+import {TestApiRoutes} from './api/endpoints';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -48,7 +49,7 @@ new PropertiesVolume().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new LanguageToggle().enableFor(app);
 //api for session
-app.get('/api/v1/session', (req, res) => res.json(req.session));
+new TestApiRoutes().enableFor(app);
 new Routes().enableFor(app);
 
 setupDev(app, developmentMode);

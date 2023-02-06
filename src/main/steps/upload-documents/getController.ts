@@ -21,6 +21,7 @@ export default class DocumentUpload extends GetController {
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
+
     if (res.headersSent || res.locals.isError) {
       return;
     }

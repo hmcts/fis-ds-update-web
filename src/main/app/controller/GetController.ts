@@ -17,6 +17,7 @@ export class GetController {
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async get(req: AppRequest, res: Response, renderableContents?): Promise<void> {
+    console.log(req.session);
     if (res.locals.isError || res.headersSent) {
       // If there's an async error, it will have already rendered an error page upstream,
       // so we don't want to call render again
@@ -46,17 +47,18 @@ export class GetController {
       },
     });
 
-    if (req.session?.errors) {
-      req.session.errors = undefined;
-    }
-
     /**
      * Handled scenario where caption is not present as query param
      */
     const viewData = {
       ...content,
       ...renderableContents,
+      sessionError: req.session.hasOwnProperty('errors') ? req.session.errors : [],
     };
+
+    if (req.session?.errors) {
+      req.session.errors = undefined;
+    }
     //Add caption only if it exists else it will be rendered by specific page
     if (captionValue) {
       Object.assign(viewData, { caption: captionValue });
