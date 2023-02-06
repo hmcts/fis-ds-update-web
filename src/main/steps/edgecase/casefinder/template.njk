@@ -5,8 +5,11 @@
 {% if sessionError.length > 0 %}
 {% set errorList = []%}
 {% for error in sessionError %}
-{% if error.propertyName === 'applicantCaseName'%}
-{% set errorList = (errorList.push({text: errors.applicantCaseName.required , href: '#applicantCaseName'}), errorList) %}
+{% if error.propertyName === 'applicantCaseId'%}
+{% set errorList = (errorList.push({text: errors.applicantCaseId.required , href: '#applicantCaseId'}), errorList) %}
+{%elif error.propertyName === 'caseNotFound' %}
+{% set errorList = (errorList.push({text: errors.caseNotFound.required , href: '#applicantCaseId'}), errorList) %}
+{%else%}
 {%endif%}
 {%endfor%}
 {{ govukErrorSummary({

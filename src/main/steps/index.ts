@@ -12,7 +12,7 @@ import { FormContent } from '../app/form/Form';
 
 import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
-import { EdgeCaseSequence } from './edgeCase/edgeCaseSequence';
+import { EdgeCaseSequence } from './edgecase/edgeCaseSequence';
 import { uploadDocumentsSequence } from './upload-documents/uploadDocumentsSequence';
 // eslint-disable-next-line import/no-unresolved
 import { CITIZEN_HOME_URL, PageLink } from './urls';
@@ -86,7 +86,7 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
   }
   return results;
 };
-export const edgeCaseSequence = getStepsWithContent(EdgeCaseSequence, CITIZEN_HOME_URL);
+export const edgeCaseSequence = getStepsWithContent(EdgeCaseSequence, '');
 export const uploadDocumentSequence = getStepsWithContent(uploadDocumentsSequence);
 
 export const stepsWithContent = [...edgeCaseSequence, ...uploadDocumentSequence];

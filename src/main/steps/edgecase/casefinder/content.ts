@@ -8,10 +8,13 @@ export const en = () => ({
   title: 'Existing case details',
   subtitle: 'Case reference number',
   caseNameHint: 'This number will be 16 digits long',
-
+  errorSummaryMessage: 'There is a problem',
   errors: {
-    applicantCaseName: {
+    applicantCaseId: {
       required: 'Case Name is required',
+    },
+    caseNotFound: {
+      required: 'Case not found',
     },
   },
 });
@@ -20,10 +23,13 @@ export const cy = () => ({
   title: 'Existing case details - welsh',
   subtitle: 'Case reference number - welsh',
   caseNameHint: 'This number will be 16 digits long - welsh',
-
+  errorSummaryMessage: 'There is a problem',
   errors: {
-    applicantCaseName: {
+    applicantCaseId: {
       required: 'Case Name is required - welsh',
+    },
+    caseNotFound: {
+      required: 'Case not found',
     },
   },
 });
@@ -35,9 +41,9 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
-    applicantCaseName: {
-      id: 'applicantCaseName',
-      name: 'applicantCaseName',
+    applicantCaseId: {
+      id: 'applicantCaseId',
+      name: 'applicantCaseId',
       type: 'text',
       classes: 'govuk-input--width-20',
       hint: hint => hint.caseNameHint,
