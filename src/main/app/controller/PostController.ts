@@ -34,7 +34,7 @@ export class PostController<T extends AnyObject> {
       //redirects to task-list page in case of save-as-draft button click
       req.session.returnUrl = undefined;
       target = CITIZEN_HOME_URL;
-    } else if (req.session.errors?.length) {
+    } else if (req.session?.errors?.length) {
       //redirects to same page in case of validation errors
       target = req.url;
     } else {
@@ -42,7 +42,7 @@ export class PostController<T extends AnyObject> {
       target = nextUrl;
     }
 
-    req.session.save(err => {
+    req.session?.save(err => {
       if (err) {
         throw err;
       }

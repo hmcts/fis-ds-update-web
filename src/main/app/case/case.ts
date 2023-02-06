@@ -543,6 +543,7 @@ export interface Case {
   hwn_hearingPart1?: YesOrNo;
   c100RebuildChildPostCode?: string;
   helpWithFeesReferenceNumber?: string;
+  additionalInformationToSupportCase?: string;
 }
 
 export interface CaseWithId extends Case {

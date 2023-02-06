@@ -10,6 +10,14 @@ session:
   redis:
     host:
     key:
+api:
+  cos: 'https://fis-cos-api-pr-140.service.core-compute-preview.internal'   
+  serviceAuth: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
+uploadPolicy:
+  documentSize: 20      
+  maxNoOfFiles: 10
+app:
+  caseTypeOfApplication: 'RELADOP'    
 e2e:
   userTestPassword: ''
 appInsights:

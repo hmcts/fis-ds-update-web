@@ -1,0 +1,161 @@
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "common/fileupload/macro.njk" import fileUpload %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+
+{% set selectedFileType = "image/jpeg,image/png,application/pdf,image/jpg,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/rtf"%}
+
+{% extends "common/template.njk" %}
+
+{% block page_content %}
+
+{% if FileErrors.length > 0 %}
+
+{% set errorList = []%}
+{% set errorMessage = ""%}
+
+{% for error in FileErrors %}
+{% if error.propertyName === 'fileSize'%}
+ {% set errorList = (errorList.push({text: errors.documentUpload.fileSize , href: '#file-upload-1'}), errorList) %}
+  {% set errorMessage =errors.documentUpload.fileSize  %}
+ {%elif error.propertyName === 'fileValidation'%}
+  {% set errorList = (errorList.push({text: errors.documentUpload.fileFormat , href: '#file-upload-1'}), errorList) %}
+    {% set errorMessage = errors.documentUpload.fileFormat  %}
+     {%elif error.propertyName === 'selectFileToUpload'%}
+  {% set errorList = (errorList.push({text: errors.documentUpload.selectFileToUpload , href: '#file-upload-1'}), errorList) %}
+    {% set errorMessage = errors.documentUpload.selectFileToUpload  %}
+     {%elif error.propertyName === 'uploadError'%}
+  {% set errorList = (errorList.push({text: errors.documentUpload.uploadError , href: '#file-upload-1'}), errorList) %}
+    {% set errorMessage = errors.documentUpload.uploadError  %}
+      {%elif error.propertyName === 'fileDescriptionRequired'%}
+  {% set errorList = (errorList.push({text: errors.documentUpload.fileDescriptionRequired , href: '#file-upload-1'}), errorList) %}
+    {% set errorMessage = errors.documentUpload.fileDescriptionRequired  %}
+    {%elif error.propertyName === 'maxFileError'%}
+  {% set errorList = (errorList.push({text: errors.documentUpload.maxFileError , href: '#file-upload-1'}), errorList) %}
+    {% set errorMessage = errors.documentUpload.maxFileError  %}
+{%else%}
+ {% set errorList = (errorList.push({text: errors.fileSize.required , href: '#file-upload-1'}), errorList) %}
+     {% set errorMessage = errors.fileSize.required  %}
+{%endif%}
+{% endfor %}
+
+{{ govukErrorSummary({
+  titleText: errorSummaryMessage,
+   errorList: errorList
+}) }}
+
+{%endif%}
+
+<h1 class="govuk-heading-xl govuk-!-margin-top-7">{{title}}</h1>
+
+{{ govukTextarea({
+  name: "more-detail",
+  id: "more-detail",
+  label: {
+    text: paragraph1,
+    classes: "govuk-label-s",
+    isPageHeading: true
+  }
+}) }}
+
+<p class="govuk-body">{{uploadedDocumentsSubTitle}}</p>
+<ul class="govuk-list govuk-list--bullet">
+{% for item in uploadDocumentsBullets %}
+        <li>{{item | safe}}</li>
+{% endfor %}
+</ul>
+<p class="govuk-body">{{caseRelevancySubTitle}}</p>
+
+
+{% set uploadReqTest = ""%}
+{% for item in uploadHelpBullets %}
+    {% set uploadReqTest = uploadReqTest + "<li>" + item + "</li>"%}
+{% endfor %}
+{% set requirementTest = "<ul class='govuk-list govuk-list--bullet'>" + uploadReqTest + "</ul>" %}
+
+{{ govukDetails({
+  summaryText: fileUploadRequirementsLabel,
+  text: requirementTest | safe
+}) }}
+<p class="govuk-body">{{guideText}}</p>
+    <ul id="filesUploaded" class="govuk-list">
+         {% if uploadedDocuments.length > 0 %}
+        <h3> {{fileuploaded}} </h3>
+         {% endif %}
+      {% for document in uploadedDocuments %}
+        <li class="uploadedFile govuk-section-break govuk-!-margin-0">
+            <dt class="govuk-summary-list__value "> {{documentInLanguage}} {{loop.index}} </dt>
+              <dt class="govuk-summary-list__value"> {{ document.fileName }} </dt>
+              {% set documentId = document.documentId %}
+              <dd class="govuk-summary-list__actions">
+                <div class="width-100">
+              <a href="{{postURL}}?removeId={{documentId}}" class="govuk-link--no-visited-state">{{ delete }}</a>
+              </div>
+            </dd>
+            </li>
+    {% endfor %}
+     {% if uploadedDocuments.length > 0 %}
+        <hr>
+         {% endif %}
+    </ul>
+
+    <p class="govuk-body">
+    {{ fileFormats }}<br>
+    {{ fileSize }}
+  </p>
+  
+<div class="govuk-form-group govuk-inset-text">
+ <form action="{{postURL}}/upload-documents" method="post" enctype="multipart/form-data">
+ <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
+  <div class=" {% if FileErrors.length > 0  %}govuk-form-group--error {%endif%}">
+ <p> {{uploadAFile}} </p>
+ {%if FileErrors.length > 0  %}
+  <p id="passport-issued-error" class="govuk-error-message">
+      <span class="govuk-visually-hidden"></span> {{errorMessage}}
+    </p>
+  {%endif%}  
+      {{ govukFileUpload({
+  id: "file-upload-1",
+  name: "documents",
+     attributes: {
+            multiple: false,
+            accept: selectedFileType
+  },
+  classes: "govuk-!-margin-bottom-3"
+}) }}
+{% set errorForFileDescription = ""%}
+{% for error in FileErrors %}
+{% if error.propertyName !== 'fileDescriptionRequired' %}
+</div>
+{% else %}
+{% set errorForFileDescription = "govuk-input--error"%}
+{%endif%}
+{% endfor %}
+<div class="govuk-!-margin-top-3">
+<label class="govuk-label govuk-label-s" for="event-name">{{documentListLabel}}</label>
+<input class="govuk-input {{errorForFileDescription}}" id="event-name" name="event-name" type="text" aria-describedby="" autocomplete="event-name">
+</div>
+</div>
+{% for error in FileErrors %}
+{% if error.propertyName === 'fileDescriptionRequired' %}
+</div>
+{%endif%}
+{% endfor %}
+  {{ govukButton({
+          text: uploadButton,
+          type: "upload document",
+          classes: "govuk-button--secondary govuk-!-margin-top-5 govuk--custom__button"
+        }) }}
+
+</form>  
+</div>
+
+
+
+{% endblock %}
+
+

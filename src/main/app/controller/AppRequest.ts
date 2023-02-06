@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
@@ -8,6 +9,7 @@ import { FormError } from '../form/Form';
 export interface AppRequest<T = Partial<Case>> extends Request {
   session: AppSession;
   locals: {
+    C100Api: any;
     env: string;
     lang: string;
     logger: LoggerInstance;

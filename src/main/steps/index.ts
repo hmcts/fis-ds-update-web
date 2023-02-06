@@ -13,6 +13,7 @@ import { FormContent } from '../app/form/Form';
 import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
 import { EdgeCaseSequence } from './edgeCase/edgeCaseSequence';
+import { uploadDocumentsSequence } from './upload-documents/uploadDocumentsSequence';
 // eslint-disable-next-line import/no-unresolved
 import { CITIZEN_HOME_URL, PageLink } from './urls';
 
@@ -22,7 +23,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     return CITIZEN_HOME_URL;
   }
   const { path, queryString: queryStr } = getPathAndQueryString(req);
-  const nextStep = [...EdgeCaseSequence].find(s => s.url === path);
+  const nextStep = [...EdgeCaseSequence, ...uploadDocumentsSequence].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data, req) : CITIZEN_HOME_URL;
   const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
   let queryString = '';
@@ -83,12 +84,12 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
       results.push({ stepDir, ...step, ...content, view });
     }
   }
-
   return results;
 };
 export const edgeCaseSequence = getStepsWithContent(EdgeCaseSequence, CITIZEN_HOME_URL);
+export const uploadDocumentSequence = getStepsWithContent(uploadDocumentsSequence);
 
-export const stepsWithContent = [...edgeCaseSequence];
+export const stepsWithContent = [...edgeCaseSequence, ...uploadDocumentSequence];
 
 const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryString: string } => {
   const [path, searchParams] = url.split('?');
