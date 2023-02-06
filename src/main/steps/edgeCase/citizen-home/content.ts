@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
+import { atLeastOneFieldIsChecked } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  title: 'Enter Case Name',
-  caseNameHint: 'Enter the eldest child’s full name. For example, John Smith',
+  title: 'Existing case details',
+  subtitle: 'Case reference number',
+  caseNameHint: 'This number will be 16 digits long',
 
   errors: {
     applicantCaseName: {
@@ -16,8 +18,9 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: 'Enter Case Name - welsh',
-  caseNameHint: 'Enter the eldest child’s full name. For example, John Smith - welsh',
+  title: 'Existing case details - welsh',
+  subtitle: 'Case reference number - welsh',
+  caseNameHint: 'This number will be 16 digits long - welsh',
 
   errors: {
     applicantCaseName: {
@@ -34,19 +37,22 @@ const languages = {
 
 export const form: FormContent = {
   fields: {
+    subheadings: {
+      id: 'subHeading',
+      type: 'textAndHtml',
+      textAndHtml: l => l.subheadings,
+    },
     applicantCaseName: {
       id: 'applicantCaseName',
       type: 'text',
       classes: 'govuk-input--width-20',
       hint: hint => hint.caseNameHint,
       labelSize: null,
+      validator: atLeastOneFieldIsChecked,
     },
   },
   submit: {
     text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
   },
 };
 
