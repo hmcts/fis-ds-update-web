@@ -7,5 +7,5 @@ export const EdgeCaseSequence: Step[] = [
     url: CITIZEN_HOME_URL,
     showInSection: Sections.EdgeCase,
     getNextStep: () => CITIZEN_HOME_URL,
-  },
+  }
 ];

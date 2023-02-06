@@ -4,27 +4,17 @@ import { FormContent } from '../../../app/form/Form';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  title: 'Enter Case Name',
-  caseNameHint: 'Enter the eldest child’s full name. For example, John Smith',
-
-  errors: {
-    applicantCaseName: {
-      required: 'Case Name is required',
-      invalid: 'Please enter a valid case name to proceed',
-    },
-  },
+  headingTitle: 'Update a case',
+  paragraph1: 'Use this service to update a case that has already been submitted',
+  paragraph2: 'you can upload additional evidences to the case',
+  paragraph3: 'You will need the case reference number to start'
 });
 
 export const cy = () => ({
-  title: 'Enter Case Name - welsh',
-  caseNameHint: 'Enter the eldest child’s full name. For example, John Smith - welsh',
-
-  errors: {
-    applicantCaseName: {
-      required: 'Case Name is required - welsh',
-      invalid: 'Please enter a valid case name to proceed - welsh',
-    },
-  },
+  headingTitle: 'Update a case - welsh',
+  paragraph1: 'Use this service to update a case that has already been submitted - welsh',
+  paragraph2: 'you can upload additional evidences to the case - welsh',
+  paragraph3: 'You will need the case reference number to start - welsh'
 });
 
 const languages = {
@@ -33,20 +23,9 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    applicantCaseName: {
-      id: 'applicantCaseName',
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      hint: hint => hint.caseNameHint,
-      labelSize: null,
-    },
-  },
-  submit: {
-    text: l => l.onlycontinue,
-  },
-  saveAndComeLater: {
-    text: l => l.saveAndComeLater,
+  fields: {},
+  startNow: {
+    text: l => l.startNow
   },
 };
 

@@ -135,6 +135,20 @@
             }
           }) if getContent(form.goBack.text)
         }}
+        {{
+          govukButton({
+            text: getContent(form.startNow.text),
+            classes: form.startNow.classes,
+            preventDoubleClick: true,
+            type: "startNow",
+            name: "startNow",
+            value: true,
+            isStartButton: true,
+            attributes: {
+              id: ''
+            }
+          }) if getContent(form.startNow.text)
+        }}
       </div>
     {% endblock %}
     {% block after_form %}{% endblock %}

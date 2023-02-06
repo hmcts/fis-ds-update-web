@@ -37,6 +37,7 @@ const en = {
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
+  startNow: 'Start now',
   accessibility: 'Accessibility statement',
   cookies: 'Cookies',
   privacyPolicy: 'Privacy policy',

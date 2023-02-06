@@ -166,11 +166,11 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
-  editAddress?: {
+  goBack?: {
     text: Label;
     classes?: string;
   };
-  goBack?: {
+  startNow?: {
     text: Label;
     classes?: string;
   };

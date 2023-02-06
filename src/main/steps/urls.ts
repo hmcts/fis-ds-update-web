@@ -9,6 +9,7 @@ export const TIMED_OUT_URL: PageLink = '/timed-out';
 export const KEEP_ALIVE_URL: PageLink = '/keep-alive';
 export const CSRF_TOKEN_ERROR_URL: PageLink = '/csrf-token-error';
 export const CITIZEN_HOME_URL: PageLink = '/edgeCase/citizen-home';
+export const CITIZEN_START_URL: PageLink = '/edgeCase/start';
 export const SERVICE_TYPE: PageLink = '/service-type';
 export const DASHBOARD_URL: PageLink = '/dashboard';
 export const ELIGIBILITY_URL: PageLink = '/eligibility';
