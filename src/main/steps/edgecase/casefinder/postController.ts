@@ -9,7 +9,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { DATA_VERIFICATION } from '../../urls';
+import { DATA_VERIFICATION, CASE_FINDER_ERROR } from '../../urls';
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
@@ -41,8 +41,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         super.redirect(req, res, DATA_VERIFICATION);
       }
     } catch (error) {
-      req.session.errors.push({ propertyName: 'caseNotFound', errorType: 'required' });
-      super.redirect(req, res, req.originalUrl);
+      super.redirect(req, res, CASE_FINDER_ERROR);
     }
   }
 }

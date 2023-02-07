@@ -10,6 +10,8 @@ export const en = () => ({
   fullname: 'Full name',
   dateOfBirth: 'Date of birth',
   errorSummaryMessage: 'There is a problem',
+  ApplicantJoiningDate: 'Applicant Joining Date',
+  question1: '[**widlcard**]',
   errors: {
     applicantCaseId: {
       required: 'Case Name is required',

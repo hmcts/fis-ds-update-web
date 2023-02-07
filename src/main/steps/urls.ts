@@ -22,3 +22,4 @@ export const CONTACT_US: PageLink = '/contact-us';
 
 export const UPLOAD_DOCUMENT: PageLink = '/upload-documents';
 export const DATA_VERIFICATION: PageLink = '/edgecase/citizen-data-verification';
+export const CASE_FINDER_ERROR: PageLink = '/edgecase/error';

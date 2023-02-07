@@ -11,7 +11,7 @@ export const en = () => ({
   errorSummaryMessage: 'There is a problem',
   errors: {
     applicantCaseId: {
-      required: 'Case Name is required',
+      required: 'There is a problem. Please enter a case reference number',
     },
     caseNotFound: {
       required: 'Case not found',
@@ -26,7 +26,7 @@ export const cy = () => ({
   errorSummaryMessage: 'There is a problem',
   errors: {
     applicantCaseId: {
-      required: 'Case Name is required - welsh',
+      required: 'There is a problem. Please enter a case reference number - welsh',
     },
     caseNotFound: {
       required: 'Case not found',

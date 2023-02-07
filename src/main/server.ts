@@ -7,6 +7,7 @@ import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
+import { TestApiRoutes } from './api/endpoints';
 import { ErrorHandler } from './modules/error-handler';
 import { FileUpload } from './modules/fileupload';
 import { HealthCheck } from './modules/health';
@@ -16,7 +17,6 @@ import { Nunjucks } from './modules/nunjucks';
 import { PropertiesVolume } from './modules/properties-volume';
 import { Routes } from './routes';
 import { SessionStorage } from './settings/redis/redis';
-import {TestApiRoutes} from './api/endpoints';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
