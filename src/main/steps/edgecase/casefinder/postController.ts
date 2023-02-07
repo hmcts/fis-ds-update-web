@@ -9,7 +9,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { DATA_VERIFICATION, CASE_FINDER_ERROR } from '../../urls';
+import { DATA_VERIFICATION } from '../../urls';
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
@@ -34,14 +34,22 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       return super.redirect(req, res, req.originalUrl);
     }
 
-    try {
-      const responseFromServerCall = await this.serverCallForCaseIdValidations(req);
-      if (responseFromServerCall.status === 200) {
-        req.session['caseRefId'] = req.body.applicantCaseId;
-        super.redirect(req, res, DATA_VERIFICATION);
+    if (req.body['applicantCaseId'] === '') {
+      req.session.errors.push({ propertyName: 'applicantCaseId', errorType: 'required' });
+      req.session['caseRefId'] = '';
+      super.redirect(req, res, req.originalUrl);
+    } else {
+      try {
+        const responseFromServerCall = await this.serverCallForCaseIdValidations(req);
+        if (responseFromServerCall.status === 200) {
+          req.session['caseRefId'] = req.body.applicantCaseId;
+          super.redirect(req, res, DATA_VERIFICATION);
+        }
+      } catch (error) {
+        req.session.errors.push({ propertyName: 'caseNotFound', errorType: 'required' });
+        req.session['caseRefId'] = '';
+        super.redirect(req, res, req.originalUrl);
       }
-    } catch (error) {
-      super.redirect(req, res, CASE_FINDER_ERROR);
     }
   }
 }

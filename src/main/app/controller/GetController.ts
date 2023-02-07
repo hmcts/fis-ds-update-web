@@ -53,6 +53,7 @@ export class GetController {
       ...content,
       ...renderableContents,
       sessionError: req.session.hasOwnProperty('errors') ? req.session.errors : [],
+      caseId: req.session['caseRefId'],
     };
 
     if (req.session?.errors) {

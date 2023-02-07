@@ -4,11 +4,18 @@
 
 {% if sessionError.length > 0 %}
 {% set errorList = []%}
+{% set formError = ''%}
+{% set formErrorMessage = ''%}
+{% set formInputError = ''%}
 {% for error in sessionError %}
+{% set formError = 'govuk-form-group--error'%}
+{% set formInputError = 'govuk-input--error'%}
 {% if error.propertyName === 'applicantCaseId'%}
 {% set errorList = (errorList.push({text: errors.applicantCaseId.required , href: '#applicantCaseId'}), errorList) %}
+{% set formErrorMessage = errors.applicantCaseId.required %}
 {%elif error.propertyName === 'caseNotFound' %}
 {% set errorList = (errorList.push({text: errors.caseNotFound.required , href: '#applicantCaseId'}), errorList) %}
+{% set formErrorMessage = errors.caseNotFound.required %}
 {%else%}
 {%endif%}
 {%endfor%}
@@ -20,6 +27,30 @@
 
 
 <h1 class="govuk-heading-xl govuk-!-margin-top-7">{{title}}</h1>
-<h1 class="govuk-heading-md"> {{subtitle}} </h1>
+
+<form class="form" id="main-form" method="post"  novalidate="novalidate">
+   <input type="hidden" name="_csrf" id="csrfToken" value="">
+   <div class="govuk-form-group applicantCaseId {{formError}}">
+       <h1 class="govuk-heading-md"> {{subtitle}} </h1>
+       {% if formErrorMessage !== '' %}
+       <p id="nationality-error" class="govuk-error-message">{{formErrorMessage}}</p>
+    {%endif%}
+      <div id="applicantCaseId-hint" class="govuk-hint">
+         {{caseNameHint}}
+      </div>
+      <input class="govuk-input govuk-input--width-20 {{formInputError}}" value="{{caseId}}" id="applicantCaseId" name="applicantCaseId" type="text" aria-describedby="applicantCaseId-hint">
+   </div>
+   <div class="govuk-form-group">
+      <div class="govuk-button-group">
+         <button value="true" type="submit" name="saveAndContinue" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button" id="main-form-submit">
+         {{onlycontinue}}
+         </button>
+      </div>
+   </div>
+   
+</form>
+
+  
+
 
 {%endblock%}

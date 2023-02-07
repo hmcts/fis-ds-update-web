@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isFieldFilledIn } from '../../../app/form/validation';
+//import { isFieldFilledIn } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -14,7 +14,8 @@ export const en = () => ({
       required: 'There is a problem. Please enter a case reference number',
     },
     caseNotFound: {
-      required: 'Case not found',
+      required:
+        "Some of the information yo have given doesn't match our records. Please enter the right value and retry",
     },
   },
 });
@@ -29,7 +30,8 @@ export const cy = () => ({
       required: 'There is a problem. Please enter a case reference number - welsh',
     },
     caseNotFound: {
-      required: 'Case not found',
+      required:
+        "Some of the information yo have given doesn't match our records. Please enter the right value and retry - welsh",
     },
   },
 });
@@ -40,20 +42,7 @@ const languages = {
 };
 
 export const form: FormContent = {
-  fields: {
-    applicantCaseId: {
-      id: 'applicantCaseId',
-      name: 'applicantCaseId',
-      type: 'text',
-      classes: 'govuk-input--width-20',
-      hint: hint => hint.caseNameHint,
-      labelSize: null,
-      validator: isFieldFilledIn,
-    },
-  },
-  submit: {
-    text: l => l.onlycontinue,
-  },
+  fields: {},
 };
 
 export const generateContent: TranslationFn = content => {
