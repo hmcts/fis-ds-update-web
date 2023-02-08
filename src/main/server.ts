@@ -2,6 +2,7 @@ import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
 import config = require('config');
+import cookies from 'cookie-parser';
 import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
@@ -19,7 +20,6 @@ import { Routes } from './routes';
 import { SessionStorage } from './settings/redis/redis';
 
 const { Logger } = require('@hmcts/nodejs-logging');
-const cookies = require('cookie-parser');
 
 const { setupDev } = require('./development');
 
@@ -29,10 +29,12 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const developmentMode = env === 'development';
 const logger: LoggerInstance = Logger.getLogger('server');
 export const app = express();
+
 app.locals.ENV = env;
-app.use(cookies());
+
 app.enable('trust proxy');
 new SessionStorage().enableFor(app);
+app.use(cookies());
 new HealthCheck().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new ErrorHandler().handleNextErrorsFor(app);

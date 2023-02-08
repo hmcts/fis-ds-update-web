@@ -21,18 +21,35 @@ export class CookiesGetController extends GetController {
       analytics: TOGGLE_SWITCH.OFF,
       apm: TOGGLE_SWITCH.OFF,
     };
-    if (req.cookies.hasOwnProperty(config.get('cookies.cookieName'))) {
-      cookiePreferences = JSON.parse(req.cookies[config.get('cookies.cookieName') as string]);
-    }
-    let additionalRenderable = { cookiePreferences };
-    const cookieWithSaveQuery = COOKIES_PAGE + '?togglesaveCookie=true';
-    const checkforCookieUrlAndQuery = req.url === cookieWithSaveQuery;
-    if (checkforCookieUrlAndQuery) {
-      additionalRenderable = Object.assign(additionalRenderable, { cookieMessage: true, cookiePreferences });
-    }
+    if (typeof req.cookies.hasOwnProperty !== 'function') {
+      const cookieValue = JSON.stringify(cookiePreferences);
+      let cookieExpiryDuration = Number(config.get('cookies.expiryTime'));
+      const TimeInADay = 24 * 60 * 60 * 1000;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      cookieExpiryDuration = cookieExpiryDuration * TimeInADay; //cookie time in milliseconds
+      res.cookie(config.get('cookies.cookieName'), cookieValue, {
+        maxAge: cookieExpiryDuration,
+        httpOnly: false,
+        encode: String,
+      });
+      return res.redirect(COOKIES_PAGE);
+    } else {
+      if (req.cookies.hasOwnProperty(config.get('cookies.cookieName'))) {
+        cookiePreferences = JSON.parse(req.cookies[config.get('cookies.cookieName') as string]);
+      }
+      let additionalRenderable = { cookiePrefrences: cookiePreferences };
+      const cookieWithSaveQuery = COOKIES_PAGE + '?togglesaveCookie=true';
+      const checkforCookieUrlAndQuery = req.url === cookieWithSaveQuery;
+      if (checkforCookieUrlAndQuery) {
+        additionalRenderable = Object.assign(additionalRenderable, {
+          cookieMessage: true,
+          cookiePrefrences: cookiePreferences,
+        });
+      }
 
-    this.cookiePreferenceChanger(req, res);
-    super.get(req, res, additionalRenderable);
+      this.cookiePreferenceChanger(req, res);
+      super.get(req, res, additionalRenderable);
+    }
   }
 
   public cookiePreferenceChanger(req: AppRequest, res: Response): void {
