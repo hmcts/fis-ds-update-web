@@ -19,6 +19,7 @@ import { Routes } from './routes';
 import { SessionStorage } from './settings/redis/redis';
 
 const { Logger } = require('@hmcts/nodejs-logging');
+const cookies = require('cookie-parser');
 
 const { setupDev } = require('./development');
 
@@ -29,6 +30,7 @@ const developmentMode = env === 'development';
 const logger: LoggerInstance = Logger.getLogger('server');
 export const app = express();
 app.locals.ENV = env;
+app.use(cookies());
 app.enable('trust proxy');
 new SessionStorage().enableFor(app);
 new HealthCheck().enableFor(app);
