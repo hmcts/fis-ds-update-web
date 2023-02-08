@@ -2,6 +2,7 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
+import { getNextStepUrl } from '../../steps';
 import { CITIZEN_HOME_URL } from '../../steps/urls';
 import { Case } from '../case/case';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
@@ -39,7 +40,7 @@ export class PostController<T extends AnyObject> {
       target = req.url;
     } else {
       //redirects to input nextUrl if present otherwise calls getNextStepUrl to get the next step url
-      target = nextUrl;
+      target = nextUrl || getNextStepUrl(req, req.session.userCase);
     }
 
     req.session?.save(err => {
