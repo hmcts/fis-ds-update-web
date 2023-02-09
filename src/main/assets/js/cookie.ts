@@ -6,37 +6,14 @@ const cookieBanner = qs('#cm-cookie-banner');
 const cookieBannerDecision = cookieBanner?.querySelector('.govuk-cookie-banner__decision') as HTMLInputElement;
 const cookieBannerConfirmation = cookieBanner?.querySelector('.govuk-cookie-banner__confirmation') as HTMLInputElement;
 
-//specify the name of the cookie below
-const cookieSelector = 'ds-web-update-cookie-preferences';
-
-function getCookie(cname) {
-  const cookies = Object.fromEntries(
-    document.cookie.split(/; /).map(c => {
-      const [key, v] = c.split('=', 2);
-      return [key, decodeURIComponent(v)];
-    })
-  );
-  return cookies[cname] || '';
-}
-
-function setCookie(key, value, expiry) {
-  const expires = new Date();
-  expires.setTime(expires.getTime() + expiry * 24 * 60 * 60 * 1000);
-  document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
-}
-
 function cookieBannerAccept() {
   const confirmationMessage = cookieBannerConfirmation?.querySelector('p') as HTMLInputElement;
   confirmationMessage.innerHTML = 'You’ve accepted additional cookies. ' + confirmationMessage.innerHTML;
-  const getCookieFromBrowser = getCookie(cookieSelector);
-  setCookie(cookieSelector, getCookieFromBrowser, 365);
 }
 
 function cookieBannerReject() {
   const confirmationMessage = cookieBannerConfirmation?.querySelector('p') as HTMLInputElement;
   confirmationMessage.innerHTML = 'You’ve rejected additional cookies. ' + confirmationMessage.innerHTML;
-  const rejectedCookies = decodeURIComponent(JSON.stringify({ analytics: 'off', apm: 'off' }));
-  setCookie(cookieSelector, rejectedCookies, 365);
 }
 
 function cookieBannerSaved() {
@@ -69,7 +46,7 @@ function cookiePreferencesUpdated(cookieStatus) {
 }
 
 cookieManager.init({
-  'user-preference-cookie-name': cookieSelector,
+  'user-preference-cookie-name': 'private-law-web-cookie-preferences',
   'user-preference-saved-callback': cookiePreferencesUpdated,
   'preference-form-id': 'cm-preference-form',
   'preference-form-saved-callback': preferenceFormSaved,
@@ -84,12 +61,18 @@ cookieManager.init({
     {
       'category-name': 'essential',
       optional: false,
-      cookies: [cookieSelector, '_oauth2_proxy', 'ajs_user_id', 'ajs_group_id', 'ajs_anonymous_id'],
+      cookies: [
+        'private-law-web-cookie-preferences',
+        '_oauth2_proxy',
+        'ajs_user_id',
+        'ajs_group_id',
+        'ajs_anonymous_id',
+      ],
     },
     {
       'category-name': 'analytics',
       optional: true,
-      cookies: ['_ga', '_gid'],
+      cookies: ['_ga', '_gid', 'gat'],
     },
     {
       'category-name': 'apm',
