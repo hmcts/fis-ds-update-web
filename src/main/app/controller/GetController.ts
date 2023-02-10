@@ -48,7 +48,7 @@ export class GetController {
     });
 
     if (req.originalUrl === UPLOAD_DOCUMENT || req.originalUrl === DATA_VERIFICATION) {
-      console.log({ msg: 'triggeing data disclosure as none' });
+      console.log({ msg: 'triggering data disclosure as none' });
     } else {
       req.session['isDataVerified'] = false;
     }
