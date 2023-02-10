@@ -5,6 +5,7 @@ import Negotiator from 'negotiator';
 import { LanguageToggle } from '../../modules/i18n';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import * as Urls from '../../steps/urls';
+import { DATA_VERIFICATION, UPLOAD_DOCUMENT } from '../../steps/urls';
 
 import { AppRequest } from './AppRequest';
 
@@ -45,6 +46,12 @@ export class GetController {
         req,
       },
     });
+
+    if (req.originalUrl === UPLOAD_DOCUMENT || req.originalUrl === DATA_VERIFICATION) {
+      console.log({ msg: 'triggeing data disclosure as none' });
+    } else {
+      req.session['isDataVerified'] = false;
+    }
 
     /**
      * Handled scenario where caption is not present as query param

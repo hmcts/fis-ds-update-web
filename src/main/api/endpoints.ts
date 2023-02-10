@@ -23,7 +23,7 @@ export class TestApiRoutes {
           dssQuestionAnswerDatePairs: [
             {
               question: 'Applicant Joining Date',
-              answer: '2022-12-12',
+              answer: '1990-12-27',
             },
           ],
         },

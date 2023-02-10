@@ -63,19 +63,19 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       Object.entries(formData).map(([key, value]: ANYTYPE) => [key, value.split(' ').join('').toLowerCase()])
     );
     const checkIfDataMatched = JSON.stringify(matcherData) === JSON.stringify(transformedFormData);
+    console.log({checkIfDataMatched});
     if (checkIfDataMatched) {
       req.session['isDataVerified'] = true;
       return super.redirect(req, res, UPLOAD_DOCUMENT);
     } else {
       req.session['isDataVerified'] = false;
-      req.session['verificationData'] = {};
       if (!req.session.hasOwnProperty('errors')) {
         req.session['errors'] = [];
       }
       if (req.session.errors) {
-        req.session['errors'].push({ propertyName: 'dataNotMatched', errorType: 'required' });
+        req.session['errors'] = [{ propertyName: 'dataNotMatched', errorType: 'required' }];
       }
-      super.redirect(req, res, req.originalUrl);
+      return super.redirect(req, res, req.originalUrl);
     }
   }
 }
