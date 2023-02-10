@@ -54,16 +54,26 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const InputFieldPairs = {};
     dssQuestionAnswerPairs.forEach((question, index) => {
       const field = question['answer'];
-      const answerField = field.split(' ').join('').toLowerCase();
+      const answerField = field
+        .replace(/^\s+|\s+$/gm, '')
+        .split(' ')
+        .join('')
+        .toLowerCase();
       InputFieldPairs[`InputFields_${index}`] = answerField;
     });
 
     const matcherData = { ...datePairs, ...InputFieldPairs };
     const transformedFormData = Object.fromEntries(
-      Object.entries(formData).map(([key, value]: ANYTYPE) => [key, value.split(' ').join('').toLowerCase()])
+      Object.entries(formData).map(([key, value]: ANYTYPE) => [
+        key,
+        value
+          .replace(/^\s+|\s+$/gm, '')
+          .split(' ')
+          .join('')
+          .toLowerCase(),
+      ])
     );
     const checkIfDataMatched = JSON.stringify(matcherData) === JSON.stringify(transformedFormData);
-    console.log({checkIfDataMatched});
     if (checkIfDataMatched) {
       req.session['isDataVerified'] = true;
       return super.redirect(req, res, UPLOAD_DOCUMENT);
