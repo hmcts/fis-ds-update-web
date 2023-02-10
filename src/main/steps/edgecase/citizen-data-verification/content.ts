@@ -1,8 +1,12 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CaseDate } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
 import { isDateInputInvalid, isFieldFilledIn } from '../../../app/form/validation';
+
+import { ANYTYPE } from './index';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -49,23 +53,14 @@ const languages = {
   cy,
 };
 
-export const form: FormContent = {
-  fields: {
-    applicantName: {
-      id: 'applicantName',
-      name: 'applicantName',
-      type: 'text',
-      label: d => d.fullname,
-      classes: 'govuk-input--width-20',
-      labelSize: 'm',
-      validator: isFieldFilledIn,
-    },
-    dateOfBirth: {
+const DateFields = (fieldName, question) => {
+  return {
+    Field: {
       type: 'date',
       classes: 'govuk-date-input',
       labelSize: 'm',
-      name: 'dob',
-      label: l => l.dateOfBirth,
+      name: fieldName,
+      label: question,
       values: [
         {
           label: l => l.dateFormat['day'],
@@ -91,13 +86,44 @@ export const form: FormContent = {
       ],
       validator: (value, formData) => (formData['DOB'] === '' ? isDateInputInvalid(value as CaseDate) : ''),
     },
-  },
+  };
+};
+
+const InputFields = (fieldName, question) => {
+  return {
+    Field: {
+      id: fieldName,
+      name: fieldName,
+      type: 'text',
+      label: question,
+      classes: 'govuk-input--width-20',
+      labelSize: 'm',
+      validator: isFieldFilledIn,
+    },
+  };
+};
+export const form: FormContent = {
+  fields: {},
   submit: {
     text: l => l.onlycontinue,
   },
 };
 
 export const generateContent: TranslationFn = content => {
+  const verificationData = content['additionalData']!['req']['session']['verificationData'];
+
+  const dssQuestionAnswerPairs = verificationData['dssQuestionAnswerPairs'];
+  const dssQuestionAnswerDatePairs = verificationData['dssQuestionAnswerDatePairs'];
+  const formFields: ANYTYPE = {};
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  dssQuestionAnswerDatePairs.forEach((dssQuestionAnswer, index) => {
+    formFields[`DateFields_${index}`] = DateFields(`question${index}`, dssQuestionAnswer['question']).Field;
+  });
+  dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
+    formFields[`InputFields_${index}`] = InputFields(`question${index}`, dssQuestionAnswer['question']).Field;
+  });
+  form['fields'] = { ...formFields } as ANYTYPE;
   const translations = languages[content.language]();
   return {
     ...translations,

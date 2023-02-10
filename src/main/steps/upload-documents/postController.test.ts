@@ -45,4 +45,47 @@ describe('Testing the post controller', () => {
     await controller.post(req, res);
     expect(res.redirect).toHaveBeenCalled();
   });
+
+  test('Checking file valid format - true scenario', async () => {
+    const filetypeCheck = controller.isValidFileFormat({ documents: { name: 'smple.docx' } });
+    expect(filetypeCheck).toBe(true);
+  });
+
+  test('Checking file valid format - false scenario', async () => {
+    const filetypeCheck = controller.isValidFileFormat({ documents: { name: 'smple.dmg' } });
+    expect(filetypeCheck).toBe(false);
+  });
+
+  test('Checking file size - false scenario', async () => {
+    const fileSizeCheck = controller.isFileSizeGreaterThanMaxAllowed({ documents: { size: 30 } });
+    expect(fileSizeCheck).toBe(false);
+  });
+
+  test('Checking file is null', async () => {
+    const fileNullCheck = controller.fileNullCheck({});
+    expect(fileNullCheck).toBe(false);
+  });
+
+  test('File validations', async () => {
+    const newRequest = req;
+    newRequest.session['save'] = () => '';
+    newRequest.files = { documents: { name: 'smple.pdf', size: 10, mimetype: 'application/pdf', data: '' } };
+    const data = {
+      status: 'Success',
+      document: {
+        url: 'http://demo.com',
+        fileName: 'Screenshot 2023-01-24 at 11.52.19.png',
+        documentId: '93de8780-e3f3',
+        binaryUrl: 'http://demon.com',
+      },
+    };
+    mockedAxios.post.mockResolvedValue({ data });
+    await controller.checkFileValidation(
+      { documents: { name: 'smple.pdf', size: 10, mimetype: 'application/pdf', data: '' } },
+      newRequest,
+      res,
+      ''
+    );
+    expect(res.redirect).not.toBeCalled();
+  });
 });

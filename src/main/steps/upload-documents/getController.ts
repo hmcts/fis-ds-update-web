@@ -49,6 +49,7 @@ export default class DocumentUpload extends GetController {
         res.redirect(`${UPLOAD_DOCUMENT}`);
       });
     } catch (err) {
+      res.redirect('/error');
       console.log(err);
     }
   };

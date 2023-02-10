@@ -26,6 +26,8 @@ export interface AppSession extends Session {
   lang: string | undefined;
   errors: FormError[] | undefined;
   addresses: [];
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  verficationData: {};
   returnUrl?: string;
   accessCodeLoginIn: boolean;
   c100RebuildLdFlag: boolean;
