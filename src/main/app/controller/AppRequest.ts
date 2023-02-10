@@ -27,10 +27,11 @@ export interface AppSession extends Session {
   errors: FormError[] | undefined;
   addresses: [];
   // eslint-disable-next-line @typescript-eslint/ban-types
-  verficationData: {};
+  verificationData: {};
   returnUrl?: string;
   accessCodeLoginIn: boolean;
   c100RebuildLdFlag: boolean;
+  isDataVerified: boolean;
 }
 export interface UserDetails {
   accessToken: string;

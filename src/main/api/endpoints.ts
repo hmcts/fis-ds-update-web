@@ -36,11 +36,11 @@ export class TestApiRoutes {
             },
             {
               question: 'Applicant Place of Birth',
-              answer: '2022-12-12',
+              answer: 'Demo',
             },
             {
               question: 'Applicant Issues',
-              answer: '2022-12-12',
+              answer: 'None',
             },
           ],
           dssQuestionAnswerDatePairs: [

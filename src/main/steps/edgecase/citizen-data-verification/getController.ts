@@ -26,6 +26,10 @@ export default class CitizenDataVerification extends GetController {
       if (!req.session.hasOwnProperty('verificationData')) {
         req.session['verificationData'] = {};
       }
+      if (!req.session.hasOwnProperty('isDataVerified')) {
+        req.session['isDataVerified'] = false;
+      }
+
       req.session['verificationData'] = responseFromServer.data;
       super.get(req, res, {});
     } catch (error) {
