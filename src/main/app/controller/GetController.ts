@@ -51,6 +51,7 @@ export class GetController {
       console.log({ msg: 'triggering data disclosure as none' });
     } else {
       req.session['isDataVerified'] = false;
+      req.session['tempValidationData'] = undefined;
     }
 
     /**
