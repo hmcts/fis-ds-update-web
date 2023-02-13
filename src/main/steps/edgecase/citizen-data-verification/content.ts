@@ -196,26 +196,58 @@ export const generateContent: TranslationFn = content => {
       ).Field;
     });
   } else {
-    const temp_verificationData = content['additionalData']!['req']['session']['tempValidationData'];
-    const temp_dssQuestionAnswerPairs = temp_verificationData['dssQuestionAnswerPairs'];
-    const temp_dssQuestionAnswerDatePairs = temp_verificationData['dssQuestionAnswerDatePairs'];
-
-    temp_dssQuestionAnswerDatePairs.forEach((dssQuestionAnswer, index) => {
-      formFields[`DateFields_${index}`] = DateFields(
-        `question${index}`,
-        dssQuestionAnswer['question'],
-        true,
-        dssQuestionAnswer['answer']
-      ).Field;
-    });
-    temp_dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
-      formFields[`InputFields_${index}`] = InputFields(
-        `question${index}`,
-        dssQuestionAnswer['question'],
-        true,
-        dssQuestionAnswer['answer']
-      ).Field;
-    });
+    const temp_verificationData = content['additionalData']!['req']['session'].hasOwnProperty('tempValidationData');
+    if (!temp_verificationData) {
+      console.log({ msg: 'line 201 is triggered' });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      dssQuestionAnswerDatePairs.forEach((dssQuestionAnswer, index) => {
+        formFields[`DateFields_${index}`] = DateFields(`question${index}`, dssQuestionAnswer['question'], false).Field;
+      });
+      dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
+        formFields[`InputFields_${index}`] = InputFields(
+          `question${index}`,
+          dssQuestionAnswer['question'],
+          false
+        ).Field;
+      });
+    } else {
+      if (Object.entries(content['additionalData']!['req']['session']?.['tempValidationData']).length === 0) {
+        dssQuestionAnswerDatePairs.forEach((dssQuestionAnswer, index) => {
+          formFields[`DateFields_${index}`] = DateFields(
+            `question${index}`,
+            dssQuestionAnswer['question'],
+            false
+          ).Field;
+        });
+        dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
+          formFields[`InputFields_${index}`] = InputFields(
+            `question${index}`,
+            dssQuestionAnswer['question'],
+            false
+          ).Field;
+        });
+      } else {
+        const tempdata = content['additionalData']!['req']['session']['tempValidationData'];
+        const temp_dssQuestionAnswerPairs = tempdata['dssQuestionAnswerPairs'];
+        const temp_dssQuestionAnswerDatePairs = tempdata['dssQuestionAnswerDatePairs'];
+        temp_dssQuestionAnswerDatePairs.forEach((dssQuestionAnswer, index) => {
+          formFields[`DateFields_${index}`] = DateFields(
+            `question${index}`,
+            dssQuestionAnswer['question'],
+            true,
+            dssQuestionAnswer['answer']
+          ).Field;
+        });
+        temp_dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
+          formFields[`InputFields_${index}`] = InputFields(
+            `question${index}`,
+            dssQuestionAnswer['question'],
+            true,
+            dssQuestionAnswer['answer']
+          ).Field;
+        });
+      }
+    }
   }
 
   form['fields'] = { ...formFields } as ANYTYPE;

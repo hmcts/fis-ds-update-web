@@ -77,6 +77,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     if (checkIfDataMatched) {
       req.session['isDataVerified'] = true;
       req.session.tempValidationData = {};
+      req.session.errors = undefined;
       return super.redirect(req, res, UPLOAD_DOCUMENT);
     } else {
       const formDataToSessionValue = Object.fromEntries(
