@@ -48,7 +48,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         }
       } catch (error) {
         req.session.errors.push({ propertyName: 'caseNotFound', errorType: 'required' });
-        req.session['caseRefId'] = '';
+        req.session['caseRefId'] = req.body['applicantCaseId'];
         super.redirect(req, res, req.originalUrl);
       }
     }

@@ -25,12 +25,10 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const form = new Form(fields);
     const { ...formData } = form.getParsedBody(req.body);
 
-    /**
-     *   req.session.errors = form.getErrors(formData);
+    req.session.errors = form.getErrors(formData);
     if (req.session.errors && req.session.errors.length) {
       return super.redirect(req, res, req.originalUrl);
     }
-     */
 
     const newFormData: ANYTYPE = formData;
     delete newFormData['_csrf'];

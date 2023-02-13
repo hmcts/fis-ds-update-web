@@ -1,10 +1,10 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-//import { CaseDate } from '../../../app/case/case';
+import { CaseDate } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-//import { isDateInputInvalid, isFieldFilledIn } from '../../../app/form/validation';
+import { isDateInputInvalid, isFieldFilledIn } from '../../../app/form/validation';
 
 import { ANYTYPE } from './index';
 
@@ -94,7 +94,7 @@ const DateFields = (fieldName, question, isVerified, answer?) => {
             attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
           },
         ],
-        //   validator: (value, formData) => (formData['DOB'] === '' ? isDateInputInvalid(value as CaseDate) : ''),
+        validator: (value, formData) => (formData['DOB'] === '' ? isDateInputInvalid(value as CaseDate) : ''),
       },
     };
   } else {
@@ -128,7 +128,7 @@ const DateFields = (fieldName, question, isVerified, answer?) => {
             attributes: { maxLength: 4, pattern: '[0-9]*', inputMode: 'numeric' },
           },
         ],
-        //   validator: (value, formData) => (formData['DOB'] === '' ? isDateInputInvalid(value as CaseDate) : ''),
+        validator: (value, formData) => (formData['DOB'] === '' ? isDateInputInvalid(value as CaseDate) : ''),
       },
     };
   }
@@ -145,7 +145,7 @@ const InputFields = (fieldName, question, isVerified, answer?) => {
         label: question,
         classes: 'govuk-input--width-20',
         labelSize: 'm',
-        //  validator: isFieldFilledIn,
+        validator: isFieldFilledIn,
       },
     };
   } else {
@@ -157,7 +157,7 @@ const InputFields = (fieldName, question, isVerified, answer?) => {
         label: question,
         classes: 'govuk-input--width-20',
         labelSize: 'm',
-        //  validator: isFieldFilledIn,
+        validator: isFieldFilledIn,
       },
     };
   }
