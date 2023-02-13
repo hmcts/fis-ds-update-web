@@ -196,12 +196,25 @@ export const generateContent: TranslationFn = content => {
       ).Field;
     });
   } else {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    dssQuestionAnswerDatePairs.forEach((dssQuestionAnswer, index) => {
-      formFields[`DateFields_${index}`] = DateFields(`question${index}`, dssQuestionAnswer['question'], false).Field;
+    const temp_verificationData = content['additionalData']!['req']['session']['tempValidationData'];
+    const temp_dssQuestionAnswerPairs = temp_verificationData['dssQuestionAnswerPairs'];
+    const temp_dssQuestionAnswerDatePairs = temp_verificationData['dssQuestionAnswerDatePairs'];
+
+    temp_dssQuestionAnswerDatePairs.forEach((dssQuestionAnswer, index) => {
+      formFields[`DateFields_${index}`] = DateFields(
+        `question${index}`,
+        dssQuestionAnswer['question'],
+        true,
+        dssQuestionAnswer['answer']
+      ).Field;
     });
-    dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
-      formFields[`InputFields_${index}`] = InputFields(`question${index}`, dssQuestionAnswer['question'], false).Field;
+    temp_dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
+      formFields[`InputFields_${index}`] = InputFields(
+        `question${index}`,
+        dssQuestionAnswer['question'],
+        true,
+        dssQuestionAnswer['answer']
+      ).Field;
     });
   }
 

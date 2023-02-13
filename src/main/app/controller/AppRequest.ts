@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request } from 'express';
 import { Session } from 'express-session';
@@ -28,10 +29,12 @@ export interface AppSession extends Session {
   addresses: [];
   // eslint-disable-next-line @typescript-eslint/ban-types
   verificationData: {};
+  tempValidationData?: {};
   returnUrl?: string;
   accessCodeLoginIn: boolean;
   c100RebuildLdFlag: boolean;
   isDataVerified: boolean;
+
 }
 export interface UserDetails {
   accessToken: string;

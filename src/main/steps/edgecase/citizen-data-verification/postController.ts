@@ -76,8 +76,38 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const checkIfDataMatched = JSON.stringify(matcherData) === JSON.stringify(transformedFormData);
     if (checkIfDataMatched) {
       req.session['isDataVerified'] = true;
+      req.session.tempValidationData = {};
       return super.redirect(req, res, UPLOAD_DOCUMENT);
     } else {
+      const formDataToSessionValue = Object.fromEntries(
+        Object.entries(formData).map(([key, value]: ANYTYPE) => [key, value])
+      );
+
+      const verificationDataForForm: ANYTYPE = req.session['verificationData'];
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const { caseId } = verificationDataForForm;
+
+      const mapped_dssQuestionAnswerPairs = dssQuestionAnswerPairs.map((item, index) => {
+        let { answer } = item;
+        answer = formDataToSessionValue[`InputFields_${index}`];
+        return { ...item, answer };
+      });
+
+      const mapped_dssQuestionAnswerDatePairs = dssQuestionAnswerDatePairs.map((item, index) => {
+        let { answer } = item;
+        const day = formDataToSessionValue[`DateFields_${index}-day`];
+        const month = formDataToSessionValue[`DateFields_${index}-month`];
+        const year = formDataToSessionValue[`DateFields_${index}-year`];
+        const parsedDate = `${year}-${month}-${day}`;
+        answer = parsedDate;
+        return { ...item, answer };
+      });
+      const filledFormDataWithErrors = {
+        caseId,
+        dssQuestionAnswerPairs: mapped_dssQuestionAnswerPairs,
+        dssQuestionAnswerDatePairs: mapped_dssQuestionAnswerDatePairs,
+      };
+      req.session.tempValidationData = filledFormDataWithErrors;
       req.session['isDataVerified'] = false;
       if (!req.session.hasOwnProperty('errors')) {
         req.session['errors'] = [];
