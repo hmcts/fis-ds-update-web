@@ -34,7 +34,6 @@ export interface AppSession extends Session {
   accessCodeLoginIn: boolean;
   c100RebuildLdFlag: boolean;
   isDataVerified: boolean;
-
 }
 export interface UserDetails {
   accessToken: string;
