@@ -9,7 +9,6 @@ import { Response } from 'express';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { app } from '../../../server';
 import { DATA_VERIFICATION } from '../../urls';
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
@@ -21,13 +20,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async serverCallForCaseIdValidations(req: AppRequest<AnyObject>) {
-    let base = '';
-    if (app.locals.ENV === 'development') {
-      base = 'http://localhost:3100';
-    } else {
-      base = 'https://fis-ds-update-web-pr-68.service.core-compute-preview.internal';
-    }
-    const baseURL = `${base}/case/dss-orchestration/${req.body.applicantCaseId}`;
+    const baseURL = `https://fis-ds-update-web-pr-68.service.core-compute-preview.internal/case/dss-orchestration/${req.body.applicantCaseId}`;
     const fetchRequest = await axios.get(baseURL);
     return fetchRequest;
   }

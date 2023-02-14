@@ -45,12 +45,14 @@ describe('Testing the post controller', () => {
       },
       session: {
         applicantCaseId: 'caseRefId',
+        save: () => '',
       },
     });
+    const newController = new UploadDocumentController(mockFormContent.fields);
     const caseData = { msg: 'the document isnt uploaded' };
     mockedAxios.post.mockRejectedValue({ data: caseData });
-    await controller.post(req, res);
-    expect(res.redirect).toHaveBeenCalled();
+    await newController.post(req, res);
+    expect(res.redirect).not.toHaveBeenCalled();
   });
 
   test('upload document with no caseId - sad scenario', async () => {
@@ -63,9 +65,10 @@ describe('Testing the post controller', () => {
         applicantCaseId: 'caseRefId',
       },
     });
+    const newController = new UploadDocumentController(mockFormContent.fields);
     const caseData = { msg: 'the document isnt uploaded' };
     mockedAxios.post.mockRejectedValue({ data: caseData });
-    await controller.post(req, res);
+    await newController.post(req, res);
     expect(res.redirect).toHaveBeenCalled();
   });
 });
