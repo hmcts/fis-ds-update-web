@@ -284,7 +284,7 @@ describe('GetController', () => {
       const req = mockRequest();
       const res = mockResponse();
       controller.saveSessionAndRedirect(req, res);
-      expect(req.session.save).toBeCalled();
+      expect(req.session.save).toHaveBeenCalled();
       expect(res.redirect).toBeCalledWith('/request');
     });
 

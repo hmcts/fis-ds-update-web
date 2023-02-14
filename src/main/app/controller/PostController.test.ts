@@ -278,7 +278,7 @@ describe('PostController', () => {
     const req = mockRequest({ body });
     const res = mockResponse();
     await controller.post(req, res);
-    expect(res.end).not.toBeCalled();
+    expect(res.end).not.toHaveBeenCalled();
   });
 
   test('whether the citizen update api call is made with correct user details fistname lastname update caseid', async () => {
