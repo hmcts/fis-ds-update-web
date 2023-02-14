@@ -11,41 +11,27 @@ import { ANYTYPE } from './index';
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
   title: '[Child / Respondent] Details',
-  fullname: 'Full name',
-  dateOfBirth: 'Date of birth',
   errorSummaryMessage: 'There is a problem',
-  ApplicantJoiningDate: 'Applicant Joining Date',
-  question1: '[**widlcard**]',
   errors: {
-    applicantCaseId: {
-      required: 'Case Name is required',
-    },
-    caseNotFound: {
-      required: 'Case not found',
-    },
     dataNotMatched: {
       required:
-        "some of the information yo have given doesn't match our records. Please enter the right value and retry",
+        "Some of the information you have given doesn't match our records. Please enter the right value and retry.",
+    },
+    isEmptyFields: {
+      required: 'Some of the form fields are empty. Please enter the values and retry.',
     },
   },
 });
 
 export const cy = () => ({
   title: '[Child / Respondent] Details - welsh',
-  fullname: 'Full name - welsh',
-  dateOfBirth: 'Date of birth - welsh',
   errorSummaryMessage: 'There is a problem',
-  dataNotMatched: 'Data provided doesnt match',
   errors: {
-    applicantCaseId: {
-      required: 'Case Name is required - welsh',
-    },
-    caseNotFound: {
-      required: 'Case not found',
-    },
     dataNotMatched: {
-      required:
-        "some of the information yo have given doesn't match our records. Please enter the right value and retry - welsh",
+      required: 'Some of the form fields are empty. Please enter the values and retry - welsh',
+    },
+    isEmptyFields: {
+      required: 'Some of the form fields are empty. Please enter the values and retry.',
     },
   },
 });
@@ -55,7 +41,7 @@ const languages = {
   cy,
 };
 
-const DateFields = (fieldName, question, isVerified, answer?) => {
+export const DateFields = (fieldName, question, isVerified, answer?) => {
   if (isVerified) {
     const parsedDate = answer.split('-');
     const day = parsedDate[2];
@@ -134,7 +120,7 @@ const DateFields = (fieldName, question, isVerified, answer?) => {
   }
 };
 
-const InputFields = (fieldName, question, isVerified, answer?) => {
+export const InputFields = (fieldName, question, isVerified, answer?) => {
   if (isVerified) {
     return {
       Field: {
@@ -198,7 +184,6 @@ export const generateContent: TranslationFn = content => {
   } else {
     const temp_verificationData = content['additionalData']!['req']['session'].hasOwnProperty('tempValidationData');
     if (!temp_verificationData) {
-      console.log({ msg: 'line 201 is triggered' });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       dssQuestionAnswerDatePairs.forEach((dssQuestionAnswer, index) => {
         formFields[`DateFields_${index}`] = DateFields(`question${index}`, dssQuestionAnswer['question'], false).Field;

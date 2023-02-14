@@ -15,7 +15,7 @@ export const en = () => ({
     },
     caseNotFound: {
       required:
-        "Some of the information you have given doesn't match our records. Please enter the right value and retry",
+        "Some of the information you have given doesn't match our records. Please enter the right value and retry.",
     },
   },
 });

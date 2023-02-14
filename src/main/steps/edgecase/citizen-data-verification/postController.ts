@@ -106,15 +106,24 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         dssQuestionAnswerPairs: mapped_dssQuestionAnswerPairs,
         dssQuestionAnswerDatePairs: mapped_dssQuestionAnswerDatePairs,
       };
+
       req.session.tempValidationData = filledFormDataWithErrors;
       req.session['isDataVerified'] = false;
       if (!req.session.hasOwnProperty('errors')) {
         req.session['errors'] = [];
       }
-      if (req.session.errors) {
-        req.session['errors'] = [{ propertyName: 'dataNotMatched', errorType: 'required' }];
+      const isFieldEmpty = Object.values(formData).includes('');
+      if (isFieldEmpty) {
+        if (req.session.errors) {
+          req.session['errors'] = [{ propertyName: 'isEmptyFields', errorType: 'required' }];
+          return super.redirect(req, res, req.originalUrl);
+        }
+      } else {
+        if (req.session.errors) {
+          req.session['errors'] = [{ propertyName: 'dataNotMatched', errorType: 'required' }];
+        }
+        return super.redirect(req, res, req.originalUrl);
       }
-      return super.redirect(req, res, req.originalUrl);
     }
   }
 }
