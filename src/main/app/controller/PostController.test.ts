@@ -50,7 +50,7 @@ describe('PostController', () => {
     await controller.post(req, res);
 
     expect(req.session.userCase).not.toEqual(expectedUserCase);
-    expect(getNextStepUrlMock).not.toBeCalledWith(req, expectedUserCase);
+    expect(getNextStepUrlMock).not.toHaveBeenCalledWith(req, expectedUserCase);
     expect(req.session.errors).not.toStrictEqual([]);
   });
 
@@ -129,7 +129,7 @@ describe('PostController', () => {
       ...body,
     };
     expect(mockSave).toHaveBeenCalled();
-    expect(getNextStepUrlMock).not.toBeCalledWith(req, userCase);
+    expect(getNextStepUrlMock).not.toHaveBeenCalledWith(req, userCase);
     expect(res.redirect).not.toHaveBeenCalled();
     expect(req.session.errors).not.toStrictEqual([]);
     expect(1).toEqual(1);
@@ -266,8 +266,8 @@ describe('PostController', () => {
     await controller.post(req, res);
 
     expect(req.session.userCase).not.toEqual(expectedUserCase);
-    expect(getNextStepUrlMock).not.toBeCalledWith(req, expectedUserCase);
-    expect(res.redirect).not.toBeCalledWith('/next-step-url');
+    expect(getNextStepUrlMock).not.toHaveBeenCalledWith(req, expectedUserCase);
+    expect(res.redirect).not.toHaveBeenCalledWith('/next-step-url');
     expect(req.session.errors).not.toStrictEqual([]);
   });
 
@@ -299,8 +299,8 @@ describe('PostController', () => {
     await controller.post(req, res);
 
     expect(req.session.userCase).not.toEqual(expectedUserCase);
-    expect(getNextStepUrlMock).not.toBeCalledWith(req, expectedUserCase);
-    expect(res.redirect).not.toBeCalledWith('/next-step-url');
+    expect(getNextStepUrlMock).not.toHaveBeenCalledWith(req, expectedUserCase);
+    expect(res.redirect).not.toHaveBeenCalledWith('/next-step-url');
     expect(req.session.errors).not.toStrictEqual([]);
   });
 
