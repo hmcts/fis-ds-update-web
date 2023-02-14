@@ -86,10 +86,10 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
   }
   return results;
 };
-export const edgeCaseSequence = getStepsWithContent(EdgeCaseSequence, '');
+export const edgeCaseSequenceOrder = getStepsWithContent(edgeCase_Sequence, '');
 export const uploadDocumentSequence = getStepsWithContent(uploadDocumentsSequence);
 
-export const stepsWithContent = [...edgeCaseSequence, ...uploadDocumentSequence];
+export const stepsWithContent = [...edgeCaseSequenceOrder, ...uploadDocumentSequence];
 
 const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryString: string } => {
   const [path, searchParams] = url.split('?');
