@@ -27,7 +27,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const developmentMode = env === 'development';
 const logger: LoggerInstance = Logger.getLogger('server');
-const app = express();
+export const app = express();
 app.locals.ENV = env;
 app.enable('trust proxy');
 new SessionStorage().enableFor(app);
