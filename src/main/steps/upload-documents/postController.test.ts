@@ -86,6 +86,6 @@ describe('Testing the post controller', () => {
       res,
       ''
     );
-    expect(res.redirect).not.toBeCalled();
+    expect(res.redirect).not.toHaveBeenCalled();
   });
 });
