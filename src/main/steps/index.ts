@@ -12,7 +12,7 @@ import { FormContent } from '../app/form/Form';
 
 import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
-import { EdgeCaseSequence } from './edgecase/edgeCaseSequence';
+import { edgeCase_Sequence } from './edgecase/edgeCaseSequence';
 import { uploadDocumentsSequence } from './upload-documents/uploadDocumentsSequence';
 // eslint-disable-next-line import/no-unresolved
 import { CITIZEN_HOME_URL, PageLink } from './urls';
@@ -23,7 +23,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     return CITIZEN_HOME_URL;
   }
   const { path, queryString: queryStr } = getPathAndQueryString(req);
-  const nextStep = [...(EdgeCaseSequence as Step[]), ...uploadDocumentsSequence].find(s => s.url === path);
+  const nextStep = [...(edgeCase_Sequence as Step[]), ...uploadDocumentsSequence].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data, req) : CITIZEN_HOME_URL;
   const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
   let queryString = '';
