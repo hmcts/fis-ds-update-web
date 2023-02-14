@@ -9,6 +9,9 @@ import { DATA_VERIFICATION, UPLOAD_DOCUMENT } from '../../steps/urls';
 
 import { AppRequest } from './AppRequest';
 
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger = Logger.getLogger('server');
+
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
 
@@ -48,7 +51,7 @@ export class GetController {
     });
 
     if (req.originalUrl === UPLOAD_DOCUMENT || req.originalUrl === DATA_VERIFICATION) {
-      console.log({ msg: 'triggering data disclosure as none' });
+      logger.info(`${req.originalUrl} is being called`);
     } else {
       req.session['isDataVerified'] = false;
       req.session['tempValidationData'] = undefined;

@@ -12,7 +12,7 @@ const enContent = {
     },
     caseNotFound: {
       required:
-        "Some of the information yo have given doesn't match our records. Please enter the right value and retry",
+        "Some of the information you have given doesn't match our records. Please enter the right value and retry",
     },
   },
 };
@@ -28,7 +28,7 @@ const cyContent = {
     },
     caseNotFound: {
       required:
-        "Some of the information yo have given doesn't match our records. Please enter the right value and retry - welsh",
+        "Some of the information you have given doesn't match our records. Please enter the right value and retry - welsh",
     },
   },
 };

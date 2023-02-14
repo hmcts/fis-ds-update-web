@@ -22,3 +22,7 @@ e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey:
+s2s: 
+  microservice: 'fis_ds_update_web'
+documentManagement:
+  uploadSizeinMB: 30
