@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
+
 import autobind from 'autobind-decorator';
-//import config from 'config';
 import axios from 'axios';
+import config from 'config';
 import { Response } from 'express';
 
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { RpeApi } from '../../../app/s2s/rpeAuth';
 import { DATA_VERIFICATION } from '../../urls';
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
@@ -20,8 +22,14 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async serverCallForCaseIdValidations(req: AppRequest<AnyObject>) {
-    const baseURL = `https://fis-ds-update-web-pr-68.service.core-compute-preview.internal/case/dss-orchestration/${req.body.applicantCaseId}`;
-    const fetchRequest = await axios.get(baseURL);
+    const baseURL = `${config.get('api.cos')}/case/dss-orchestration/${req.body.applicantCaseId}`;
+    const seviceAuthToken = await RpeApi.getRpeToken();
+    const s2sToken = seviceAuthToken.data;
+    const fetchRequest = await axios.get(baseURL, {
+      headers: {
+        ServiceAuthorization: `Bearer ${s2sToken}`,
+      },
+    });
     return fetchRequest;
   }
 
@@ -33,7 +41,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     if (req.session.errors && req.session.errors.length) {
       return super.redirect(req, res, req.originalUrl);
     }
-
     if (req.body['applicantCaseId'] === '') {
       req.session.errors.push({ propertyName: 'applicantCaseId', errorType: 'required' });
       req.session['caseRefId'] = '';
