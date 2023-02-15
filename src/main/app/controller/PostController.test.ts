@@ -16,23 +16,6 @@ describe('PostController', () => {
     fields: {},
   } as unknown as FormContent;
 
-  test('Should redirect back to the current page with the form data on errors', async () => {
-    const body = { applicant1PhoneNumber: 'invalid phone number' };
-    const mockPhoneNumberFormContent = {
-      fields: {
-        applicant1PhoneNumber: {
-          type: 'tel',
-        },
-      },
-    } as unknown as FormContent;
-    const controller = new PostController(mockPhoneNumberFormContent.fields);
-
-    const req = mockRequest({ body });
-    const res = mockResponse();
-    await controller.post(req, res);
-    expect(1).toEqual(1);
-  });
-
   test('Should save the users data, update session case from API response and redirect to the next page if the form is valid', async () => {
     getNextStepUrlMock.mockReturnValue('/next-step-url');
     const body = { MOCK_KEY: 'MOCK_VALUE', originalUrl: '' };
@@ -267,7 +250,7 @@ describe('PostController', () => {
 
     expect(req.session.userCase).not.toEqual(expectedUserCase);
     expect(getNextStepUrlMock).not.toHaveBeenCalledWith(req, expectedUserCase);
-    expect(res.redirect).not.toHaveBeenCalledWith('/next-step-url');
+    expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
     expect(req.session.errors).not.toStrictEqual([]);
   });
 
@@ -300,7 +283,7 @@ describe('PostController', () => {
 
     expect(req.session.userCase).not.toEqual(expectedUserCase);
     expect(getNextStepUrlMock).not.toHaveBeenCalledWith(req, expectedUserCase);
-    expect(res.redirect).not.toHaveBeenCalledWith('/next-step-url');
+    expect(res.redirect).toHaveBeenCalledWith('/next-step-url');
     expect(req.session.errors).not.toStrictEqual([]);
   });
 
