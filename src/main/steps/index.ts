@@ -14,7 +14,7 @@ import { FormContent } from '../app/form/Form';
 import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
 // eslint-disable-next-line import/no-unresolved
-import { edgeCase_Sequence } from './edgeCase/sequence';
+import { edgeCase_Sequence } from './edgeCase/edgecase-sequence';
 import { uploadDocumentsSequence } from './upload-documents/uploadDocumentsSequence';
 // eslint-disable-next-line import/no-unresolved
 import { CITIZEN_HOME_URL, PageLink } from './urls';
