@@ -1,4 +1,4 @@
-import https from 'https';
+//import https from 'https';
 
 import axios from 'axios';
 import config from 'config';
@@ -16,7 +16,7 @@ export const uploadDocument = async (formData, s2sToken) => {
       ServiceAuthorization: `Bearer ${s2sToken}`,
       ...formData.getHeaders(),
     },
-    httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+    // httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     maxContentLength: Infinity,
     maxBodyLength: Infinity,
   });
@@ -32,7 +32,7 @@ export const deleteDocument = async (s2sToken, documentID) => {
       ServiceAuthorization: `Bearer ${s2sToken}`,
     },
     data: {},
-    httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+    // httpsAgent: new https.Agent({ rejectUnauthorized: false }),
   });
   return response;
 };

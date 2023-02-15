@@ -5,8 +5,12 @@ import Negotiator from 'negotiator';
 import { LanguageToggle } from '../../modules/i18n';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import * as Urls from '../../steps/urls';
+import { DATA_VERIFICATION, UPLOAD_DOCUMENT } from '../../steps/urls';
 
 import { AppRequest } from './AppRequest';
+
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger = Logger.getLogger('server');
 
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
@@ -45,6 +49,13 @@ export class GetController {
         req,
       },
     });
+
+    if (req.originalUrl === UPLOAD_DOCUMENT || req.originalUrl === DATA_VERIFICATION) {
+      logger.info(`${req.originalUrl} is being called`);
+    } else {
+      req.session['isDataVerified'] = false;
+      req.session['tempValidationData'] = undefined;
+    }
 
     /**
      * Handled scenario where caption is not present as query param

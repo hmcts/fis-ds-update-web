@@ -9,6 +9,8 @@
 {% for error in sessionError %}
 {%if error.propertyName === 'dataNotMatched' %}
 {% set errorList = (errorList.push({text: errors.dataNotMatched.required , href: '#applicantName'}), errorList) %}
+{%elif error.propertyName === 'isEmptyFields'%}
+{% set errorList = (errorList.push({text: errors.isEmptyFields.required , href: '#applicantName'}), errorList) %}
 {%else%}
 {%endif%}
 {%endfor%}
@@ -18,8 +20,5 @@
 }) }}
 {%endif%}
 
-
-<h1 class="govuk-heading-xl govuk-!-margin-top-7">{{title}}</h1>
-
-
+<h1 class="govuk-heading-xl govuk-!-margin-top-7" id="applicantName">{{title}}</h1>
 {%endblock%}

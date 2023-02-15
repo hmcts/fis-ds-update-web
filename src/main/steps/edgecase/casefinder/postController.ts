@@ -20,7 +20,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async serverCallForCaseIdValidations(req: AppRequest<AnyObject>) {
-    const baseURL = `http://localhost:3100/case/dss-orchestration/${req.body.applicantCaseId}`;
+    const baseURL = `https://fis-ds-update-web-pr-68.service.core-compute-preview.internal/case/dss-orchestration/${req.body.applicantCaseId}`;
     const fetchRequest = await axios.get(baseURL);
     return fetchRequest;
   }
@@ -43,11 +43,12 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         const responseFromServerCall = await this.serverCallForCaseIdValidations(req);
         if (responseFromServerCall.status === 200) {
           req.session['caseRefId'] = req.body.applicantCaseId;
+          req.session['verificationData'] = responseFromServerCall.data;
           super.redirect(req, res, DATA_VERIFICATION);
         }
       } catch (error) {
         req.session.errors.push({ propertyName: 'caseNotFound', errorType: 'required' });
-        req.session['caseRefId'] = '';
+        req.session['caseRefId'] = req.body['applicantCaseId'];
         super.redirect(req, res, req.originalUrl);
       }
     }

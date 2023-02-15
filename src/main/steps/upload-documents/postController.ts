@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types */
 import autobind from 'autobind-decorator';
@@ -123,7 +124,7 @@ export default class UploadDocumentController {
     return !!(isNull(files) || files === undefined);
   };
 
-  private uploadFileError(
+  public uploadFileError(
     req: AppRequest<AnyObject>,
     res: Response<any, Record<string, any>>,
     redirectUrl: string,
@@ -138,14 +139,14 @@ export default class UploadDocumentController {
     });
   }
 
-  private isValidFileFormat(files) {
+  public isValidFileFormat(files) {
     const { documents } = files;
     const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
     const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png', 'pdf', 'doc', 'docx', 'rtf', 'xlsx'];
     return AllowedFileExtentionList.indexOf(extension) > -1;
   }
 
-  private isFileSizeGreaterThanMaxAllowed(files) {
+  public isFileSizeGreaterThanMaxAllowed(files) {
     const uploadPolicySizeForFiles = Number(config.get('uploadPolicy.documentSize')) * 1000000;
     const { documents } = files;
     return documents.size > uploadPolicySizeForFiles;

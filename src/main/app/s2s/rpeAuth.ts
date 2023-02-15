@@ -14,7 +14,7 @@ export class RpeApi {
   public static async getRpeToken() {
     try {
       const Response: AxiosResponse = await RpeApi.rpeAdaptor().post('/testing-support/lease', {
-        microservice: 'fis_ds_update_web',
+        microservice: config.get('s2s.microservice'),
       });
       return { response: true, data: Response.data };
     } catch (error) {

@@ -2,7 +2,7 @@
 import { Sections, Step } from '../constants';
 import { CITIZEN_HOME_URL, DATA_VERIFICATION } from '../urls';
 
-export const EdgeCaseSequence: Step[] = [
+export const edgeCase_Sequence: Step[] = [
   {
     url: CITIZEN_HOME_URL,
     showInSection: Sections.EdgeCase,
