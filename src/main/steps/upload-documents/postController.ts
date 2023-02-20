@@ -20,10 +20,25 @@ export default class UploadDocumentController {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {}
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
+    const saveAndContinue = req['body']['saveAndContinue'];
     if (req.session) {
       req.session.errors = [];
     }
-    this.checkFileCondition(req, res, req.originalUrl, files);
+    console.log({body: req.body});
+    //req.session['documentDescription'] = req['body']['more-detail'];
+   //req.session.save();
+    if (saveAndContinue) {
+      if (!req.session.hasOwnProperty('caseDocuments') || req.session['caseDocuments'].length === 0) {
+        this.uploadFileError(req, res, req.originalUrl, {
+          propertyName: 'noDocumentUploaded',
+          errorType: 'required',
+        });
+      } else {
+        res.redirect(req.originalUrl);
+      }
+    } else {
+      this.checkFileCondition(req, res, req.originalUrl, files);
+    }
   }
 
   public checkIfMaxDocumentUploaded = (document: C100DocumentInfo[]): boolean => {

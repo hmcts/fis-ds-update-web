@@ -10,7 +10,6 @@ export const en = () => ({
   uploadedDocumentsSubTitle: 'Uploaded documents can include:',
   uploadDocumentsBullets: [
     'copies of any relevant correspondence or documentation',
-    'audio or video recordings',
     'written statements',
     'related reports',
   ],
@@ -19,7 +18,6 @@ export const en = () => ({
   uploadHelpBullets: [
     'File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF',
     'File size per document: up to 20 megabytes (MB)',
-    'File size per multimedia file: 500 megabytes (MB)',
     'Files cannot be password protected',
   ],
   guideText:
@@ -35,7 +33,7 @@ export const en = () => ({
   uploadAFile: 'Upload a file',
   errors: {
     documentUpload: {
-      required: 'Please choose a file.',
+      noDocumentUploaded: 'Please choose a file.',
       fileSize: `The file you uploaded is too large.
             Maximum file size allowed is 20MB`,
       fileFormat: `The file you uploaded is in the wrong format.
@@ -55,7 +53,6 @@ export const cy = () => ({
   uploadedDocumentsSubTitle: 'Uploaded documents can include: - welsh',
   uploadDocumentsBullets: [
     'copies of any relevant correspondence or documentation - welsh',
-    'audio or video recordings - welsh',
     'written statements - welsh',
     'related reports - welsh',
   ],
@@ -64,7 +61,6 @@ export const cy = () => ({
   uploadHelpBullets: [
     'File formats: MS Word, MS Excel, PDF, JPG, PNG, TXT, RTF - welsh',
     'File size per document: up to 20 megabytes (MB) - welsh',
-    'File size per multimedia file: 500 megabytes (MB) - welsh',
     'Files cannot be password protected - welsh',
   ],
   guideText:
@@ -80,7 +76,7 @@ export const cy = () => ({
   uploadAFile: 'Upload a file - welsh',
   errors: {
     documentUpload: {
-      required: 'Please choose a file. - welsh',
+      noDocumentUploaded: 'Please choose a file. - welsh',
       fileSize: `The file you uploaded is too large.
             Maximum file size allowed is 20MB - welsh`,
       fileFormat: `The file you uploaded is in the wrong format.

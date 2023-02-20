@@ -37,6 +37,9 @@
     {%elif error.propertyName === 'maxFileError'%}
   {% set errorList = (errorList.push({text: errors.documentUpload.maxFileError , href: '#file-upload-1'}), errorList) %}
     {% set errorMessage = errors.documentUpload.maxFileError  %}
+     {%elif error.propertyName === 'noDocumentUploaded'%}
+  {% set errorList = (errorList.push({text: errors.documentUpload.noDocumentUploaded , href: '#file-upload-1'}), errorList) %}
+    {% set errorMessage = errors.documentUpload.noDocumentUploaded  %}
 {%else%}
  {% set errorList = (errorList.push({text: errors.fileSize.required , href: '#file-upload-1'}), errorList) %}
      {% set errorMessage = errors.fileSize.required  %}
@@ -53,8 +56,8 @@
 <h1 class="govuk-heading-xl govuk-!-margin-top-7">{{title}}</h1>
 
 {{ govukTextarea({
-  name: "more-detail",
-  id: "more-detail",
+  name: "documentDetail",
+  id: "documentDetail",
   label: {
     text: paragraph1,
     classes: "govuk-label-s",
@@ -153,6 +156,7 @@
 
 </form>  
 </div>
+
 
 
 
