@@ -8,6 +8,10 @@ health:
 session:
   secret: 'local'
   name: 'fis_ds_update'
+  PORT: 6380
+  TLS: true
+  CONNECTION_TIMEOUT: 15000
+  COOKIE_MAX_AGE: 21
   redis:
     host:
     key:

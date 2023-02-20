@@ -16,10 +16,10 @@ export class SessionStorage {
 
   /* Defining the default values for the session properties. */
   public static SessionProperties: SessionConfigurableProperties = {
-    PORT: 6380,
-    TLS: true,
-    CONNECTION_TIMEOUT: 15000,
-    COOKIE_MAX_AGE: 21,
+    PORT: config.get<number>('session.PORT'),
+    TLS: config.get<boolean>('session.TLS'),
+    CONNECTION_TIMEOUT: config.get<number>('session.CONNECTION_TIMEOUT'),
+    COOKIE_MAX_AGE: config.get<number>('session.COOKIE_MAX_AGE'),
   };
 
   /* Setting the cookieMaxAge to the value of the SessionProperties.COOKIE_MAX_AGE * (60 * 1000) */

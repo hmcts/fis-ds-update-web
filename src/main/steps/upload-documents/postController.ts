@@ -9,15 +9,17 @@ import { isNull } from 'lodash';
 
 import { C100DocumentInfo } from '../../app/case/definition';
 import { AppRequest } from '../../app/controller/AppRequest';
-import { AnyObject } from '../../app/controller/PostController';
+import { AnyObject, PostController } from '../../app/controller/PostController';
 import { uploadDocument } from '../../app/fileUpload/documentManager';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
 import { RpeApi } from '../../app/s2s/rpeAuth';
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
-export default class UploadDocumentController {
-  constructor(protected readonly fields: FormFields | FormFieldsFn) {}
+export default class UploadDocumentController extends PostController<AnyObject> {
+  constructor(protected readonly fields: FormFields | FormFieldsFn) {
+    super(fields);
+  }
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
     const ContinueFromPage = req['body'].hasOwnProperty('continue');
@@ -33,7 +35,7 @@ export default class UploadDocumentController {
           errorType: 'required',
         });
       } else {
-        res.redirect(req.originalUrl);
+        super.redirect(req, res, req.originalUrl);
       }
     } else {
       this.checkFileCondition(req, res, req.originalUrl, files);
