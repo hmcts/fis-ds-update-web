@@ -2,7 +2,7 @@
 import { Sections, Step } from '../constants';
 import { APPLICATION_CONFIRMATION, CHECK_YOUR_ANSWERS, CITIZEN_HOME_URL, DATA_VERIFICATION, START_HOME } from '../urls';
 
-export const edgeCase_Sequence: Step[] = [
+export const EdgeCaseSequence: Step[] = [
   {
     url: START_HOME,
     showInSection: Sections.EdgeCase,
@@ -16,7 +16,7 @@ export const edgeCase_Sequence: Step[] = [
   {
     url: DATA_VERIFICATION,
     showInSection: Sections.EdgeCase,
-    getNextStep: () => APPLICATION_CONFIRMATION,
+    getNextStep: () => DATA_VERIFICATION,
   },
   {
     url: APPLICATION_CONFIRMATION,
