@@ -142,7 +142,7 @@ export default class UploadDocumentController {
   public isValidFileFormat(files) {
     const { documents } = files;
     const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
-    const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png', 'pdf', 'doc', 'docx', 'rtf', 'xlsx'];
+    const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png', 'pdf', 'doc', 'docx', 'rtf', 'xlsx', 'txt'];
     return AllowedFileExtentionList.indexOf(extension) > -1;
   }
 

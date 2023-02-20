@@ -22,3 +22,5 @@ export const CONTACT_US: PageLink = '/contact-us';
 
 export const UPLOAD_DOCUMENT: PageLink = '/upload-documents';
 export const DATA_VERIFICATION: PageLink = '/edgecase/citizen-data-verification';
+export const START_HOME: PageLink = '/edgeCase/start';
+export const APPLICATION_CONFIRMATION: PageLink = '/edgeCase/confirmation-page';
