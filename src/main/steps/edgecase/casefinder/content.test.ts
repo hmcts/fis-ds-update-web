@@ -4,7 +4,7 @@ import { cy, en } from './content';
 const enContent = {
   title: 'Existing case details',
   subtitle: 'Case reference number',
-  caseNameHint: 'This number will be 16 digits long',
+  caseNameHint: 'This number will be 16 digits long.',
   errorSummaryMessage: 'There is a problem',
   errors: {
     applicantCaseId: {
@@ -20,7 +20,7 @@ const enContent = {
 const cyContent = {
   title: 'Existing case details - welsh',
   subtitle: 'Case reference number - welsh',
-  caseNameHint: 'This number will be 16 digits long - welsh',
+  caseNameHint: 'This number will be 16 digits long - welsh.',
   errorSummaryMessage: 'There is a problem',
   errors: {
     applicantCaseId: {
