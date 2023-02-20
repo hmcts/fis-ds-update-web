@@ -30,7 +30,11 @@ export default class DocumentUpload extends GetController {
     if (req.query.hasOwnProperty('removeId')) {
       this.removeExistingConsentDocument(req.query.removeId as string, req, res);
     } else {
-      super.get(req, res, { uploadedDocuments: req.session['caseDocuments'], FileErrors: req.session.errors });
+      super.get(req, res, {
+        uploadedDocuments: req.session['caseDocuments'],
+        FileErrors: req.session.errors,
+        documentDetail: req.session?.['documentDetail'],
+      });
     }
   }
 

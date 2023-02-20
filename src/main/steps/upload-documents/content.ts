@@ -103,9 +103,6 @@ export const form: FormContent = {
       value: 'true',
     },
   },
-  submit: {
-    text: l => l.onlycontinue,
-  },
 };
 
 export const generateContent: TranslationFn = content => {

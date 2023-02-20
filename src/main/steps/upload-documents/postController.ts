@@ -20,14 +20,13 @@ export default class UploadDocumentController {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {}
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
     const { files }: AppRequest<AnyObject> = req;
-    const saveAndContinue = req['body']['saveAndContinue'];
+    const ContinueFromPage = req['body'].hasOwnProperty('continue');
     if (req.session) {
       req.session.errors = [];
     }
-    console.log({body: req.body});
-    //req.session['documentDescription'] = req['body']['more-detail'];
-   //req.session.save();
-    if (saveAndContinue) {
+    req.session['documentDetail'] = req.body['documentDetail'];
+    req.session.save();
+    if (ContinueFromPage) {
       if (!req.session.hasOwnProperty('caseDocuments') || req.session['caseDocuments'].length === 0) {
         this.uploadFileError(req, res, req.originalUrl, {
           propertyName: 'noDocumentUploaded',

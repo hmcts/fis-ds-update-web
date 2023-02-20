@@ -54,10 +54,11 @@
 {%endif%}
 
 <h1 class="govuk-heading-xl govuk-!-margin-top-7">{{title}}</h1>
-
+ <form action="{{postURL}}/upload-documents" method="post" enctype="multipart/form-data">
 {{ govukTextarea({
   name: "documentDetail",
   id: "documentDetail",
+  value: documentDetail,
   label: {
     text: paragraph1,
     classes: "govuk-label-s",
@@ -112,7 +113,7 @@
   </p>
   
 <div class="govuk-form-group govuk-inset-text">
- <form action="{{postURL}}/upload-documents" method="post" enctype="multipart/form-data">
+
  <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
   <div class=" {% if FileErrors.length > 0  %}govuk-form-group--error {%endif%}">
  <p> {{uploadAFile}} </p>
@@ -133,7 +134,6 @@
 {% set errorForFileDescription = ""%}
 {% for error in FileErrors %}
 {% if error.propertyName !== 'fileDescriptionRequired' %}
-</div>
 {% else %}
 {% set errorForFileDescription = "govuk-input--error"%}
 {%endif%}
@@ -145,7 +145,6 @@
 </div>
 {% for error in FileErrors %}
 {% if error.propertyName === 'fileDescriptionRequired' %}
-</div>
 {%endif%}
 {% endfor %}
   {{ govukButton({
@@ -154,11 +153,16 @@
           classes: "govuk-button--secondary govuk-!-margin-top-5 govuk--custom__button"
         }) }}
 
-</form>  
+
 </div>
 
 
+{{ govukButton({
+  text: onlycontinue,
+  name: 'continue'
+}) }}
 
+</form>  
 
 {% endblock %}
 
