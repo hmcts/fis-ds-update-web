@@ -33,7 +33,7 @@ export class SessionStorage {
     app.use(cookieParser());
     app.use(
       session({
-        name: 'ds-ui-session',
+        name: config.get('session.name'),
         resave: false,
         saveUninitialized: false,
         secret: config.get('session.secret'),
