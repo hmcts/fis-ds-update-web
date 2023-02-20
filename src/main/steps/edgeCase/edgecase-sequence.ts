@@ -16,7 +16,7 @@ export const edgeCase_Sequence: Step[] = [
   {
     url: DATA_VERIFICATION,
     showInSection: Sections.EdgeCase,
-    getNextStep: () => DATA_VERIFICATION,
+    getNextStep: () => APPLICATION_CONFIRMATION,
   },
   {
     url: APPLICATION_CONFIRMATION,
