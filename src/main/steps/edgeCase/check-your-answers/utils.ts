@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PageContent } from '../../../app/controller/GetController';
-import * as Urls from '../../../steps/urls';
+import * as Urls from '../../urls';
 
 interface GovUkNunjucksSummary {
   key: {

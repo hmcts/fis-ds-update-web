@@ -2,7 +2,7 @@
 //import { isFieldFilledIn } from '../../../app/form/validation';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { CommonContent } from '../../../steps/common/common.content';
+import { CommonContent } from '../../common/common.content';
 
 import { UploadFormSummary } from './utils';
 
