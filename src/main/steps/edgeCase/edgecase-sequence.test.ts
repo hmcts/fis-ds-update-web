@@ -4,7 +4,7 @@ import { edgeCase_Sequence } from './edgecase-sequence';
 
 describe('Sequence must match respective path', () => {
   test('must match the path', () => {
-    expect(edgeCase_Sequence).toHaveLength(4);
+    expect(edgeCase_Sequence).toHaveLength(5);
 
     expect(edgeCase_Sequence[0].url).toBe(START_HOME);
     expect(edgeCase_Sequence[0].getNextStep({})).toBe(CITIZEN_HOME_URL);
