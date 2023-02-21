@@ -30,7 +30,7 @@ export const enContent = {
 
 const en = (content: any) => {
   const caseDocuments = content['additionalData']!['req']['session']['caseDocuments'] || [];
-  const caseInformation = content['additionalData']!['req']['session']['caseInformation'] || '';
+  const caseInformation = content['additionalData']!['req']['session']['documentDetail'] || '';
   return {
     ...enContent,
     language: content.language,
@@ -62,7 +62,7 @@ const cyContent: typeof enContent = {
 
 const cy: typeof en = (content: CommonContent) => {
   const caseDocuments = content['additionalData']!['req']['session']['caseDocuments'] || [];
-  const caseInformation = content['additionalData']!['req']['session']['caseInformation'] || '';
+  const caseInformation = content['additionalData']!['req']['session']['documentDetail'] || '';
   return {
     ...cyContent,
     language: content.language,
