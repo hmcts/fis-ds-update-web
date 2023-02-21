@@ -19,7 +19,8 @@ api:
   cos: 'https://fis-cos-api-pr-140.service.core-compute-preview.internal'   
   serviceAuth: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
 uploadPolicy:
-  documentSize: 20      
+  documentSize: 20    
+  multimediaSize: 500      
   maxNoOfFiles: 10
 app:
   caseTypeOfApplication: 'RELADOP'    
@@ -30,4 +31,4 @@ appInsights:
 s2s: 
   microservice: 'fis_ds_update_web'  
 documentManagement:
-  uploadSizeinMB: 30  
+  uploadSizeinMB: 600 

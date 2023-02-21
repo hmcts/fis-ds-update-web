@@ -15,6 +15,14 @@ import { FormFields, FormFieldsFn } from '../../app/form/Form';
 import { RpeApi } from '../../app/s2s/rpeAuth';
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
+
+export const documentExtensions = () => {
+  return ['jpg', 'jpeg', 'bmp', 'png', 'pdf', 'doc', 'docx', 'rtf', 'xlsx', 'txt'];
+};
+
+export const multimediaExtensions = () => {
+  return ['mp3', 'mp4', 'wav'];
+};
 @autobind
 export default class UploadDocumentController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -78,6 +86,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     res: Response<any, Record<string, any>>,
     redirectUrl: string
   ) {
+    const { documents } = files;
+    const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
     if (this.fileNullCheck(files)) {
       this.uploadFileError(req, res, redirectUrl, {
         propertyName: 'selectFileToUpload',
@@ -90,18 +100,23 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         errorType: 'required',
       });
     } else if (this.isFileSizeGreaterThanMaxAllowed(files)) {
-      this.uploadFileError(req, res, redirectUrl, {
-        propertyName: 'fileSize',
-        errorType: 'required',
-      });
+      if (multimediaExtensions().includes(extension)) {
+        this.uploadFileError(req, res, redirectUrl, {
+          propertyName: 'multimediaFileSize',
+          errorType: 'required',
+        });
+      } else {
+        this.uploadFileError(req, res, redirectUrl, {
+          propertyName: 'fileSize',
+          errorType: 'required',
+        });
+      }
     } else if (req.body['event-name'] === '') {
       this.uploadFileError(req, res, redirectUrl, {
         propertyName: 'fileDescriptionRequired',
         errorType: 'required',
       });
     } else {
-      const { documents }: any = files;
-
       const formData: FormData = new FormData();
       formData.append('file', documents.data, {
         contentType: documents.mimetype,
@@ -122,6 +137,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         });
         req.session.save(() => res.redirect(redirectUrl));
       } catch (error) {
+        console.log(error);
         this.uploadFileError(req, res, redirectUrl, {
           propertyName: 'uploadError',
           errorType: 'required',
@@ -158,13 +174,21 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   public isValidFileFormat(files) {
     const { documents } = files;
     const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
-    const AllowedFileExtentionList = ['jpg', 'jpeg', 'bmp', 'png', 'pdf', 'doc', 'docx', 'rtf', 'xlsx', 'txt'];
+    const AllowedFileExtentionList = [...documentExtensions(), ...multimediaExtensions()];
     return AllowedFileExtentionList.indexOf(extension) > -1;
   }
 
   public isFileSizeGreaterThanMaxAllowed(files) {
     const uploadPolicySizeForFiles = Number(config.get('uploadPolicy.documentSize')) * 1000000;
+    const uploadPolicySizeForMultimediaFiles = Number(config.get('uploadPolicy.multimediaSize')) * 1000000;
     const { documents } = files;
-    return documents.size > uploadPolicySizeForFiles;
+    const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
+    if (documentExtensions().includes(extension)) {
+      return documents.size > uploadPolicySizeForFiles;
+    }
+    if (multimediaExtensions().includes(extension)) {
+      return documents.size > uploadPolicySizeForMultimediaFiles;
+    }
+    return false;
   }
 }

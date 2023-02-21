@@ -36,6 +36,7 @@ export const en = () => ({
       noDocumentUploaded: 'Please choose a file.',
       fileSize: `The file you uploaded is too large.
             Maximum file size allowed is 20MB`,
+      multimediaFileSize: 'The file you uploaded is too large. Maximum file size allowed is 500MB for multimedia files',
       fileFormat: `The file you uploaded is in the wrong format.
             Upload your file again in the correct format`,
       selectFileToUpload: 'Select a file to upload',
@@ -79,6 +80,8 @@ export const cy = () => ({
       noDocumentUploaded: 'Please choose a file. - welsh',
       fileSize: `The file you uploaded is too large.
             Maximum file size allowed is 20MB - welsh`,
+      multimediaFileSize:
+        'The file you uploaded is too large. Maximum file size allowed is 500MB for multimedia files - welsh',
       fileFormat: `The file you uploaded is in the wrong format.
             Upload your file again in the correct format - welsh`,
       selectFileToUpload: 'Select a file to upload - welsh',

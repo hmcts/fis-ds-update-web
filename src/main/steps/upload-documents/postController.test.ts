@@ -57,7 +57,7 @@ describe('Testing the post controller', () => {
   });
 
   test('Checking file size - false scenario', async () => {
-    const fileSizeCheck = controller.isFileSizeGreaterThanMaxAllowed({ documents: { size: 30 } });
+    const fileSizeCheck = controller.isFileSizeGreaterThanMaxAllowed({ documents: { size: 30, name: 'm.docx' } });
     expect(fileSizeCheck).toBe(false);
   });
 

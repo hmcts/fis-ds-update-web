@@ -7,7 +7,7 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
 
-{% set selectedFileType = "image/jpeg,image/png,application/pdf,image/jpg,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/rtf"%}
+{% set selectedFileType = "image/jpeg,image/png,application/pdf,image/jpg,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/rtf,audio/mpeg,video/mp4,audio/wav"%}
 
 {% extends "common/template.njk" %}
 
@@ -25,6 +25,9 @@
  {%elif error.propertyName === 'fileValidation'%}
   {% set errorList = (errorList.push({text: errors.documentUpload.fileFormat , href: '#file-upload-1'}), errorList) %}
     {% set errorMessage = errors.documentUpload.fileFormat  %}
+    {%elif error.propertyName === 'multimediaFileSize'%}
+  {% set errorList = (errorList.push({text: errors.documentUpload.multimediaFileSize , href: '#file-upload-1'}), errorList) %}
+    {% set errorMessage = errors.documentUpload.multimediaFileSize  %}
      {%elif error.propertyName === 'selectFileToUpload'%}
   {% set errorList = (errorList.push({text: errors.documentUpload.selectFileToUpload , href: '#file-upload-1'}), errorList) %}
     {% set errorMessage = errors.documentUpload.selectFileToUpload  %}
