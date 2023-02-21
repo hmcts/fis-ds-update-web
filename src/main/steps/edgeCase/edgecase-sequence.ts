@@ -1,15 +1,15 @@
 /* eslint-disable import/order */
 import { Sections, Step } from '../constants';
-import { APPLICATION_CONFIRMATION, CHECK_YOUR_ANSWERS, CITIZEN_HOME_URL, DATA_VERIFICATION, START_HOME } from '../urls';
+import { APPLICATION_CONFIRMATION, CASE_SEARCH_URL, CHECK_YOUR_ANSWERS, DATA_VERIFICATION, START_HOME } from '../urls';
 
 export const edgeCase_Sequence: Step[] = [
   {
     url: START_HOME,
     showInSection: Sections.EdgeCase,
-    getNextStep: () => CITIZEN_HOME_URL,
+    getNextStep: () => CASE_SEARCH_URL,
   },
   {
-    url: CITIZEN_HOME_URL,
+    url: CASE_SEARCH_URL,
     showInSection: Sections.EdgeCase,
     getNextStep: () => DATA_VERIFICATION,
   },
