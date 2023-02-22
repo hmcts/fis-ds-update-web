@@ -31,4 +31,4 @@ appInsights:
 s2s: 
   microservice: 'fis_ds_update_web'
 documentManagement:
-  uploadSizeinMB: 600
+  uploadSizeinMB: 30
