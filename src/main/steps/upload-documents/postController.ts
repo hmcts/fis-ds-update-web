@@ -13,6 +13,7 @@ import { AnyObject, PostController } from '../../app/controller/PostController';
 import { uploadDocument } from '../../app/fileUpload/documentManager';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
 import { RpeApi } from '../../app/s2s/rpeAuth';
+import { CHECK_YOUR_ANSWERS } from '../urls';
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 
@@ -43,7 +44,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           errorType: 'required',
         });
       } else {
-        super.redirect(req, res, req.originalUrl);
+        super.redirect(req, res, CHECK_YOUR_ANSWERS);
       }
     } else {
       this.checkFileCondition(req, res, req.originalUrl, files);
@@ -137,7 +138,6 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         });
         req.session.save(() => res.redirect(redirectUrl));
       } catch (error) {
-        console.log(error);
         this.uploadFileError(req, res, redirectUrl, {
           propertyName: 'uploadError',
           errorType: 'required',
