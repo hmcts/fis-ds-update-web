@@ -2,13 +2,10 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 import { Case, CaseDate } from '../case/case';
-import { AllowedFileExtentionList, C100MaxFileSize, OtherName } from '../case/definition';
 
 dayjs.extend(customParseFormat);
 
-export type Validator = (
-  value: string | string[] | CaseDate | Partial<Case> | OtherName[] | File | undefined
-) => void | string;
+export type Validator = (value: string | string[] | CaseDate | Partial<Case> | File | undefined) => void | string;
 export type DateValidator = (value: CaseDate | undefined) => void | string;
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
@@ -83,17 +80,4 @@ export const isDateInputInvalid: DateValidator = date => {
   if (!dayjs(`${year}-${month}-${day}`, 'YYYY-M-D', true).isValid()) {
     return invalid;
   }
-};
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-export const isFileSizeGreaterThanMaxAllowed = (files: any): boolean => {
-  const { documents }: AnyType = files;
-  return documents.size > C100MaxFileSize;
-};
-
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
-export const isValidFileFormat = (files: any): boolean => {
-  const { documents }: AnyType = files;
-  const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
-  return AllowedFileExtentionList.indexOf(extension) > -1;
 };
