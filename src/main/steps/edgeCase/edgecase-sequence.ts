@@ -21,10 +21,15 @@ export const edgeCase_Sequence: Step[] = [
   {
     url: APPLICATION_CONFIRMATION,
     showInSection: Sections.EdgeCase,
-    getNextStep: () => START_HOME,
+    getNextStep: () => CHECK_YOUR_ANSWERS,
   },
   {
     url: CHECK_YOUR_ANSWERS,
+    showInSection: Sections.EdgeCase,
+    getNextStep: () => APPLICATION_CONFIRMATION,
+  },
+  {
+    url: APPLICATION_CONFIRMATION,
     showInSection: Sections.EdgeCase,
     getNextStep: () => START_HOME,
   },
