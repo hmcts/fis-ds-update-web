@@ -77,3 +77,52 @@ describe('generateContent() function Test', () => {
     expect(generateContent(content)).not.toEqual({});
   });
 });
+
+//generateContent
+describe('generateContent() with tempvalidation data', () => {
+  test('generateContent', () => {
+    const content: ANYTYPE = {
+      language: 'en',
+      additionalData: {
+        req: {
+          session: {
+            verificationData: {
+              dssQuestionAnswerPairs: [{ question: 'what is the name', answer: 'johndoe' }],
+              dssQuestionAnswerDatePairs: [{ question: 'what is the DOB', answer: '27-10-1990' }],
+            },
+            isDataVerified: false,
+            tempValidationData: {
+              dssQuestionAnswerPairs: [{ question: 'what is the name', answer: 's' }],
+              dssQuestionAnswerDatePairs: [{ question: 'what is the DOB', answer: '27-10-1990' }],
+            },
+          },
+        },
+      },
+    };
+    // const genCON: ANYTYPE = generateContent;
+    expect(generateContent(content)).not.toEqual({});
+  });
+});
+
+//generateContent
+describe('generateContent() with no tempdata', () => {
+  test('generateContent', () => {
+    const content: ANYTYPE = {
+      language: 'en',
+      additionalData: {
+        req: {
+          session: {
+            verificationData: {
+              dssQuestionAnswerPairs: [{ question: 'what is the name', answer: 'johndoe' }],
+              dssQuestionAnswerDatePairs: [{ question: 'what is the DOB', answer: '27-10-1990' }],
+            },
+            isDataVerified: false,
+            tempValidationData: {},
+          },
+        },
+      },
+    };
+    // const genCON: ANYTYPE = generateContent;
+    expect(generateContent(content)).not.toEqual({});
+  });
+});
