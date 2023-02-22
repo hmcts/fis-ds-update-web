@@ -67,19 +67,14 @@
       {% endblock %}
     </div>
 
-    <div class="govuk-grid-column-one-third">
-    {% block page_safetyConcerns %}
-
-    {% endblock %}
-    </div>
-
-    <div class="govuk-grid-column-one-third">
+  </div>
+  <div class="govuk-grid-row">
        {% block page_contact_us %}
-             {% include "./contact-us.njk" %}
+            
         {% endblock %}
-    </div>
   </div>
 {% endblock %}
+
 
 {% block footer %}
   {{ govukFooter({

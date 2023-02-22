@@ -7,10 +7,28 @@ health:
   deadline: 15000
 session:
   secret: 'local'
+  name: 'fis_ds_update'
+  PORT: 6380
+  TLS: true
+  CONNECTION_TIMEOUT: 15000
+  COOKIE_MAX_AGE: 21
   redis:
     host:
     key:
+api:
+  cos: 'https://fis-cos-api-pr-140.service.core-compute-preview.internal'   
+  serviceAuth: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
+uploadPolicy:
+  documentSize: 20    
+  multimediaSize: 500      
+  maxNoOfFiles: 10
+app:
+  caseTypeOfApplication: 'RELADOP'    
 e2e:
   userTestPassword: ''
 appInsights:
   instrumentationKey:
+s2s: 
+  microservice: 'fis_ds_update_web'  
+documentManagement:
+  uploadSizeinMB: 30

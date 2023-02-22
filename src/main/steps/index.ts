@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 // import s from 'connect-redis';
 import * as fs from 'fs';
 
@@ -12,18 +13,20 @@ import { FormContent } from '../app/form/Form';
 
 import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
-import { EdgeCaseSequence } from './edgeCase/edgeCaseSequence';
 // eslint-disable-next-line import/no-unresolved
-import { CITIZEN_HOME_URL, PageLink } from './urls';
+import { edgeCase_Sequence } from './edgeCase/edgecase-sequence';
+import { uploadDocumentsSequence } from './upload-documents/uploadDocumentsSequence';
+// eslint-disable-next-line import/no-unresolved
+import { CASE_SEARCH_URL, PageLink } from './urls';
 
 export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   if ((req.body as any).saveAsDraft) {
-    return CITIZEN_HOME_URL;
+    return CASE_SEARCH_URL;
   }
   const { path, queryString: queryStr } = getPathAndQueryString(req);
-  const nextStep = [...EdgeCaseSequence].find(s => s.url === path);
-  const url = nextStep ? nextStep.getNextStep(data, req) : CITIZEN_HOME_URL;
+  const nextStep = [...(edgeCase_Sequence as Step[]), ...uploadDocumentsSequence].find(s => s.url === path);
+  const url = nextStep ? nextStep.getNextStep(data, req) : CASE_SEARCH_URL;
   const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
   let queryString = '';
   let finalQueryString = {
@@ -83,12 +86,12 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
       results.push({ stepDir, ...step, ...content, view });
     }
   }
-
   return results;
 };
-export const edgeCaseSequence = getStepsWithContent(EdgeCaseSequence, CITIZEN_HOME_URL);
+export const edgeCaseSequenceOrder = getStepsWithContent(edgeCase_Sequence, '');
+export const uploadDocumentSequence = getStepsWithContent(uploadDocumentsSequence);
 
-export const stepsWithContent = [...edgeCaseSequence];
+export const stepsWithContent = [...edgeCaseSequenceOrder, ...uploadDocumentSequence];
 
 const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryString: string } => {
   const [path, searchParams] = url.split('?');

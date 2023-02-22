@@ -2,7 +2,8 @@
 import autobind from 'autobind-decorator';
 import { Response } from 'express';
 
-import { CITIZEN_HOME_URL } from '../../steps/urls';
+import { getNextStepUrl } from '../../steps';
+import { CASE_SEARCH_URL } from '../../steps/urls';
 import { Case } from '../case/case';
 import { Form, FormFields, FormFieldsFn } from '../form/Form';
 
@@ -33,16 +34,16 @@ export class PostController<T extends AnyObject> {
     if (req.body['saveAsDraft']) {
       //redirects to task-list page in case of save-as-draft button click
       req.session.returnUrl = undefined;
-      target = CITIZEN_HOME_URL;
-    } else if (req.session.errors?.length) {
+      target = CASE_SEARCH_URL;
+    } else if (req.session?.errors?.length) {
       //redirects to same page in case of validation errors
       target = req.url;
     } else {
       //redirects to input nextUrl if present otherwise calls getNextStepUrl to get the next step url
-      target = nextUrl;
+      target = nextUrl || getNextStepUrl(req, req.session.userCase);
     }
 
-    req.session.save(err => {
+    req.session?.save(err => {
       if (err) {
         throw err;
       }

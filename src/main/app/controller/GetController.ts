@@ -5,8 +5,12 @@ import Negotiator from 'negotiator';
 import { LanguageToggle } from '../../modules/i18n';
 import { CommonContent, Language, generatePageContent } from '../../steps/common/common.content';
 import * as Urls from '../../steps/urls';
+import { DATA_VERIFICATION, UPLOAD_DOCUMENT } from '../../steps/urls';
 
 import { AppRequest } from './AppRequest';
+
+const { Logger } = require('@hmcts/nodejs-logging');
+const logger = Logger.getLogger('server');
 
 export type PageContent = Record<string, unknown>;
 export type TranslationFn = (content: CommonContent) => PageContent;
@@ -15,51 +19,66 @@ export type TranslationFn = (content: CommonContent) => PageContent;
 export class GetController {
   constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
 
-  public async get(req: AppRequest, res: Response): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  public async get(req: AppRequest, res: Response, renderableContents?): Promise<void> {
     if (res.locals.isError || res.headersSent) {
       // If there's an async error, it will have already rendered an error page upstream,
       // so we don't want to call render again
       return;
     }
 
-    const name = this.getName(req) as string;
-    const language = this.getPreferredLanguage(req) as Language;
-    const captionValue = this.getCaption(req) as string;
-    const document_type = this.getDocumentType(req) as string;
-    const byApplicant = req.query['byApplicant'] as string;
-    const addresses = req.session?.addresses;
-    const content = generatePageContent({
-      language,
-      pageContent: this.content,
-      userCase: req.session?.userCase,
-      userEmail: req.session?.user?.email,
-      caption: captionValue,
-      document_type,
-      userCaseList: req.session?.userCaseList,
-      addresses,
-      name,
-      userIdamId: req.session?.user?.id,
-      byApplicant,
-      additionalData: {
-        req,
-      },
-    });
+    try {
+      const name = this.getName(req) as string;
+      const language = this.getPreferredLanguage(req) as Language;
+      const captionValue = this.getCaption(req) as string;
+      const document_type = this.getDocumentType(req) as string;
+      const byApplicant = req.query['byApplicant'] as string;
+      const addresses = req.session?.addresses;
+      const content = generatePageContent({
+        language,
+        pageContent: this.content,
+        userCase: req.session?.userCase,
+        userEmail: req.session?.user?.email,
+        caption: captionValue,
+        document_type,
+        userCaseList: req.session?.userCaseList,
+        addresses,
+        name,
+        userIdamId: req.session?.user?.id,
+        byApplicant,
+        additionalData: {
+          req,
+        },
+      });
 
-    if (req.session?.errors) {
-      req.session.errors = undefined;
-    }
+      if (req.originalUrl === UPLOAD_DOCUMENT || req.originalUrl === DATA_VERIFICATION) {
+        logger.info(`${req.originalUrl} is being called`);
+      } else {
+        req.session['isDataVerified'] = false;
+        req.session['tempValidationData'] = undefined;
+      }
 
-    /**
-     * Handled scenario where caption is not present as query param
-     */
-    const viewData = {
-      ...content,
-    };
-    //Add caption only if it exists else it will be rendered by specific page
-    if (captionValue) {
-      Object.assign(viewData, { caption: captionValue });
+      /**
+       * Handled scenario where caption is not present as query param
+       */
+      const viewData = {
+        ...content,
+        ...renderableContents,
+        sessionError: req.session.hasOwnProperty('errors') ? req.session.errors : [],
+        caseId: req.session['caseRefId'],
+      };
+
+      if (req.session?.errors) {
+        req.session.errors = undefined;
+      }
+      //Add caption only if it exists else it will be rendered by specific page
+      if (captionValue) {
+        Object.assign(viewData, { caption: captionValue });
+      }
+      res.render(this.view, viewData);
+    } catch (error) {
+      res.redirect('/error');
     }
-    res.render(this.view, viewData);
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

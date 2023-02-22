@@ -174,6 +174,10 @@ export interface FormContent {
     text: Label;
     classes?: string;
   };
+  startNow?: {
+    text: Label;
+    classes?: string;
+  };
 
   fields: FormFields | FormFieldsFn;
 }

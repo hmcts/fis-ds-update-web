@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request } from 'express';
 import { Session } from 'express-session';
 import type { LoggerInstance } from 'winston';
@@ -16,7 +18,7 @@ export interface AppRequest<T = Partial<Case>> extends Request {
 }
 
 export interface AppSession extends Session {
-  paymentError: boolean;
+  submissionError: boolean;
   user: UserDetails;
   userCase: CaseWithId;
   userCaseList: CaseWithId[];
@@ -24,9 +26,13 @@ export interface AppSession extends Session {
   lang: string | undefined;
   errors: FormError[] | undefined;
   addresses: [];
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  verificationData: {};
+  tempValidationData?: {};
   returnUrl?: string;
   accessCodeLoginIn: boolean;
   c100RebuildLdFlag: boolean;
+  isDataVerified: boolean;
 }
 export interface UserDetails {
   accessToken: string;

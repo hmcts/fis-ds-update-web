@@ -2,7 +2,7 @@ import { capitalize } from 'lodash';
 
 import { CaseWithId } from '../../app/case/case';
 import { PageContent, TranslationFn } from '../../app/controller/GetController';
-import { CITIZEN_HOME_URL } from '../../steps/urls';
+import { CASE_SEARCH_URL } from '../../steps/urls';
 
 const en = {
   phase: 'Beta',
@@ -37,6 +37,7 @@ const en = {
   cancel: 'Cancel',
   signOut: 'Sign out',
   signIn: 'Sign in',
+  startNow: 'Start now',
   accessibility: 'Accessibility statement',
   cookies: 'Cookies',
   privacyPolicy: 'Privacy policy',
@@ -262,7 +263,7 @@ export const generatePageContent = ({
 
 const getServiceName = (addtionalReqData: CommonContentAdditionalData | undefined, translations: typeof en): string => {
   let serviceName = translations.applyForChildArrangements;
-  if (addtionalReqData?.req?.path?.startsWith(CITIZEN_HOME_URL)) {
+  if (addtionalReqData?.req?.path?.startsWith(CASE_SEARCH_URL)) {
     serviceName = translations.edgeCaseServiceName;
   }
   return capitalize(serviceName);
