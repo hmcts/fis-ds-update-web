@@ -185,10 +185,10 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
     if (documentExtensions().includes(extension)) {
       return documents.size > uploadPolicySizeForFiles;
-    }
-    if (multimediaExtensions().includes(extension)) {
+    } else if (multimediaExtensions().includes(extension)) {
       return documents.size > uploadPolicySizeForMultimediaFiles;
+    } else {
+      return false;
     }
-    return false;
   }
 }
