@@ -32,3 +32,6 @@ s2s:
   microservice: 'fis_ds_update_web'
 documentManagement:
   uploadSizeinMB: 30
+cookies:
+  expiryTime: 365 
+  cookieName: 'ds-web-update-cookie-preferences'

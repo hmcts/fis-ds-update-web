@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { TranslationFn } from '../../app/controller/GetController';
+import { cy, en } from './content';
 
-export const en = () => ({
+const englishContent = () => ({
   title: 'Cookies',
   paragraph1:
     'A cookie is a small piece of data that&rsquo;s stored on your computer, tablet, or phone when you visit a website. Most websites need cookies to work properly.',
@@ -96,7 +95,7 @@ export const en = () => ({
   oneYear: '1 year',
 });
 
-export const cy: typeof en = () => ({
+const cyContent = () => ({
   title: 'Cwcis',
   paragraph1:
     'A cookie is a small piece of data that&rsquo;n cael ei storio ar eich cyfrifiadur, eich tabled neu eich ffôn symudol pan fyddwch yn ymweld â gwefan yw cwci. Mae angen cwcis ar y rhan fwyaf o wefannau i weithio&rsquo;n iawn.',
@@ -189,11 +188,12 @@ export const cy: typeof en = () => ({
   oneYear: '1 blwyddyn',
 });
 
-const languages = {
-  en,
-  cy,
-};
+describe('cookies > content', () => {
+  test('should return correct english content', () => {
+    expect(en()).toEqual(englishContent());
+  });
 
-export const generateContent: TranslationFn = content => {
-  return languages[content.language]();
-};
+  test('should return correct welsh content', () => {
+    expect(cy()).toEqual(cyContent());
+  });
+});
