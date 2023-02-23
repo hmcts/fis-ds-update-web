@@ -89,26 +89,28 @@
   text: requirementTest | safe
 }) }}
 <p class="govuk-body">{{guideText}}</p>
-    <ul id="filesUploaded" class="govuk-list">
          {% if uploadedDocuments.length > 0 %}
-        <h3> {{fileuploaded}} </h3>
+        <h2 class="govuk-heading-m"> {{fileuploaded}} </h2>
          {% endif %}
-      {% for document in uploadedDocuments %}
-        <li class="uploadedFile govuk-section-break govuk-!-margin-0">
-            <dt class="govuk-summary-list__value "> {{documentInLanguage}} {{loop.index}} </dt>
-              <dt class="govuk-summary-list__value"> {{ document.fileName }} </dt>
-              {% set documentId = document.documentId %}
-              <dd class="govuk-summary-list__actions">
-                <div class="width-100">
-              <a href="{{postURL}}?removeId={{documentId}}" class="govuk-link--no-visited-state">{{ delete }}</a>
-              </div>
-            </dd>
-            </li>
-    {% endfor %}
-     {% if uploadedDocuments.length > 0 %}
-        <hr>
-         {% endif %}
-    </ul>
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9 govuk-!-margin-top-0">
+  {% for document in uploadedDocuments %}
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          {{documentInLanguage}} {{loop.index}}
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ document.fileName }}
+        </dd>
+         {% set documentId = document.documentId %}
+          <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="{{postURL}}?removeId={{documentId}}">
+                {{delete}}
+                </a>
+          </dd>
+      </div>
+    {%endfor%}
+    
+</dl>
 
     <p class="govuk-body">
     {{ fileFormats }}<br>
