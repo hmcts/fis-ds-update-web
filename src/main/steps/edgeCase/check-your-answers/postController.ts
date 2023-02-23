@@ -18,7 +18,6 @@ export default class CheckYourAnswersController extends PostController<AnyObject
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
-
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async serverCallForCaseSubmission(req: AppRequest<AnyObject>) {
     const caseDocuments = req.session['caseDocuments'];
