@@ -5,7 +5,7 @@ import config from 'config';
 export class RpeApi {
   private static _BASEURL: string = config.get('api.serviceAuth');
 
-  private static rpeAdaptor = (): AxiosInstance => {
+  public static rpeAdaptor = (): AxiosInstance => {
     return axios.create({
       baseURL: RpeApi._BASEURL,
     });
