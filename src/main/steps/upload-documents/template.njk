@@ -91,7 +91,6 @@
 <p class="govuk-body">{{guideText}}</p>
          {% if uploadedDocuments.length > 0 %}
         <h2 class="govuk-heading-m"> {{fileuploaded}} </h2>
-         {% endif %}
     <dl class="govuk-summary-list govuk-!-margin-bottom-9 govuk-!-margin-top-0">
   {% for document in uploadedDocuments %}
       <div class="govuk-summary-list__row">
@@ -109,8 +108,8 @@
           </dd>
       </div>
     {%endfor%}
-    
 </dl>
+{%endif%}
 
     <p class="govuk-body">
     {{ fileFormats }}<br>
