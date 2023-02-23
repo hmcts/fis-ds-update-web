@@ -16,29 +16,14 @@ import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { PropertiesVolume } from './modules/properties-volume';
+import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
 import { SessionStorage } from './settings/redis/redis';
 
 const { Logger } = require('@hmcts/nodejs-logging');
-
-const { setupDev } = require('./development');
-
-const env = process.env.NODE_ENV || 'development';
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-
-const developmentMode = env === 'development';
 const logger: LoggerInstance = Logger.getLogger('server');
-export const app = express();
+const app = express();
 
-app.locals.ENV = env;
-
-app.enable('trust proxy');
-new SessionStorage().enableFor(app);
-app.use(cookies());
-new HealthCheck().enableFor(app);
-new ErrorHandler().enableFor(app, logger);
-new ErrorHandler().handleNextErrorsFor(app);
-new Nunjucks().enableFor(app);
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
@@ -48,15 +33,22 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
+app.use(cookies());
+
+new Nunjucks().enableFor(app);
+new Webpack().enableFor(app);
+new SessionStorage().enableFor(app);
+new HealthCheck().enableFor(app);
+new ErrorHandler().enableFor(app, logger);
+new ErrorHandler().handleNextErrorsFor(app);
 new FileUpload().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new LanguageToggle().enableFor(app);
-//api for session
 new TestApiRoutes().enableFor(app);
 new Routes().enableFor(app);
 
-setupDev(app, developmentMode);
+//setupDev(app, developmentMode);
 
 const port: number = parseInt(process.env.PORT || '3100', 10);
 if (app.locals.ENV === 'development') {
