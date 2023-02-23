@@ -87,62 +87,69 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     res: Response<any, Record<string, any>>,
     redirectUrl: string
   ) {
-    const { documents } = files;
-    const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
-    if (this.fileNullCheck(files)) {
+    if (req.hasOwnProperty('files') && req.files && req['files'].hasOwnProperty('documents')) {
+      const { documents } = files;
+      const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
+      if (this.fileNullCheck(files)) {
+        this.uploadFileError(req, res, redirectUrl, {
+          propertyName: 'selectFileToUpload',
+          errorType: 'required',
+        });
+        // Uncomment below checks, once there are validations in place
+      } else if (!this.isValidFileFormat(files)) {
+        this.uploadFileError(req, res, redirectUrl, {
+          propertyName: 'fileValidation',
+          errorType: 'required',
+        });
+      } else if (this.isFileSizeGreaterThanMaxAllowed(files)) {
+        if (multimediaExtensions().includes(extension)) {
+          this.uploadFileError(req, res, redirectUrl, {
+            propertyName: 'multimediaFileSize',
+            errorType: 'required',
+          });
+        } else {
+          this.uploadFileError(req, res, redirectUrl, {
+            propertyName: 'fileSize',
+            errorType: 'required',
+          });
+        }
+      } else if (req.body['event-name'] === '') {
+        this.uploadFileError(req, res, redirectUrl, {
+          propertyName: 'fileDescriptionRequired',
+          errorType: 'required',
+        });
+      } else {
+        const formData: FormData = new FormData();
+        formData.append('file', documents.data, {
+          contentType: documents.mimetype,
+          filename: `${documents.name}`,
+        });
+        formData.append('caseTypeOfApplication', config.get('app.caseTypeOfApplication'));
+        try {
+          const seviceAuthToken = await RpeApi.getRpeToken();
+          const s2sToken = seviceAuthToken.data;
+          const uploadDocumentResponseBody = await uploadDocument(formData, s2sToken);
+          const { url, fileName, documentId, binaryUrl } = uploadDocumentResponseBody['data']['document'];
+          req.session['caseDocuments'].push({
+            url,
+            fileName,
+            documentId,
+            binaryUrl,
+            description: req.body['event-name'],
+          });
+          req.session.save(() => res.redirect(redirectUrl));
+        } catch (error) {
+          this.uploadFileError(req, res, redirectUrl, {
+            propertyName: 'uploadError',
+            errorType: 'required',
+          });
+        }
+      }
+    } else {
       this.uploadFileError(req, res, redirectUrl, {
         propertyName: 'selectFileToUpload',
         errorType: 'required',
       });
-      // Uncomment below checks, once there are validations in place
-    } else if (!this.isValidFileFormat(files)) {
-      this.uploadFileError(req, res, redirectUrl, {
-        propertyName: 'fileValidation',
-        errorType: 'required',
-      });
-    } else if (this.isFileSizeGreaterThanMaxAllowed(files)) {
-      if (multimediaExtensions().includes(extension)) {
-        this.uploadFileError(req, res, redirectUrl, {
-          propertyName: 'multimediaFileSize',
-          errorType: 'required',
-        });
-      } else {
-        this.uploadFileError(req, res, redirectUrl, {
-          propertyName: 'fileSize',
-          errorType: 'required',
-        });
-      }
-    } else if (req.body['event-name'] === '') {
-      this.uploadFileError(req, res, redirectUrl, {
-        propertyName: 'fileDescriptionRequired',
-        errorType: 'required',
-      });
-    } else {
-      const formData: FormData = new FormData();
-      formData.append('file', documents.data, {
-        contentType: documents.mimetype,
-        filename: `${documents.name}`,
-      });
-      formData.append('caseTypeOfApplication', config.get('app.caseTypeOfApplication'));
-      try {
-        const seviceAuthToken = await RpeApi.getRpeToken();
-        const s2sToken = seviceAuthToken.data;
-        const uploadDocumentResponseBody = await uploadDocument(formData, s2sToken);
-        const { url, fileName, documentId, binaryUrl } = uploadDocumentResponseBody['data']['document'];
-        req.session['caseDocuments'].push({
-          url,
-          fileName,
-          documentId,
-          binaryUrl,
-          description: req.body['event-name'],
-        });
-        req.session.save(() => res.redirect(redirectUrl));
-      } catch (error) {
-        this.uploadFileError(req, res, redirectUrl, {
-          propertyName: 'uploadError',
-          errorType: 'required',
-        });
-      }
     }
   }
 
