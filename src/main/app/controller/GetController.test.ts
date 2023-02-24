@@ -2,6 +2,7 @@
 //import { defaultViewArgs } from '../../../test/unit/utils/defaultViewArgs';
 import { mockRequest } from '../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../test/unit/utils/mockResponse';
+import * as Urls from '../../steps/urls';
 
 import { GetController } from './GetController';
 
@@ -277,5 +278,13 @@ describe('checking for documents Delete manager', () => {
     };
     await controller.get(req, res);
     expect(res.render).toHaveBeenCalled();
+  });
+
+  test('parseAndSetReturnUrl', async () => {
+    const controller = new GetController('page', () => ({}));
+    const mRequest = mockRequest();
+    mRequest.query = { returnUrl: 'a' };
+    await controller.parseAndSetReturnUrl(mockRequest());
+    expect(Object.values(Urls).includes(mRequest.originalUrl)).not.toBeTruthy();
   });
 });
