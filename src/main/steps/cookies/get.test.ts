@@ -30,7 +30,7 @@ describe('cookies Get Controller', () => {
     expect(req.session.userCase.caseId).toEqual('1111');
   });
 
-  test('should wait for 1 second before loading Check your answers screen', async () => {
+  test('cookie prefernce scereen', async () => {
     req.session.userCase.caseId = '1111';
     req.session.paymentError = false;
     await controller.get(req, res);
@@ -38,5 +38,29 @@ describe('cookies Get Controller', () => {
     expect(callback).not.toHaveBeenCalled();
     jest.runAllTimers();
     expect(req.session.userCase.caseId).toEqual('1111');
+  });
+
+  //cookiePreferenceChanger
+
+  test('cookiePreferenceChanger - changing cookies preferences - using cookies', async () => {
+    const query = {
+      analytics: 'on',
+      apm: 'on',
+    };
+    req.query = query;
+    await controller.cookiePreferenceChanger(req, res);
+    expect(res.cookie).not.toBeNull();
+    expect(res.redirect).toBeCalled();
+  });
+
+  test('cookiePreferenceChanger - changing cookies preferences - not using cookies', async () => {
+    const query = {
+      analytics: 'off',
+      apm: 'off',
+    };
+    req.query = query;
+    await controller.cookiePreferenceChanger(req, res);
+    expect(res.cookie).not.toBeNull();
+    expect(res.redirect).toBeCalled();
   });
 });
