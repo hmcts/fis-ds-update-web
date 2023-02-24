@@ -50,7 +50,7 @@ describe('cookies Get Controller', () => {
     req.query = query;
     await controller.cookiePreferenceChanger(req, res);
     expect(res.cookie).not.toBeNull();
-    expect(res.redirect).toBeCalled();
+    expect(res.redirect).toHaveBeenCalled();
   });
 
   test('cookiePreferenceChanger - changing cookies preferences - not using cookies', async () => {
@@ -61,6 +61,6 @@ describe('cookies Get Controller', () => {
     req.query = query;
     await controller.cookiePreferenceChanger(req, res);
     expect(res.cookie).not.toBeNull();
-    expect(res.redirect).toBeCalled();
+    expect(res.redirect).toHaveBeenCalled();
   });
 });
