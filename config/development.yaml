@@ -16,7 +16,7 @@ session:
     host:
     key:
 api:
-  cos: 'https://fis-cos-api-pr-140.service.core-compute-preview.internal'   
+  cos: 'https://fis-cos-api-pr-158.service.core-compute-preview.internal'   
   serviceAuth: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
 uploadPolicy:
   documentSize: 20    
