@@ -10,7 +10,7 @@ import { ANYTYPE } from './index';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  title: '[Child / Respondent] Details',
+  title: 'Child Details',
   errorSummaryMessage: 'There is a problem',
   errors: {
     dataNotMatched: {
@@ -24,7 +24,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: '[Child / Respondent] Details - welsh',
+  title: 'Child Details - welsh',
   errorSummaryMessage: 'There is a problem',
   errors: {
     dataNotMatched: {
