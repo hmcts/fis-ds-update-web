@@ -87,7 +87,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     res: Response<any, Record<string, any>>,
     redirectUrl: string
   ) {
-    if (req.hasOwnProperty('files') && req.files && req['files'].hasOwnProperty('documents')) {
+    if (req.files) {
       const { documents } = files;
       const extension = documents.name.toLowerCase().split('.')[documents.name.split('.').length - 1];
       if (this.fileNullCheck(files)) {

@@ -31,9 +31,14 @@ const logger: LoggerInstance = Logger.getLogger('server');
 export const app = express();
 
 app.locals.ENV = env;
+
 app.enable('trust proxy');
 new SessionStorage().enableFor(app);
 app.use(cookies());
+new HealthCheck().enableFor(app);
+new ErrorHandler().enableFor(app, logger);
+new ErrorHandler().handleNextErrorsFor(app);
+new Nunjucks().enableFor(app);
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
@@ -43,11 +48,6 @@ app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
   next();
 });
-
-new HealthCheck().enableFor(app);
-new ErrorHandler().enableFor(app, logger);
-new ErrorHandler().handleNextErrorsFor(app);
-new Nunjucks().enableFor(app);
 new FileUpload().enableFor(app);
 new PropertiesVolume().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
