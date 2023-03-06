@@ -54,6 +54,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           super.redirect(req, res, DATA_VERIFICATION);
         }
       } catch (error) {
+        console.log(error);
         req.session.errors.push({ propertyName: 'caseNotFound', errorType: 'required' });
         req.session['caseRefId'] = req.body['applicantCaseId'];
         super.redirect(req, res, req.originalUrl);
