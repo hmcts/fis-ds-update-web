@@ -66,7 +66,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     //eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     files: any
   ) {
-    if (this.checkIfMaxDocumentUploaded(req.session['caseDocuments'])) {
+    if (req.session['caseDocuments'] && this.checkIfMaxDocumentUploaded(req.session['caseDocuments'])) {
       req.session.errors = [{ propertyName: 'maxFileError', errorType: 'required' }];
       req.session.save(err => {
         if (err) {

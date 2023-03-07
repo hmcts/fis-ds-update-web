@@ -61,6 +61,7 @@ export default class CheckYourAnswersController extends PostController<AnyObject
         super.redirect(req, res, APPLICATION_CONFIRMATION);
       }
     } catch (error) {
+      console.log(error);
       req.session.errors?.push({
         propertyName: 'submissionError',
         errorType: 'required',
