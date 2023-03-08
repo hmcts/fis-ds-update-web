@@ -22,7 +22,7 @@ export default class CheckYourAnswersController extends PostController<AnyObject
   public async serverCallForCaseSubmission(req: AppRequest<AnyObject>) {
     const caseDocuments = req.session['caseDocuments'];
 
-    const data: DocumentRequest = caseDocuments.map(document => {
+    const alldocuments: DocumentRequest = caseDocuments.map(document => {
       return {
         id: document.documentId,
         value: {
@@ -35,6 +35,12 @@ export default class CheckYourAnswersController extends PostController<AnyObject
         },
       };
     });
+    const data = {
+      dssAdditionalCaseInformation: req.session['documentDetail'],
+      dssCaseUpdatedBy: req.session['loggedInSystemUserType'],
+      dssDocumentInfoList: alldocuments,
+    };
+
     const caseId = req.session['caseRefId'];
     const baseURL = `${config.get('api.cos')}/case/dss-orchestration/dss/${caseId}/update?event=UPDATE`;
     const seviceAuthToken = await RpeApi.getRpeToken();

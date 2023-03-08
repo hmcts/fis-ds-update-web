@@ -5,7 +5,7 @@ import { DateFields, InputFields, cy, en, generateContent } from './content';
 import { ANYTYPE } from './index';
 
 const englishContent = () => ({
-  title: '[Child / Respondent] Details',
+  title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {
     dataNotMatched: {
@@ -18,7 +18,7 @@ const englishContent = () => ({
   },
 });
 const welshContent = () => ({
-  title: '[Child / Respondent] Details - welsh',
+  title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {
     dataNotMatched: {
