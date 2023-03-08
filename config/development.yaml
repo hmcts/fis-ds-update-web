@@ -35,3 +35,5 @@ documentManagement:
 cookies:
   expiryTime: 365 
   cookieName: 'ds-web-update-cookie-preferences'
+loggedInUsers: ['legalRep', 'police']
+     

@@ -10,7 +10,7 @@ import { ANYTYPE } from './index';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  title: '[Child / Respondent] Details',
+  title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {
     dataNotMatched: {
@@ -24,7 +24,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: '[Child / Respondent] Details - welsh',
+  title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {
     dataNotMatched: {
@@ -237,6 +237,8 @@ export const generateContent: TranslationFn = content => {
 
   form['fields'] = { ...formFields } as ANYTYPE;
   const translations = languages[content.language]();
+  const headerContent = content['additionalData']!['req']['session']['verificationData']['dssHeaderDetails'];
+  translations.title = headerContent === null ? translations.title : headerContent;
   return {
     ...translations,
     form,
