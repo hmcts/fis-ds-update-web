@@ -41,8 +41,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     dssQuestionAnswerDatePairs.forEach((question, index) => {
       const date = question['answer'];
       const parsedDate = date.split('-');
-      const calendarDate = parsedDate['2'];
-      const calendarMonth = parsedDate['1'];
+      const calendarDate = parsedDate['2'].startsWith('0', 0) ? parsedDate['2'].slice(1, 2) : parsedDate['2'];
+      const calendarMonth = parsedDate['1'].startsWith('0', 0) ? parsedDate['2'].slice(1, 2) : parsedDate['2'];
       const calendarYear = parsedDate['0'];
       datePairs[`DateFields_${index}-day`] = calendarDate;
       datePairs[`DateFields_${index}-month`] = calendarMonth;
@@ -64,11 +64,17 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     const transformedFormData = Object.fromEntries(
       Object.entries(formData).map(([key, value]: ANYTYPE) => [
         key,
-        value
-          .replace(/^\s+|\s+$/gm, '')
-          .split(' ')
-          .join('')
-          .toLowerCase(),
+        value.startsWith('0', 0)
+          ? value
+              .replace(/^\s+|\s+$/gm, '')
+              .split(' ')
+              .join('')
+              .slice(1, 2)
+          : value
+              .replace(/^\s+|\s+$/gm, '')
+              .split(' ')
+              .join('')
+              .toLowerCase(),
       ])
     );
     const checkIfDataMatched = JSON.stringify(matcherData) === JSON.stringify(transformedFormData);
