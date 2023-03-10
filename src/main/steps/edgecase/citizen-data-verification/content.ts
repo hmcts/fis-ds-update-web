@@ -57,7 +57,6 @@ export const DateFields = (fieldName, question, isVerified, answer?) => {
         values: [
           {
             label: l => l.dateFormat['day'],
-            //label: l => l.day,
             name: 'day',
             value: day,
             classes: 'govuk-input--width-2',
@@ -65,7 +64,6 @@ export const DateFields = (fieldName, question, isVerified, answer?) => {
           },
           {
             label: l => l.dateFormat['month'],
-            //label: l => l.month,
             name: 'month',
             value: month,
             classes: 'govuk-input--width-2',
@@ -73,7 +71,6 @@ export const DateFields = (fieldName, question, isVerified, answer?) => {
           },
           {
             label: l => l.dateFormat['year'],
-            //label: l => l.year,
             name: 'year',
             value: year,
             classes: 'govuk-input--width-4',
