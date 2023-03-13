@@ -8,13 +8,13 @@ import { Response } from 'express';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { AnyType } from '../../../app/form/validation';
 import { UPLOAD_DOCUMENT } from '../../urls';
 
-import { ANYTYPE } from './index';
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
-export default class citizenDataVerification extends PostController<AnyObject> {
+export default class CitizenDataVerificationPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
@@ -30,7 +30,7 @@ export default class citizenDataVerification extends PostController<AnyObject> {
       return super.redirect(req, res, req.originalUrl);
     }
 
-    const newFormData: ANYTYPE = formData;
+    const newFormData: AnyType = formData;
     delete newFormData['_csrf'];
     delete newFormData['saveAndContinue'];
 
@@ -62,7 +62,7 @@ export default class citizenDataVerification extends PostController<AnyObject> {
 
     const matcherData = { ...datePairs, ...InputFieldPairs };
     const transformedFormData = Object.fromEntries(
-      Object.entries(formData).map(([key, value]: ANYTYPE) => [
+      Object.entries(formData).map(([key, value]: AnyType) => [
         key,
         value.startsWith('0', 0)
           ? value
@@ -85,10 +85,10 @@ export default class citizenDataVerification extends PostController<AnyObject> {
       return super.redirect(req, res, UPLOAD_DOCUMENT);
     } else {
       const formDataToSessionValue = Object.fromEntries(
-        Object.entries(formData).map(([key, value]: ANYTYPE) => [key, value])
+        Object.entries(formData).map(([key, value]: AnyType) => [key, value])
       );
 
-      const verificationDataForForm: ANYTYPE = req.session['verificationData'];
+      const verificationDataForForm: AnyType = req.session['verificationData'];
       // eslint-disable-next-line @typescript-eslint/no-shadow
       const { caseId } = verificationDataForForm;
 

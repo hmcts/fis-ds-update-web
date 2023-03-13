@@ -4,9 +4,7 @@
 import { CaseDate } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isDateInputInvalid, isFieldFilledIn } from '../../../app/form/validation';
-
-import { ANYTYPE } from './index';
+import { AnyType, isDateInputInvalid, isFieldFilledIn } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -158,7 +156,7 @@ export const generateContent: TranslationFn = content => {
 
   const dssQuestionAnswerPairs = verificationData['dssQuestionAnswerPairs'];
   const dssQuestionAnswerDatePairs = verificationData['dssQuestionAnswerDatePairs'];
-  const formFields: ANYTYPE = {};
+  const formFields: AnyType = {};
 
   if (isDataVerified) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -232,7 +230,7 @@ export const generateContent: TranslationFn = content => {
     }
   }
 
-  form['fields'] = { ...formFields } as ANYTYPE;
+  form['fields'] = { ...formFields } as AnyType;
   const translations = languages[content.language]();
   const headerContent = content['additionalData']!['req']['session']['verificationData']['dssHeaderDetails'];
   translations.title = headerContent === null ? translations.title : headerContent;

@@ -2,10 +2,10 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { FieldPrefix } from '../../../app/case/case';
 
-import CitizenDataVerification from './getController';
+import CitizenDataVerificationGetController from './getController';
 
 describe('Test URL endpoints', () => {
-  const controller = new CitizenDataVerification('page', () => ({}), FieldPrefix.APPLICANT);
+  const controller = new CitizenDataVerificationGetController('page', () => ({}), FieldPrefix.APPLICANT);
   const res = mockResponse();
   const req = mockRequest({
     session: {
@@ -67,4 +67,3 @@ describe('Test URL endpoints', () => {
     expect(res.render).not.toHaveBeenCalledWith('error');
   });
 });
-
