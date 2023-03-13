@@ -67,4 +67,3 @@ describe('Test URL endpoints', () => {
     expect(res.render).not.toHaveBeenCalledWith('error');
   });
 });
-
