@@ -6,7 +6,7 @@ import { AppRequest } from '../../../app/controller/AppRequest';
 import { GetController, TranslationFn } from '../../../app/controller/GetController';
 
 @autobind
-export default class CitizenDataVerification extends GetController {
+export default class CitizenDataVerificationGetController extends GetController {
   constructor(
     protected readonly view: string,
     protected readonly content: TranslationFn,

@@ -14,7 +14,7 @@ import { ANYTYPE } from './index';
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
-export default class citizenDataVerification extends PostController<AnyObject> {
+export default class CitizenDataVerificationPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }

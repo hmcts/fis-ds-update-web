@@ -2,7 +2,7 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { FormContent } from '../../../app/form/Form';
 
-import citizenDataVerification from './postController';
+import CitizenDataVerificationPostController from './postController';
 
 jest.mock('axios');
 let req, res;
@@ -18,7 +18,7 @@ describe('citizenDataVerification test cases', () => {
   } as unknown as FormContent;
 
   test('Should submit the case and navigate to confirmation page', async () => {
-    const controller = new citizenDataVerification(mockFormContent.fields);
+    const controller = new CitizenDataVerificationPostController(mockFormContent.fields);
     req = mockRequest({
       body: {
         saveAndContinue: true,
@@ -87,7 +87,7 @@ describe('citizenDataVerification test cases', () => {
         },
       },
     });
-    const controller = new citizenDataVerification(mockFormContent.fields);
+    const controller = new CitizenDataVerificationPostController(mockFormContent.fields);
     await controller.post(req, res);
     expect(req.session.errors).not.toBe(null);
     expect(res.redirect).toHaveBeenCalled();
