@@ -1,8 +1,8 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { DateFields, InputFields, cy, en, generateContent } from './content';
+import { AnyType } from '../../../app/form/validation';
 
-import { ANYTYPE } from './index';
+import { DateFields, InputFields, cy, en, generateContent } from './content';
 
 const englishContent = () => ({
   title: '[title]',
@@ -59,7 +59,7 @@ describe('Date field and Input Field', () => {
 //generateContent
 describe('generateContent() function Test', () => {
   test('generateContent', () => {
-    const content: ANYTYPE = {
+    const content: AnyType = {
       language: 'en',
       additionalData: {
         req: {
@@ -73,7 +73,7 @@ describe('generateContent() function Test', () => {
         },
       },
     };
-    // const genCON: ANYTYPE = generateContent;
+    // const genCON: AnyType = generateContent;
     expect(generateContent(content)).not.toEqual({});
   });
 });
@@ -81,7 +81,7 @@ describe('generateContent() function Test', () => {
 //generateContent
 describe('generateContent() with tempvalidation data', () => {
   test('generateContent', () => {
-    const content: ANYTYPE = {
+    const content: AnyType = {
       language: 'en',
       additionalData: {
         req: {
@@ -99,7 +99,7 @@ describe('generateContent() with tempvalidation data', () => {
         },
       },
     };
-    // const genCON: ANYTYPE = generateContent;
+    // const genCON: AnyType = generateContent;
     expect(generateContent(content)).not.toEqual({});
   });
 });
@@ -107,7 +107,7 @@ describe('generateContent() with tempvalidation data', () => {
 //generateContent
 describe('generateContent() with no tempdata', () => {
   test('generateContent', () => {
-    const content: ANYTYPE = {
+    const content: AnyType = {
       language: 'en',
       additionalData: {
         req: {
@@ -122,7 +122,7 @@ describe('generateContent() with no tempdata', () => {
         },
       },
     };
-    // const genCON: ANYTYPE = generateContent;
+    // const genCON: AnyType = generateContent;
     expect(generateContent(content)).not.toEqual({});
   });
 });
