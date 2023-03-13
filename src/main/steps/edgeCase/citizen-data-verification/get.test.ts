@@ -2,10 +2,10 @@ import { mockRequest } from '../../../../test/unit/utils/mockRequest';
 import { mockResponse } from '../../../../test/unit/utils/mockResponse';
 import { FieldPrefix } from '../../../app/case/case';
 
-import CitizenDataVerificationController from './getController';
+import CitizenDataVerification from './getController';
 
 describe('Test URL endpoints', () => {
-  const controller = new CitizenDataVerificationController('page', () => ({}), FieldPrefix.APPLICANT);
+  const controller = new CitizenDataVerification('page', () => ({}), FieldPrefix.APPLICANT);
   const res = mockResponse();
   const req = mockRequest({
     session: {
