@@ -92,4 +92,43 @@ describe('citizenDataVerification test cases', () => {
     expect(req.session.errors).not.toBe(null);
     expect(res.redirect).toHaveBeenCalled();
   });
+
+  test('Testing content with error data not matching', async () => {
+    req = mockRequest({
+      body: {
+        saveAndContinue: true,
+        'DateFields_0-day': '11',
+        'DateFields_0-month': '12',
+        'DateFields_0-year': '2019',
+        InputFields_0: 'john',
+        InputFields_1: 'doe',
+      },
+      session: {
+        verificationData: {
+          caseId: 1678371510528100,
+          dssHeaderDetails: 'Child Details',
+          dssQuestionAnswerPairs: [
+            {
+              question: 'First Name',
+              answer: 'ChildFirstName',
+            },
+            {
+              question: 'Last Name',
+              answer: 'ChildLastName',
+            },
+          ],
+          dssQuestionAnswerDatePairs: [
+            {
+              question: 'Date of Birth',
+              answer: '2020-01-01',
+            },
+          ],
+        },
+      },
+    });
+    const controller = new CitizenDataVerificationPostController(mockFormContent.fields);
+    await controller.post(req, res);
+    expect(req.session.errors).not.toBe(null);
+    expect(res.redirect).toHaveBeenCalled();
+  });
 });
