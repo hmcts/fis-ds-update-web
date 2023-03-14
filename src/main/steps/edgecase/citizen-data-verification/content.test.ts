@@ -1,11 +1,11 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { AnyType } from '../../../app/form/validation';
+
 import { DateFields, InputFields, cy, en, generateContent } from './content';
 
-import { ANYTYPE } from './index';
-
 const englishContent = () => ({
-  title: '[Child / Respondent] Details',
+  title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {
     dataNotMatched: {
@@ -18,7 +18,7 @@ const englishContent = () => ({
   },
 });
 const welshContent = () => ({
-  title: '[Child / Respondent] Details - welsh',
+  title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {
     dataNotMatched: {
@@ -59,7 +59,7 @@ describe('Date field and Input Field', () => {
 //generateContent
 describe('generateContent() function Test', () => {
   test('generateContent', () => {
-    const content: ANYTYPE = {
+    const content: AnyType = {
       language: 'en',
       additionalData: {
         req: {
@@ -73,7 +73,56 @@ describe('generateContent() function Test', () => {
         },
       },
     };
-    // const genCON: ANYTYPE = generateContent;
+    // const genCON: AnyType = generateContent;
+    expect(generateContent(content)).not.toEqual({});
+  });
+});
+
+//generateContent
+describe('generateContent() with tempvalidation data', () => {
+  test('generateContent', () => {
+    const content: AnyType = {
+      language: 'en',
+      additionalData: {
+        req: {
+          session: {
+            verificationData: {
+              dssQuestionAnswerPairs: [{ question: 'what is the name', answer: 'johndoe' }],
+              dssQuestionAnswerDatePairs: [{ question: 'what is the DOB', answer: '27-10-1990' }],
+            },
+            isDataVerified: false,
+            tempValidationData: {
+              dssQuestionAnswerPairs: [{ question: 'what is the name', answer: 's' }],
+              dssQuestionAnswerDatePairs: [{ question: 'what is the DOB', answer: '27-10-1990' }],
+            },
+          },
+        },
+      },
+    };
+    // const genCON: AnyType = generateContent;
+    expect(generateContent(content)).not.toEqual({});
+  });
+});
+
+//generateContent
+describe('generateContent() with no tempdata', () => {
+  test('generateContent', () => {
+    const content: AnyType = {
+      language: 'en',
+      additionalData: {
+        req: {
+          session: {
+            verificationData: {
+              dssQuestionAnswerPairs: [{ question: 'what is the name', answer: 'johndoe' }],
+              dssQuestionAnswerDatePairs: [{ question: 'what is the DOB', answer: '27-10-1990' }],
+            },
+            isDataVerified: false,
+            tempValidationData: {},
+          },
+        },
+      },
+    };
+    // const genCON: AnyType = generateContent;
     expect(generateContent(content)).not.toEqual({});
   });
 });

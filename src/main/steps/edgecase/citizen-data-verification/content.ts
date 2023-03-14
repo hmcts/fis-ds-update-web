@@ -4,13 +4,11 @@
 import { CaseDate } from '../../../app/case/case';
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-import { isDateInputInvalid, isFieldFilledIn } from '../../../app/form/validation';
-
-import { ANYTYPE } from './index';
+import { AnyType, isDateInputInvalid, isFieldFilledIn } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
-  title: '[Child / Respondent] Details',
+  title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {
     dataNotMatched: {
@@ -24,7 +22,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
-  title: '[Child / Respondent] Details - welsh',
+  title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {
     dataNotMatched: {
@@ -57,7 +55,6 @@ export const DateFields = (fieldName, question, isVerified, answer?) => {
         values: [
           {
             label: l => l.dateFormat['day'],
-            //label: l => l.day,
             name: 'day',
             value: day,
             classes: 'govuk-input--width-2',
@@ -65,7 +62,6 @@ export const DateFields = (fieldName, question, isVerified, answer?) => {
           },
           {
             label: l => l.dateFormat['month'],
-            //label: l => l.month,
             name: 'month',
             value: month,
             classes: 'govuk-input--width-2',
@@ -73,7 +69,6 @@ export const DateFields = (fieldName, question, isVerified, answer?) => {
           },
           {
             label: l => l.dateFormat['year'],
-            //label: l => l.year,
             name: 'year',
             value: year,
             classes: 'govuk-input--width-4',
@@ -161,7 +156,7 @@ export const generateContent: TranslationFn = content => {
 
   const dssQuestionAnswerPairs = verificationData['dssQuestionAnswerPairs'];
   const dssQuestionAnswerDatePairs = verificationData['dssQuestionAnswerDatePairs'];
-  const formFields: ANYTYPE = {};
+  const formFields: AnyType = {};
 
   if (isDataVerified) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -235,8 +230,10 @@ export const generateContent: TranslationFn = content => {
     }
   }
 
-  form['fields'] = { ...formFields } as ANYTYPE;
+  form['fields'] = { ...formFields } as AnyType;
   const translations = languages[content.language]();
+  const headerContent = content['additionalData']!['req']['session']['verificationData']['dssHeaderDetails'];
+  translations.title = headerContent === null ? translations.title : headerContent;
   return {
     ...translations,
     form,

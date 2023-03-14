@@ -14,7 +14,6 @@ beforeEach(() => {
   req = mockRequest();
   res = mockResponse();
 });
-
 const mockFormContent = {
   fields: {},
 } as unknown as FormContent;
@@ -22,10 +21,11 @@ const mockFormContent = {
 const controller = new UploadDocumentController(mockFormContent.fields);
 
 describe('Testing the post controller', () => {
+  // eslint-disable-next-line jest/no-done-callback
   test('upload document sequence', async () => {
     req = mockRequest({
       body: {
-        saveAndContinue: true,
+        continue: true,
         files: { documents: {} },
       },
       session: {
@@ -43,7 +43,7 @@ describe('Testing the post controller', () => {
       },
     };
     mockedAxios.post.mockResolvedValue({ data });
-    //await controller.post(req, res);
+    // await controller.post(req, res);
     expect(res.redirect).not.toHaveBeenCalled();
   });
 
@@ -157,6 +157,33 @@ describe('Testing the post controller', () => {
       propertyName: 'fileValidation',
       errorType: 'required',
     });
+    expect(res.redirect).not.toHaveBeenCalled();
+  });
+
+  test('checkFileCondition', () => {
+    const newRequest = req;
+    newRequest.session['save'] = () => '';
+    req.session['caseDocuments'] = [];
+    controller.checkFileCondition(newRequest, res, '', { files: { document: {} } });
+    expect(res.redirect).not.toHaveBeenCalled();
+  });
+  test('checkFileCondition with max number of files', () => {
+    const newRequest = req;
+    newRequest.session['save'] = () => '';
+    req.session['caseDocuments'] = [
+      { name: 'f.png' },
+      { name: 'f.png' },
+      { name: 'f.png' },
+      { name: 'f.png' },
+      { name: 'f.png' },
+      { name: 'f.png' },
+      { name: 'f.png' },
+      { name: 'f.png' },
+      { name: 'f.png' },
+      { name: 'f.png' },
+      { name: 'f.png' },
+    ];
+    controller.checkFileCondition(newRequest, res, '', { files: { document: {} } });
     expect(res.redirect).not.toHaveBeenCalled();
   });
 });

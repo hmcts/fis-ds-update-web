@@ -75,9 +75,7 @@ export type StepWithContent = Step & {
 };
 const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] => {
   const dir = __dirname;
-
   const results: StepWithContent[] = [];
-
   if (sequence?.length) {
     for (const step of sequence) {
       const { url } = parseUrl(step.url);
@@ -90,10 +88,9 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
 };
 export const edgeCaseSequenceOrder = getStepsWithContent(edgeCase_Sequence, '');
 export const uploadDocumentSequence = getStepsWithContent(uploadDocumentsSequence);
-
 export const stepsWithContent = [...edgeCaseSequenceOrder, ...uploadDocumentSequence];
 
-const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryString: string } => {
+export const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryString: string } => {
   const [path, searchParams] = url.split('?');
   const queryString = searchParams ? `?${searchParams}` : '';
   return { path, queryString };

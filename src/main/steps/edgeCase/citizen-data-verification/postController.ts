@@ -8,13 +8,13 @@ import { Response } from 'express';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { AnyType } from '../../../app/form/validation';
 import { UPLOAD_DOCUMENT } from '../../urls';
 
-import { ANYTYPE } from './index';
 /* The UploadDocumentController class extends the PostController class and overrides the
 PostDocumentUploader method */
 @autobind
-export default class UploadDocumentController extends PostController<AnyObject> {
+export default class CitizenDataVerificationPostController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
     super(fields);
   }
@@ -30,7 +30,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       return super.redirect(req, res, req.originalUrl);
     }
 
-    const newFormData: ANYTYPE = formData;
+    const newFormData: AnyType = formData;
     delete newFormData['_csrf'];
     delete newFormData['saveAndContinue'];
 
@@ -41,8 +41,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     dssQuestionAnswerDatePairs.forEach((question, index) => {
       const date = question['answer'];
       const parsedDate = date.split('-');
-      const calendarDate = parsedDate['2'];
-      const calendarMonth = parsedDate['1'];
+      const calendarDate = parsedDate['2'].startsWith('0', 0) ? parsedDate['2'].slice(1, 2) : parsedDate['2'];
+      const calendarMonth = parsedDate['1'].startsWith('0', 0) ? parsedDate['2'].slice(1, 2) : parsedDate['2'];
       const calendarYear = parsedDate['0'];
       datePairs[`DateFields_${index}-day`] = calendarDate;
       datePairs[`DateFields_${index}-month`] = calendarMonth;
@@ -62,13 +62,19 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
     const matcherData = { ...datePairs, ...InputFieldPairs };
     const transformedFormData = Object.fromEntries(
-      Object.entries(formData).map(([key, value]: ANYTYPE) => [
+      Object.entries(formData).map(([key, value]: AnyType) => [
         key,
-        value
-          .replace(/^\s+|\s+$/gm, '')
-          .split(' ')
-          .join('')
-          .toLowerCase(),
+        value.startsWith('0', 0)
+          ? value
+              .replace(/^\s+|\s+$/gm, '')
+              .split(' ')
+              .join('')
+              .slice(1, 2)
+          : value
+              .replace(/^\s+|\s+$/gm, '')
+              .split(' ')
+              .join('')
+              .toLowerCase(),
       ])
     );
     const checkIfDataMatched = JSON.stringify(matcherData) === JSON.stringify(transformedFormData);
@@ -79,10 +85,10 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       return super.redirect(req, res, UPLOAD_DOCUMENT);
     } else {
       const formDataToSessionValue = Object.fromEntries(
-        Object.entries(formData).map(([key, value]: ANYTYPE) => [key, value])
+        Object.entries(formData).map(([key, value]: AnyType) => [key, value])
       );
 
-      const verificationDataForForm: ANYTYPE = req.session['verificationData'];
+      const verificationDataForForm: AnyType = req.session['verificationData'];
       // eslint-disable-next-line @typescript-eslint/no-shadow
       const { caseId } = verificationDataForForm;
 

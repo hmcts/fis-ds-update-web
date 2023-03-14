@@ -15,6 +15,7 @@ function getCookie(cname) {
   );
   return cookies[cname] || '';
 }
+
 function setCookie(key, value, expiry) {
   const expires = new Date();
   expires.setTime(expires.getTime() + expiry * 24 * 60 * 60 * 1000);
