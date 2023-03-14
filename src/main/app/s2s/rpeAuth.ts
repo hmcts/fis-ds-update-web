@@ -3,7 +3,7 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import config from 'config';
 
 export class RpeApi {
-  private static _BASEURL: string = config.get('api.serviceAuth');
+  public static _BASEURL: string = config.get('api.serviceAuth');
 
   public static rpeAdaptor = (): AxiosInstance => {
     return axios.create({
