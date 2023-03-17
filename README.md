@@ -55,7 +55,7 @@ You should get a very basic home page (no styles, etc.).
 
 ## Developing
 
-### Code style
+### Code styles
 
 We use [ESLint](https://github.com/typescript-eslint/typescript-eslint)
 alongside [sass-lint](https://github.com/sasstools/sass-lint)
