@@ -14,5 +14,14 @@ withPipeline(type, product, component) {
   afterAlways('build') {
     yarnBuilder.yarn('build')
   }
+
+   onPR() {
+    env.ENV = 'preview'
+    // enableCleanupOfHelmReleaseOnSuccess()
+    def githubApi = new GithubAPI(this)
+    if (!githubApi.getLabelsbyPattern(env.BRANCH_NAME, "keep-helm")) {
+      enableCleanupOfHelmReleaseOnSuccess()
+    }
+  }
   
 }
