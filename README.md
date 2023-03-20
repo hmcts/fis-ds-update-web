@@ -1,7 +1,7 @@
 # fis-ds-update-web
 This is a Web application for DSS Update case journey used for Uploading the Documents by Citizens/Legal Reps against a Case in CCD. 
 
-## Getting Started -test
+## Getting Started - base branch
 
 ### Prerequisites
 
