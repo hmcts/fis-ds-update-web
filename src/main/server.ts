@@ -7,7 +7,7 @@ import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
-
+import { Webpack } from './modules/webpack';
 import { TestApiRoutes } from './api/endpoints';
 import { ErrorHandler } from './modules/error-handler';
 import { FileUpload } from './modules/fileupload';
@@ -39,6 +39,7 @@ new HealthCheck().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new ErrorHandler().handleNextErrorsFor(app);
 new Nunjucks().enableFor(app);
+new Webpack().enableFor(app);
 app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
