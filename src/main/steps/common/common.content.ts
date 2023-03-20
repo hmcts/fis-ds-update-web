@@ -8,7 +8,7 @@ const en = {
   phase: 'Beta',
   applyForChildArrangements: 'DSS Update Case',
   applyForDissolution: 'DSS Update Case',
-  edgeCaseServiceName: 'DSS Update Case',
+  dss_updateServiceName: 'DSS Update Case',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.',
   languageToggle: '<a href="?lng=cy" class="govuk-link language">Cymraeg</a>',
@@ -120,7 +120,7 @@ const cy: typeof en = {
   phase: 'Beta',
   applyForChildArrangements: 'DSS Update Case" (in welsh)',
   applyForDissolution: 'DSS Update Case"(in welsh)',
-  edgeCaseServiceName: 'DSS Update Case',
+  dss_updateServiceName: 'DSS Update Case',
   feedback:
     'This is a new service – your <a class="govuk-link" aria-label="Feedback link, This will open a new tab. You’ll need to return to this tab and continue with your application within 60 mins so you don’t lose your progress." href="#" target="_blank">feedback</a> will help us to improve it.(in welsh)',
   languageToggle: '<a href="?lng=en" class="govuk-link language">English</a>',
@@ -264,7 +264,7 @@ export const generatePageContent = ({
 const getServiceName = (addtionalReqData: CommonContentAdditionalData | undefined, translations: typeof en): string => {
   let serviceName = translations.applyForChildArrangements;
   if (addtionalReqData?.req?.path?.startsWith(CASE_SEARCH_URL)) {
-    serviceName = translations.edgeCaseServiceName;
+    serviceName = translations.dss_updateServiceName;
   }
   return capitalize(serviceName);
 };

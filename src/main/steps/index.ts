@@ -14,7 +14,7 @@ import { FormContent } from '../app/form/Form';
 import { parseUrl } from './common/url-parser';
 import { Step } from './constants';
 // eslint-disable-next-line import/no-unresolved
-import { edgeCase_Sequence } from './edgeCase/edgecase-sequence';
+import { dss_update_steps } from './dss-update/dss-sequence';
 import { uploadDocumentsSequence } from './upload-documents/uploadDocumentsSequence';
 // eslint-disable-next-line import/no-unresolved
 import { CASE_SEARCH_URL, PageLink } from './urls';
@@ -25,7 +25,7 @@ export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => 
     return CASE_SEARCH_URL;
   }
   const { path, queryString: queryStr } = getPathAndQueryString(req);
-  const nextStep = [...(edgeCase_Sequence as Step[]), ...uploadDocumentsSequence].find(s => s.url === path);
+  const nextStep = [...(dss_update_steps as Step[]), ...uploadDocumentsSequence].find(s => s.url === path);
   const url = nextStep ? nextStep.getNextStep(data, req) : CASE_SEARCH_URL;
   const { path: urlPath, queryString: urlQueryStr } = getPathAndQueryStringFromUrl(url);
   let queryString = '';
@@ -86,9 +86,9 @@ const getStepsWithContent = (sequence: Step[], subDir = ''): StepWithContent[] =
   }
   return results;
 };
-export const edgeCaseSequenceOrder = getStepsWithContent(edgeCase_Sequence, '');
+export const dss_updateSequenceOrder = getStepsWithContent(dss_update_steps, '');
 export const uploadDocumentSequence = getStepsWithContent(uploadDocumentsSequence);
-export const stepsWithContent = [...edgeCaseSequenceOrder, ...uploadDocumentSequence];
+export const stepsWithContent = [...dss_updateSequenceOrder, ...uploadDocumentSequence];
 
 export const getPathAndQueryStringFromUrl = (url: PageLink): { path: string; queryString: string } => {
   const [path, searchParams] = url.split('?');

@@ -4,11 +4,7 @@ import { AppRequest } from '../app/controller/AppRequest';
 import { PageLink } from './urls';
 
 export enum Sections {
-  AboutEdgeCase = 'aboutEdgeCase',
-  AboutRespondentCase = 'aboutRespondentCase',
-  AboutApplicantCase = 'aboutApplicantCase',
-  AboutCaAndDaRespondentCase = 'aboutCaAndDaRespondentCase',
-  EdgeCase = 'edgeCase',
+  dss_update = 'dss_update',
   uploadDocuments = 'upload-documents',
 }
 

@@ -49,7 +49,7 @@ def pipelineConf = new AppPipelineConfig()
 pipelineConf.vaultSecrets = secrets
 
 withNightlyPipeline(type, product, component) {
-  env.TEST_URL = "https://fis-ds-update-web.aat.platform.hmcts.net/?edgecaseType=FMP"
+  env.TEST_URL = "https://fis-ds-update-web.aat.platform.hmcts.net/?dss-updateType=FMP"
   env.DS_UI_URL = params.FRONTEND_URL
   enableCrossBrowserTest(60)
   //enableFullFunctionalTest(120)
