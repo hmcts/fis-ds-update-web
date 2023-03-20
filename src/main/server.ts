@@ -7,7 +7,7 @@ import express, { RequestHandler } from 'express';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
-import { Webpack } from './modules/webpack';
+
 import { TestApiRoutes } from './api/endpoints';
 import { ErrorHandler } from './modules/error-handler';
 import { FileUpload } from './modules/fileupload';
@@ -16,6 +16,7 @@ import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { PropertiesVolume } from './modules/properties-volume';
+import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
 import { SessionStorage } from './settings/redis/redis';
 
