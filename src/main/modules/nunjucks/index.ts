@@ -10,7 +10,7 @@ export class Nunjucks {
     app.set('view engine', 'njk');
     const govUkFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', 'govuk-frontend');
     const hmctsFrontendPath = path.join(__dirname, '..', '..', '..', '..', 'node_modules', '@hmcts', 'frontend');
-    const commonForDss = path.join(__dirname, '..', '..', 'steps', 'edgeCase', 'common');
+    const commonForDss = path.join(__dirname, '..', '..', 'steps', 'dss-update', 'common');
     const generalViews = path.join(__dirname, '..', '..', 'views');
     const env = nunjucks.configure(
       [path.join(__dirname, '..', '..', 'steps'), govUkFrontendPath, hmctsFrontendPath, commonForDss, generalViews],
