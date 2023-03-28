@@ -4,7 +4,7 @@ nodejs:
   ingressHost: ${SERVICE_FQDN}
 
   keyvaults:
-    fis-kv
+    fis-kv:
       secrets:
         - redis-access-key
         - AppInsightsInstrumentationKey
