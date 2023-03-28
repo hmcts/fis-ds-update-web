@@ -9,6 +9,7 @@ import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
 
 import { TestApiRoutes } from './api/endpoints';
+import { AppInsights } from './modules/appinsights';
 import { ErrorHandler } from './modules/error-handler';
 import { FileUpload } from './modules/fileupload';
 import { HealthCheck } from './modules/health';
@@ -16,9 +17,9 @@ import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { PropertiesVolume } from './modules/properties-volume';
+import { SessionStorage } from './modules/session';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
-import { SessionStorage } from './settings/redis/redis';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -34,8 +35,10 @@ export const app = express();
 app.locals.ENV = env;
 
 app.enable('trust proxy');
+new PropertiesVolume().enableFor(app);
 new SessionStorage().enableFor(app);
 app.use(cookies());
+new AppInsights().enable();
 new HealthCheck().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new ErrorHandler().handleNextErrorsFor(app);
@@ -51,7 +54,6 @@ app.use((req, res, next) => {
   next();
 });
 new FileUpload().enableFor(app);
-new PropertiesVolume().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new LanguageToggle().enableFor(app);
 //api for session
