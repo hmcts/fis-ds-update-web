@@ -9,6 +9,8 @@ import FileStoreFactory from 'session-file-store';
 // eslint-disable-next-line import/no-unresolved
 import { SessionConfigurableProperties, SessionCookieExpiryMaxAge } from './type';
 
+const RedisStore = ConnectRedis(session);
+
 export class SessionStorage {
   /* Creating a new session store for Redis and FileStore. */
   public static RedisStore = ConnectRedis(session);
@@ -59,12 +61,13 @@ export class SessionStorage {
       const client = redis.createClient({
         host: redisHost as string,
         password: config.get('session.redis.key') as string,
-        port: SessionStorage.SessionProperties.PORT,
-        tls: SessionStorage.SessionProperties.TLS,
-        connect_timeout: SessionStorage.SessionProperties.CONNECTION_TIMEOUT,
+        port: 6380,
+        tls: true,
+        connect_timeout: 15000,
       });
+
       app.locals.redisClient = client;
-      return new SessionStorage.RedisStore({ client });
+      return new RedisStore({ client });
     }
     return new SessionStorage.FileStore({ path: '/tmp' });
   }
