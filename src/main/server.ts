@@ -19,6 +19,7 @@ import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
+import { AppInsights } from 'modules/appinsights';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -37,6 +38,7 @@ app.enable('trust proxy');
 new PropertiesVolume().enableFor(app);
 new SessionStorage().enableFor(app);
 app.use(cookies());
+new AppInsights().enable();
 new HealthCheck().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new ErrorHandler().handleNextErrorsFor(app);
