@@ -8,7 +8,9 @@ export class PropertiesVolume {
     if (server.locals.ENV !== 'development') {
       propertiesVolume.addTo(config);
 
-      this.setSecret('secrets.rpe.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
+      this.setSecret('secrets.fis-kv.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
+      this.setSecret('secrets.fis-kv.redis-access-key', 'session.redis.key');
+      this.setSecret('secrets.fis-kv.redis-access-key', 'session.secret');
     }
   }
 
