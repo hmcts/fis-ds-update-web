@@ -16,9 +16,9 @@ import { Helmet } from './modules/helmet';
 import { LanguageToggle } from './modules/i18n';
 import { Nunjucks } from './modules/nunjucks';
 import { PropertiesVolume } from './modules/properties-volume';
+import { SessionStorage } from './modules/session';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
-import { SessionStorage } from './settings/redis/redis';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 

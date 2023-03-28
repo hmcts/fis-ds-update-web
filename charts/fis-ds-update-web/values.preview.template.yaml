@@ -2,7 +2,8 @@ nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
-
+  environment:
+    REDIS_HOST: 'fis-ds-update-web-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net'
   keyvaults:
     fis-kv:
       secrets:
