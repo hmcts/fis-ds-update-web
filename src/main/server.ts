@@ -34,6 +34,7 @@ export const app = express();
 app.locals.ENV = env;
 
 app.enable('trust proxy');
+new PropertiesVolume().enableFor(app);
 new SessionStorage().enableFor(app);
 app.use(cookies());
 new HealthCheck().enableFor(app);
@@ -51,7 +52,6 @@ app.use((req, res, next) => {
   next();
 });
 new FileUpload().enableFor(app);
-new PropertiesVolume().enableFor(app);
 new Helmet(config.get('security')).enableFor(app);
 new LanguageToggle().enableFor(app);
 //api for session
