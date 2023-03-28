@@ -15,6 +15,7 @@ session:
   redis:
     host:
     key:
+  secureCookie: 'false'
 api:
   cos: 'https://fis-cos-api-pr-165.service.core-compute-preview.internal'   
   serviceAuth: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
