@@ -1,0 +1,39 @@
+{% extends "common/page.njk" %}
+
+{% block page_content %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body">{{ byAccessingThisService | safe }}</p>
+  <p class="govuk-body">{{ theUseOfTheService }}</p>
+  <p class="govuk-body">{{ theTermYouIncludes }}</p>
+  <p class="govuk-body">{{ youAlsoAgreeThat }}</p>
+
+  <h2 class="govuk-heading-m">{{ whoWeAre }}</h2>
+  <p class="govuk-body">{{ thisServiceIs }}</p>
+  <p class="govuk-body">{{ youShouldCheckThese }}</p>
+
+  <h2 class="govuk-heading-m">{{ termsOfService }}</h2>
+  <p class="govuk-body">{{ youWillComplyWithData }}</p>
+
+  <h2 class="govuk-heading-m">{{ howToUse }}</h2>
+  <p class="govuk-body">{{ youWillSeekTo }}</p>
+  <p class="govuk-body">{{ youWillBeIndividuallyResponsible }}</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>{{ responsibilities1 }}</li>
+    <li>{{ responsibilities2 }}</li>
+    <li>{{ responsibilities3 }}</li>
+  </ul>
+  <p class="govuk-body">{{ youWillEnsure }}</p>
+  <p class="govuk-body">{{ youWillNot }}</p>
+  <p class="govuk-body">{{ youWillAlways }}</p>
+  <p class="govuk-body">{{ youWillOnly }}</p>
+  <p class="govuk-body">{{ youWillNotAttempt }}</p>
+  <p class="govuk-body">{{ whenUsingWifi }}</p>
+  <p class="govuk-body">{{ youWillOnlyConnect }}</p>
+  <p class="govuk-body">{{ yourOrganisation }}</p>
+  <p class="govuk-body">{{ theOrganisation }}</p>
+  <p class="govuk-body">{{ shouldTheOrganisation }}</p>
+  <p class="govuk-body">{{ inTheEvent }}</p>
+   <p class="govuk-body">{{ freeOfCharge }}</p>
+  <p class="govuk-body">{{ compliance }}</p>
+  <p class="govuk-body">{{ responsibilities }}</p>
+{% endblock %}
