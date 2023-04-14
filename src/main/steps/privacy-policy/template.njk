@@ -1,0 +1,93 @@
+{% extends "common/page.njk" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    
+    <h3 class="govuk-heading-s">{{ overview }}</h3>
+    <p class="govuk-body">{{ whyWeCollect }}</p>
+
+    <h2 class="govuk-heading-s">{{  whoManages }}</h2>
+    <p class="govuk-body">{{ managedBy }}</p>
+    <p class="govuk-body">{{  mojPersonalInformationCharter | safe }}</p>
+    <p class="govuk-body">{{ protectingData }}</p>
+    <p class="govuk-body">{{ personalData | safe }}</p>
+
+    <h3 class="govuk-heading-s">{{ thePersonal }}</h3>
+    <p class="govuk-body">{{  whenYouUseService }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ process }}</li>
+        <li>{{ legal }}</li>
+        <li>{{ improvements }}</li>
+    </ul>
+    <p class="govuk-body">{{ staffAndPersonalData }}</p>
+
+    <h3 class="govuk-heading-s">{{ typesOfPersonalData }}</h3>
+    <p class="govuk-body">{{   personalDataCollected }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ yourName }}</li>
+        <li>{{ email }}</li>
+        <li>{{ personalInformation }}</li>
+        <li>{{ clientsData }}</li>
+    </ul>
+    <p class="govuk-body">{{ collectMore }}</p>
+
+    <h3 class="govuk-heading-s">{{ usingYourData }}</h3>
+    <p class="govuk-body">{{ emailAddress }}</p>
+    <p class="govuk-body">{{ govUK }}</p>
+    <p class="govuk-body">{{ govCookies }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ openEmail }}</li>
+        <li>{{ ipAddress }}</li>
+        <li>{{ region }}</li>
+        <li>{{ webBrowser }}</li>
+    </ul>
+
+    <h3 class="govuk-heading-s">{{ storingYourData }}</h3>
+    <p class="govuk-body">{{ amountOfTime }}</p>
+
+    <h3 id="sharingYourData" class="govuk-heading-s">{{ sharingYourData }}</h3>
+    <p class="govuk-body">{{ anotherGovDepartment }}</p>
+    <p class="govuk-body">{{ preventCrime }}</p>
+    <p class="govuk-body">{{ googleAnalytics }}</p>
+
+    <h3 class="govuk-heading-s">{{ storingAndSharing }}</h3>
+    <p class="govuk-body">{{ internationally }}</p>
+
+    <h3 class="govuk-heading-s">{{ yourRights }}</h3>
+    <p class="govuk-body">{{ youCanAsk }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ seeData }}</li>
+        <li>{{ changeData }}</li>
+        <li>{{ deleteData }}</li>
+        <li>{{ restrictedData }}</li>
+    </ul>
+    <p class="govuk-body">{{ seePersonalData }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ mojForm | safe }}</li>
+        <li>{{ writeToUs }}</li>
+        <li>{{ emailUs | safe }}</li>
+    </ul>
+
+    <p class="govuk-body">{{ moreInformation }}</p>
+     <ul class="govuk-list govuk-list--bullet">
+        <li>{{ sharingInformation }}</li>
+        <li>{{ passingOnInfo }}</li>
+        <li>{{ staffInstructions }}</li>
+        <li>{{ checkingInfo }}</li>
+    </ul>
+    <p class="govuk-body">{{ contactingMOJDataProtection }}</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>{{ write }}</li>
+        <li>{{ emailDPO | safe }}</li>
+    </ul>
+
+    <h3 class="govuk-heading-s">{{ howToComplain }}</h3>
+    <p class="govuk-body">{{ complaints | safe }}</p>
+    <p class="govuk-body">{{ complaintsWritten }}</p>
+    <p class="govuk-body">{{ complaintsEmail | safe }}</p>
+    <p class="govuk-body">{{ ico | safe }}</p>
+  </div>
+</div>
+{% endblock %}
