@@ -7,7 +7,7 @@ import { CommonContent } from '../../common/common.content';
 import { UploadFormSummary } from './utils';
 
 export const enContent = {
-  serviceName: 'Check your answers ',
+  serviceName: 'DSS Update Case',
   title: 'Check your Answers',
   change: 'Edit',
   continue: 'Accept and continue',
@@ -39,7 +39,7 @@ const en = (content: any) => {
 };
 
 const cyContent: typeof enContent = {
-  serviceName: 'Check your answers - welsh',
+  serviceName: 'DSS Update Case - welsh',
   title: 'Check your Answers - welsh',
   change: 'Edit - welsh',
   statementOfTruth: 'I beleive that the facts stated in this case are true. - welsh',

@@ -31,6 +31,8 @@ describe('Testing the post controller', () => {
       session: {
         applicantCaseId: 'caseRefId',
         caseDocuments: [],
+        caseTypeId: 'caseRefId',
+        jurisdiction: 'ADOPTION',
       },
     });
     const data = {
@@ -90,6 +92,8 @@ describe('Testing the post controller', () => {
   test('File validations', async () => {
     const newRequest = req;
     newRequest.session['save'] = () => '';
+    newRequest.session['caseTypeId'] = 'caseTypeId';
+    newRequest.session['jurisdiction'] = 'jurisdiction';
     newRequest.files = { documents: { name: 'smple.pdf', size: 10, mimetype: 'application/pdf', data: '' } };
     const data = {
       status: 'Success',
@@ -113,6 +117,8 @@ describe('Testing the post controller', () => {
   test('File validations - multimedia file error', async () => {
     const newRequest = req;
     newRequest.session['save'] = () => '';
+    newRequest.session['caseTypeId'] = 'caseTypeId';
+    newRequest.session['jurisdiction'] = 'jurisdiction';
     newRequest.files = { documents: { name: 'sample.mp3', size: 510, mimetype: 'audio/mpeg', data: '' } };
     const data = {};
     mockedAxios.post.mockRejectedValue({ data });
@@ -128,6 +134,8 @@ describe('Testing the post controller', () => {
 
   test('File validations - file uploading successfull', async () => {
     const newRequest = req;
+    newRequest.session['caseTypeId'] = 'caseTypeId';
+    newRequest.session['jurisdiction'] = 'jurisdiction';
     newRequest.session['save'] = () => '';
     newRequest.files = { documents: { name: 'sample.pdf', size: 10, mimetype: 'application/pdf', data: '' } };
     const data = {

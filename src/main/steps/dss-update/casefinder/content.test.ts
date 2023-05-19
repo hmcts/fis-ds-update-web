@@ -2,6 +2,7 @@
 import { cy, en } from './content';
 
 const enContent = {
+  serviceName: 'DSS Update Case',
   title: 'Existing case details',
   subtitle: 'Case reference number',
   caseNameHint: 'This number will be 16 digits long.',
@@ -18,6 +19,7 @@ const enContent = {
 };
 
 const cyContent = {
+  serviceName: 'DSS Update Case',
   title: 'Existing case details - welsh',
   subtitle: 'Case reference number - welsh',
   caseNameHint: 'This number will be 16 digits long - welsh.',

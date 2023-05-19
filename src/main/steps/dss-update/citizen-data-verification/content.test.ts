@@ -5,6 +5,7 @@ import { AnyType } from '../../../app/form/validation';
 import { DateFields, InputFields, cy, en, generateContent } from './content';
 
 const englishContent = () => ({
+  serviceName: 'DSS Update Case',
   title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {
@@ -18,6 +19,7 @@ const englishContent = () => ({
   },
 });
 const welshContent = () => ({
+  serviceName: 'DSS Update Case',
   title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {

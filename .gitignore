@@ -27,3 +27,10 @@ npm-debug.log.*
 .settings/
 dist/
 public/
+
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

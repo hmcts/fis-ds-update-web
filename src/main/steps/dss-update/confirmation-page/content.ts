@@ -2,12 +2,14 @@ import { TranslationFn } from '../../../app/controller/GetController';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const en = () => ({
+  serviceName: 'DSS Update Case',
   successMessage: 'Case updated',
   subContent:
     'Thank you for updating your case. The information will now be sent to the court for review. They will be in touch if they need any additional information from you.',
 });
 
 const cy = () => ({
+  serviceName: 'DSS Update Case',
   successMessage: 'Case updated - welsh',
   subContent:
     'Thank you for updating your case. The information will now be sent to the court for review. They will be in touch if they need any additional information from you. - welsh',
