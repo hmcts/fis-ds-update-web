@@ -124,7 +124,8 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           contentType: documents.mimetype,
           filename: `${documents.name}`,
         });
-        formData.append('caseTypeOfApplication', config.get('app.caseTypeOfApplication'));
+        formData.append('caseTypeId', req.session['caseTypeId']);
+        formData.append('jurisdiction', req.session['jurisdiction']);
         try {
           const seviceAuthToken = await RpeApi.getRpeToken();
           const s2sToken = seviceAuthToken.data;

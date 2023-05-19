@@ -5,6 +5,7 @@ import { FormContent } from '../../../app/form/Form';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
+  serviceName: 'DSS Update Case',
   title: 'Existing case details',
   subtitle: 'Case reference number',
   caseNameHint: 'This number will be 16 digits long.',
@@ -21,6 +22,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
+  serviceName: 'DSS Update Case',
   title: 'Existing case details - welsh',
   subtitle: 'Case reference number - welsh',
   caseNameHint: 'This number will be 16 digits long - welsh.',

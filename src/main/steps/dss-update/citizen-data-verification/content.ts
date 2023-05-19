@@ -8,6 +8,7 @@ import { AnyType, isDateInputInvalid, isFieldFilledIn } from '../../../app/form/
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
+  serviceName: 'DSS Update Case',
   title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {
@@ -22,6 +23,7 @@ export const en = () => ({
 });
 
 export const cy = () => ({
+  serviceName: 'DSS Update Case',
   title: '[title]',
   errorSummaryMessage: 'There is a problem',
   errors: {

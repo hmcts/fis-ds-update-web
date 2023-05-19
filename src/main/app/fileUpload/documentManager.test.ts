@@ -4,10 +4,10 @@ import FormData from 'form-data';
 import { DOCUMENT_MANAGEMENT_CONFIGURATIONS, deleteDocument, uploadDocument } from './documentManager';
 describe('Test URL endpoints', () => {
   test('should match the document upload url', () => {
-    expect(DOCUMENT_MANAGEMENT_CONFIGURATIONS.UPLOAD_URL).toBe('/doc/dss-orhestration/dss/upload');
+    expect(DOCUMENT_MANAGEMENT_CONFIGURATIONS.UPLOAD_URL).toBe('/doc/dss-orhestration/upload-for-dss-update');
   });
   test('should match the document remove url', () => {
-    expect(DOCUMENT_MANAGEMENT_CONFIGURATIONS.REMOVE_URL).toBe('/doc/dss-orhestration/dss/{documentId}/delete');
+    expect(DOCUMENT_MANAGEMENT_CONFIGURATIONS.REMOVE_URL).toBe('/doc/dss-orhestration/{documentId}/delete');
   });
 });
 jest.mock('axios');

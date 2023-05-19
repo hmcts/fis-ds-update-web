@@ -4,8 +4,8 @@ import axios from 'axios';
 import config from 'config';
 
 export enum DOCUMENT_MANAGEMENT_CONFIGURATIONS {
-  UPLOAD_URL = '/doc/dss-orhestration/dss/upload',
-  REMOVE_URL = '/doc/dss-orhestration/dss/{documentId}/delete',
+  UPLOAD_URL = '/doc/dss-orhestration/upload-for-dss-update',
+  REMOVE_URL = '/doc/dss-orhestration/{documentId}/delete',
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
