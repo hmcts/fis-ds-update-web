@@ -43,12 +43,6 @@ const englishContent = () => ({
       maxFileError: 'You can only select up to 10 files at the same time',
       fileDescriptionRequired: 'Enter a description for the file selected for upload',
     },
-    documentDetail: {
-      notAlphaNumeric: 'You have entered an invalid character. Please enter letters and numbers only.',
-    },
-    eventName: {
-      notAlphaNumeric: 'You have entered an invalid character. Please enter letters and numbers only.',
-    },
   },
 });
 
@@ -95,12 +89,6 @@ const welshContent = () => ({
       uploadError: 'The selected file could not be uploaded – try again - welsh',
       maxFileError: 'You can only select up to 10 files at the same time - welsh',
       fileDescriptionRequired: 'Enter a description for the file selected for upload - welsh',
-    },
-    documentDetail: {
-      notAlphaNumeric: 'You have entered an invalid character. Please enter letters and numbers only. - welsh',
-    },
-    eventName: {
-      notAlphaNumeric: 'You have entered an invalid character. Please enter letters and numbers only. - welsh',
     },
   },
 });

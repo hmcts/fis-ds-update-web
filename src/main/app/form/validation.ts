@@ -81,15 +81,3 @@ export const isDateInputInvalid: DateValidator = date => {
     return invalid;
   }
 };
-
-export const isAlphaNumeric: Validator = value => {
-  if (typeof value === 'string') {
-    return !value.match(/^[a-zA-Z0-9_\s]*$/) ? 'invalid' : undefined;
-  }
-};
-
-export const isNumeric: Validator = value => {
-  if (value && !(value as string).match(/^\d+$/)) {
-    return ValidationError.NOT_NUMERIC;
-  }
-};

@@ -10,7 +10,6 @@ const enContent = {
   errors: {
     applicantCaseId: {
       required: 'There is a problem. Please enter a case reference number',
-      notNumeric: 'There is a problem. Please enter numeric case reference number of upto 16 digits',
     },
     caseNotFound: {
       required:
@@ -28,7 +27,6 @@ const cyContent = {
   errors: {
     applicantCaseId: {
       required: 'There is a problem. Please enter a case reference number - welsh',
-      notNumeric: 'There is a problem. Please enter numeric case reference number of upto 16 digits - welsh',
     },
     caseNotFound: {
       required:

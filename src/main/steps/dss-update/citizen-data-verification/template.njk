@@ -11,8 +11,6 @@
 {% set errorList = (errorList.push({text: errors.dataNotMatched.required , href: '#applicantName'}), errorList) %}
 {%elif error.propertyName === 'isEmptyFields'%}
 {% set errorList = (errorList.push({text: errors.isEmptyFields.required , href: '#applicantName'}), errorList) %}
-{%elif error.propertyName === 'inputFields'%}
-{% set errorList = (errorList.push({text: errors.inputFields.notAlphaNumeric , href: '#applicantName'}), errorList) %}
 {%else%}
 {%endif%}
 {%endfor%}

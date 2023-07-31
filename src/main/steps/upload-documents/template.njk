@@ -43,12 +43,6 @@
      {%elif error.propertyName === 'noDocumentUploaded'%}
   {% set errorList = (errorList.push({text: errors.documentUpload.noDocumentUploaded , href: '#file-upload-1'}), errorList) %}
     {% set errorMessage = errors.documentUpload.noDocumentUploaded  %}
-    {%elif error.propertyName === 'documentDetail'%}
-  {% set errorList = (errorList.push({text: errors.documentDetail.notAlphaNumeric , href: '#documentDetail'}), errorList) %}
-    {% set errorMessage = errors.documentDetail.notAlphaNumeric  %}
-    {%elif error.propertyName === 'eventName'%}
-  {% set errorList = (errorList.push({text: errors.documentDetail.notAlphaNumeric , href: '#eventName'}), errorList) %}
-    {% set errorMessage = errors.eventName.notAlphaNumeric  %}
 {%else%}
  {% set errorList = (errorList.push({text: errors.fileSize.required , href: '#file-upload-1'}), errorList) %}
      {% set errorMessage = errors.fileSize.required  %}
@@ -149,8 +143,8 @@
 {%endif%}
 {% endfor %}
 <div class="govuk-!-margin-top-3">
-<label class="govuk-label govuk-label-s" for="eventName">{{documentListLabel}}</label>
-<input class="govuk-input {{errorForFileDescription}}" id="eventName" name="eventName" type="text" aria-describedby="" autocomplete="eventName">
+<label class="govuk-label govuk-label-s" for="event-name">{{documentListLabel}}</label>
+<input class="govuk-input {{errorForFileDescription}}" id="event-name" name="event-name" type="text" aria-describedby="" autocomplete="event-name">
 </div>
 </div>
 {% for error in FileErrors %}
