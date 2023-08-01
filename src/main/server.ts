@@ -21,7 +21,7 @@ import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
-import { UPLOAD_DOCUMENT } from './steps/urls';
+import { CASE_SEARCH_URL } from './steps/urls';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -36,18 +36,11 @@ export const app = express();
 
 const limiter = rateLimit({
   windowMs: 60 * 1000, //1 minute
-  max: 30, //Limit each IP to 30 requests per minute
+  max: 40, //Limit each IP to 20 reqs/min (POST+GET)
   message: 'Too many requests from this IP, please try again later.',
 });
-
-const fileUploadLimiter = rateLimit({
-  windowMs: 60 * 1000, //1 minute
-  max: 10, //Limit each IP to 10 requests per minute
-  message: 'Too many requests from this IP to upload a file, please try again later.',
-});
 app.locals.ENV = env;
-app.use(limiter); //PRL-4123 - Apply the rate limiting middleware to all requests
-app.use(UPLOAD_DOCUMENT, fileUploadLimiter); //PRL-4123 - Apply the rate limiting middleware to file upload API only
+app.use(CASE_SEARCH_URL, limiter); //PRL-4123 - Apply the rate limiting middleware to case-finder
 app.enable('trust proxy');
 new PropertiesVolume().enableFor(app);
 new SessionStorage().enableFor(app);
