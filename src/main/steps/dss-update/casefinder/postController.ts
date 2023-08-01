@@ -33,6 +33,12 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
+    //PRL-4123
+    if (req.body.url) {
+      console.warn('Potential bot activity detected from IP: ' + req.ip);
+      res.status(200).end('Thank you for your submission. You will be contacted in due course.');
+      return;
+    }
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
     const form = new Form(fields);
     const { ...formData } = form.getParsedBody(req.body);
