@@ -17,7 +17,7 @@ session:
     key:
   secureCookie: 'false'
 api:
-  cos: 'http://fis-cos-api-aat.service.core-compute-aat.internal'
+  cos: 'http://fis-cos-api-aat.service.core-compute-aat.internal'   
   serviceAuth: 'http://rpe-service-auth-provider-aat.service.core-compute-aat.internal'
 uploadPolicy:
   documentSize: 20    
