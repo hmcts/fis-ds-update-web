@@ -11,8 +11,13 @@
 {% set formError = 'govuk-form-group--error'%}
 {% set formInputError = 'govuk-input--error'%}
 {% if error.propertyName === 'applicantCaseId'%}
+{% if error.errorType === 'required'%}
 {% set errorList = (errorList.push({text: errors.applicantCaseId.required , href: '#applicantCaseId'}), errorList) %}
 {% set formErrorMessage = errors.applicantCaseId.required %}
+{%else%}
+{% set errorList = (errorList.push({text: errors.applicantCaseId.notNumeric , href: '#applicantCaseId'}), errorList) %}
+{% set formErrorMessage = errors.applicantCaseId.notNumeric %}
+{%endif%}
 {%elif error.propertyName === 'caseNotFound' %}
 {% set errorList = (errorList.push({text: errors.caseNotFound.required , href: '#applicantCaseId'}), errorList) %}
 {% set formErrorMessage = errors.caseNotFound.required %}

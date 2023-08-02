@@ -17,6 +17,7 @@
 
 {% set errorList = []%}
 {% set errorMessage = ""%}
+{% set textAreaErrorMsg = ""%}
 
 {% for error in FileErrors %}
 {% if error.propertyName === 'fileSize'%}
@@ -43,6 +44,12 @@
      {%elif error.propertyName === 'noDocumentUploaded'%}
   {% set errorList = (errorList.push({text: errors.documentUpload.noDocumentUploaded , href: '#file-upload-1'}), errorList) %}
     {% set errorMessage = errors.documentUpload.noDocumentUploaded  %}
+    {%elif error.propertyName === 'documentDetail'%}
+  {% set errorList = (errorList.push({text: errors.documentDetail.notAlphaNumeric , href: '#documentDetail'}), errorList) %}
+    {% set textAreaErrorMsg = errors.documentDetail.notAlphaNumeric  %}
+    {%elif error.propertyName === 'eventName'%}
+  {% set errorList = (errorList.push({text: errors.eventName.notAlphaNumeric , href: '#eventName'}), errorList) %}
+    {% set errorMessage = errors.eventName.notAlphaNumeric  %}
 {%else%}
  {% set errorList = (errorList.push({text: errors.fileSize.required , href: '#file-upload-1'}), errorList) %}
      {% set errorMessage = errors.fileSize.required  %}
@@ -58,6 +65,12 @@
 
 <h1 class="govuk-heading-xl govuk-!-margin-top-7">{{title}}</h1>
  <form action="{{postURL}}/upload-documents" method="post" enctype="multipart/form-data">
+<div class="{% if textAreaErrorMsg %}govuk-form-group--error {%endif%}">
+  {%if textAreaErrorMsg %}
+  <p id="document-detail-error" class="govuk-error-message">
+      <span class="govuk-visually-hidden"></span> {{textAreaErrorMsg}}
+    </p>
+  {%endif%}
 {{ govukTextarea({
   name: "documentDetail",
   id: "documentDetail",
@@ -68,6 +81,7 @@
     isPageHeading: true
   }
 }) }}
+</div>
 
 <p class="govuk-body">{{uploadedDocumentsSubTitle}}</p>
 <ul class="govuk-list govuk-list--bullet">
@@ -119,7 +133,7 @@
 <div class="govuk-form-group govuk-inset-text">
 
  <input type="hidden" name="_csrf" id="csrfToken" value="{{ csrfToken }}">
-  <div class=" {% if FileErrors.length > 0  %}govuk-form-group--error {%endif%}">
+  <div class=" {% if (FileErrors.length > 0) and (textAreaErrorMsg === "")  %}govuk-form-group--error {%endif%}">
  <p> {{uploadAFile}} </p>
  {%if FileErrors.length > 0  %}
   <p id="passport-issued-error" class="govuk-error-message">
@@ -143,8 +157,8 @@
 {%endif%}
 {% endfor %}
 <div class="govuk-!-margin-top-3">
-<label class="govuk-label govuk-label-s" for="event-name">{{documentListLabel}}</label>
-<input class="govuk-input {{errorForFileDescription}}" id="event-name" name="event-name" type="text" aria-describedby="" autocomplete="event-name">
+<label class="govuk-label govuk-label-s" for="eventName">{{documentListLabel}}</label>
+<input class="govuk-input {{errorForFileDescription}}" id="eventName" name="eventName" type="text" aria-describedby="" autocomplete="eventName">
 </div>
 </div>
 {% for error in FileErrors %}

@@ -16,6 +16,9 @@ const englishContent = () => ({
     isEmptyFields: {
       required: 'Some of the form fields are empty. Please enter the values and retry.',
     },
+    inputFields: {
+      notAlphaNumeric: 'Some of the form fields have a invalid character. Please enter letters and numbers only.',
+    },
   },
 });
 const welshContent = () => ({
@@ -28,6 +31,10 @@ const welshContent = () => ({
     },
     isEmptyFields: {
       required: 'Some of the form fields are empty. Please enter the values and retry.',
+    },
+    inputFields: {
+      notAlphaNumeric:
+        'Some of the form fields have a invalid character. Please enter letters and numbers only. - welsh',
     },
   },
 });
