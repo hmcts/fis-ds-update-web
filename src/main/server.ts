@@ -35,6 +35,7 @@ export const app = express();
 app.locals.ENV = env;
 
 app.enable('trust proxy');
+app.disable('x-powered-by'); //PRL-4121
 new PropertiesVolume().enableFor(app);
 new SessionStorage().enableFor(app);
 app.use(cookies());
