@@ -12,6 +12,7 @@ import { AppRequest } from '../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../app/controller/PostController';
 import { uploadDocument } from '../../app/fileUpload/documentManager';
 import { FormFields, FormFieldsFn } from '../../app/form/Form';
+import { isAlphaNumeric } from '../../app/form/validation';
 import { RpeApi } from '../../app/s2s/rpeAuth';
 import { CHECK_YOUR_ANSWERS } from '../urls';
 /* The UploadDocumentController class extends the PostController class and overrides the
@@ -37,6 +38,17 @@ export default class UploadDocumentController extends PostController<AnyObject> 
     }
     req.session['documentDetail'] = req.body['documentDetail'];
     req.session.save();
+
+    if (isAlphaNumeric(req.body['documentDetail'] as string)) {
+      req.session.errors?.push({ propertyName: 'documentDetail', errorType: 'notAlphaNumeric' });
+      req.session['documentDetail'] = '';
+      return super.redirect(req, res, req.originalUrl);
+    }
+    if (isAlphaNumeric(req.body['eventName'] as string)) {
+      req.session.errors?.push({ propertyName: 'eventName', errorType: 'notAlphaNumeric' });
+      req.session['eventName'] = '';
+      return super.redirect(req, res, req.originalUrl);
+    }
     if (ContinueFromPage) {
       if (!req.session.hasOwnProperty('caseDocuments') || req.session['caseDocuments'].length === 0) {
         this.uploadFileError(req, res, req.originalUrl, {
@@ -113,7 +125,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             errorType: 'required',
           });
         }
-      } else if (req.body['event-name'] === '') {
+      } else if (req.body['eventName'] === '') {
         this.uploadFileError(req, res, redirectUrl, {
           propertyName: 'fileDescriptionRequired',
           errorType: 'required',
@@ -136,7 +148,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
             fileName,
             documentId,
             binaryUrl,
-            description: req.body['event-name'],
+            description: req.body['eventName'],
           });
           req.session.save(() => res.redirect(redirectUrl));
         } catch (error) {

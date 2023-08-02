@@ -8,7 +8,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
-import { AnyType } from '../../../app/form/validation';
+import { AnyType, isAlphaNumeric } from '../../../app/form/validation';
 import { UPLOAD_DOCUMENT } from '../../urls';
 
 /* The UploadDocumentController class extends the PostController class and overrides the
@@ -125,6 +125,10 @@ export default class CitizenDataVerificationPostController extends PostControlle
           return super.redirect(req, res, req.originalUrl);
         }
       } else {
+        if (isAlphaNumeric(formData['InputFields_0']) || isAlphaNumeric(formData['InputFields_1'])) {
+          req.session['errors'] = [{ propertyName: 'inputFields', errorType: 'notAlphaNumeric' }];
+          return super.redirect(req, res, req.originalUrl);
+        }
         if (req.session.errors) {
           req.session['errors'] = [{ propertyName: 'dataNotMatched', errorType: 'required' }];
         }

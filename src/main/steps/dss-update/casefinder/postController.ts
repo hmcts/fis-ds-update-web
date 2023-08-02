@@ -9,6 +9,7 @@ import { Response } from 'express';
 import { AppRequest } from '../../../app/controller/AppRequest';
 import { AnyObject, PostController } from '../../../app/controller/PostController';
 import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
+import { isNumeric } from '../../../app/form/validation';
 import { RpeApi } from '../../../app/s2s/rpeAuth';
 import { DATA_VERIFICATION } from '../../urls';
 /* The UploadDocumentController class extends the PostController class and overrides the
@@ -51,6 +52,11 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       req.session['caseRefId'] = '';
       super.redirect(req, res, req.originalUrl);
     } else {
+      if (isNumeric(req.body['applicantCaseId'] as string)) {
+        req.session.errors.push({ propertyName: 'applicantCaseId', errorType: 'notNumeric' });
+        req.session['caseRefId'] = '';
+        return super.redirect(req, res, req.originalUrl);
+      }
       try {
         const responseFromServerCall = await this.serverCallForCaseIdValidations(req);
         if (responseFromServerCall.status === 200) {
