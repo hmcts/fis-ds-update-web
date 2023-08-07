@@ -7843,7 +7843,7 @@ __metadata:
     csurf: ^1.11.0
     dayjs: ^1.10.7
     email-validator: ^2.0.4
-    engine.io: ^6.2.1
+    engine.io: ^6.5.2
     eslint: ^7.32.0
     eslint-config-prettier: ^8.3.0
     eslint-plugin-import: ^2.26.0
