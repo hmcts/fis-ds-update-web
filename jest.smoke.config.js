@@ -4,7 +4,7 @@ module.exports = {
   testEnvironment: 'node',
   testRunner: 'jest-circus/runner',
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.(ts|tsx)$': '@swc/jest',
   },
   moduleFileExtensions: ['ts', 'js', 'json'],
 };
