@@ -58,4 +58,4 @@ export const mockRequest = ({
     url: '/request',
     originalUrl: '/request',
     logout: jest.fn(),
-  } as unknown as any);
+  }) as unknown as any;

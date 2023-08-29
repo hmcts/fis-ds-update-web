@@ -18,7 +18,7 @@ interface GovUkNunjucksSummary {
         href: string;
         text: string;
         visuallyHiddenText: string;
-      }
+      },
     ];
   };
   classes?: string;

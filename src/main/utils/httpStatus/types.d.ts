@@ -8,6 +8,6 @@ type HTTP_STATUS_CODE = number;
  * @property {HTTP_STATUS_CODE} [keyNameOfHttpStatusCode: HTTP_STATUS_CODE] - This is the key name of
  * the HTTP status code.
  */
-export type HTTPCODES = { 
- [keyNameOfHttpStatusCode: string]: HTTP_STATUS_CODE 
-}
+export type HTTPCODES = {
+  [keyNameOfHttpStatusCode: string]: HTTP_STATUS_CODE;
+};

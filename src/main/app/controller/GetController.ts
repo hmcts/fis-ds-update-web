@@ -18,7 +18,10 @@ export type TranslationFn = (content: CommonContent) => PageContent;
 
 @autobind
 export class GetController {
-  constructor(protected readonly view: string, protected readonly content: TranslationFn) {}
+  constructor(
+    protected readonly view: string,
+    protected readonly content: TranslationFn
+  ) {}
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async get(req: AppRequest, res: Response, renderableContents?): Promise<void> {
