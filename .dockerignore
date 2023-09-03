@@ -6,9 +6,16 @@
 
 !package.json
 !yarn.lock
-
+!.swcrc
 !tsconfig.json
+!jsconfig.json
+!tsconfig.eslint.json
 !webpack/**
 !src/main/**
 !config/**
 !webpack.config.js
+!.yarnrc.yml
+!.yarn/releases
+!.yarn/plugins
+!.yarn/versions
+!.yarn/patches
