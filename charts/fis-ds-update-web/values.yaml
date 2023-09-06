@@ -5,7 +5,7 @@ nodejs:
   aadIdentityName: fis
   ingressHost: dss-update-case.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'hmctspublic.azurecr.io/fis/ds-update-web:latest'
-  
+
   environment:
     NODE_ENV: production
     REFORM_TEAM: fis
@@ -17,4 +17,3 @@ nodejs:
       secrets:
         - redis-access-key
         - AppInsightsInstrumentationKey
-

@@ -36,6 +36,10 @@
 <form class="form" id="main-form" method="post"  novalidate="novalidate">
    <input type="hidden" name="_csrf" id="csrfToken" value="">
    <div class="govuk-form-group applicantCaseId {{formError}}">
+         <div id="url-group" style="display: none;" aria-hidden="true">
+            <label for="url">If you are a human, please leave this field blank.</label>
+            <input type="text" id="url" name="url">
+         </div>
        <h1 class="govuk-heading-md"> {{subtitle}} </h1>
        {% if formErrorMessage !== '' %}
        <p id="nationality-error" class="govuk-error-message">{{formErrorMessage}}</p>

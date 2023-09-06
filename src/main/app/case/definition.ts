@@ -2,7 +2,6 @@
 /* eslint-disable */
 // Generated using typescript-generator version 2.33.956 on 2021-11-12 15:28:24.
 
-
 export interface CaseLink {
   CaseReference: string;
 }
@@ -19,12 +18,11 @@ export interface DocumentInfo {
   binaryUrl: string;
 }
 
-
-export interface C100DocumentInfo extends DocumentInfo{
+export interface C100DocumentInfo extends DocumentInfo {
   id: string;
 }
 
 export const YesOrNo = {
   YES: 'Yes',
-  NO: 'No'
-}
+  NO: 'No',
+};

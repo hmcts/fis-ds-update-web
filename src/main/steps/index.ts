@@ -3,7 +3,6 @@
 import * as fs from 'fs';
 
 import { NextFunction, Response } from 'express';
-import QueryString from 'query-string';
 
 // eslint-disable-next-line import/no-unresolved
 import { Case } from '../app/case/case';
@@ -19,6 +18,7 @@ import { uploadDocumentsSequence } from './upload-documents/uploadDocumentsSeque
 // eslint-disable-next-line import/no-unresolved
 import { CASE_SEARCH_URL, PageLink } from './urls';
 
+const QueryString = require('query-string');
 export const getNextStepUrl = (req: AppRequest, data: Partial<Case>): string => {
   //eslint-disable-next-line @typescript-eslint/no-explicit-any
   if ((req.body as any).saveAsDraft) {

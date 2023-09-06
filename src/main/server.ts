@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import config = require('config');
 import cookies from 'cookie-parser';
 import express, { RequestHandler } from 'express';
+import rateLimit from 'express-rate-limit';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
@@ -20,6 +21,7 @@ import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
+import { CASE_SEARCH_URL } from './steps/urls';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -32,8 +34,13 @@ const developmentMode = env === 'development';
 const logger: LoggerInstance = Logger.getLogger('server');
 export const app = express();
 
+const limiter = rateLimit({
+  windowMs: 60 * 1000, //1 minute
+  max: 40, //Limit each IP to 20 reqs/min (POST+GET)
+  message: 'Too many requests from this IP, please try again later.',
+});
 app.locals.ENV = env;
-
+app.use(CASE_SEARCH_URL, limiter); //PRL-4123 - Apply the rate limiting middleware to case-finder
 app.enable('trust proxy');
 app.disable('x-powered-by'); //PRL-4121
 new PropertiesVolume().enableFor(app);
