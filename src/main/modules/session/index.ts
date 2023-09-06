@@ -5,7 +5,7 @@ import session from 'express-session';
 import * as redis from 'redis';
 import FileStoreFactory from 'session-file-store';
 
-const RedisStore = require("connect-redis").default;
+const RedisStore = require('connect-redis').default;
 const FileStore = FileStoreFactory(session);
 
 export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
