@@ -17,8 +17,8 @@ session:
     key:
   secureCookie: 'false'
 api:
-  cos: 'FIS_COS_API'
-  serviceAuth: 'RPE_API'
+  cos: FIS_COS_API
+  serviceAuth: RPE_API
 uploadPolicy:
   documentSize: 20
   multimediaSize: 500
