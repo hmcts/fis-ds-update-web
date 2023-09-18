@@ -66,8 +66,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
           req.session['caseTypeId'] = responseFromServerCall.data.caseTypeId;
           req.session['jurisdiction'] = responseFromServerCall.data.jurisdiction;
           super.redirect(req, res, DATA_VERIFICATION);
-        }
-        else {
+        } else {
           console.log('could not get 200 response from case finder api');
         }
       } catch (error) {
