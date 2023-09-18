@@ -36,7 +36,7 @@ export const app = express();
 
 const limiter = rateLimit({
   windowMs: 60 * 1000, //1 minute
-  max: 40, //Limit each IP to 20 reqs/min (POST+GET)
+  max: 200, //Limit each IP to 20 reqs/min (POST+GET)
   message: 'Too many requests from this IP, please try again later.',
 });
 app.locals.ENV = env;
