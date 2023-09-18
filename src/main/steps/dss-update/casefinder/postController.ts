@@ -60,11 +60,15 @@ export default class UploadDocumentController extends PostController<AnyObject> 
       try {
         const responseFromServerCall = await this.serverCallForCaseIdValidations(req);
         if (responseFromServerCall.status === 200) {
+          console.log('Got response as 200 from case finder api');
           req.session['caseRefId'] = req.body.applicantCaseId;
           req.session['verificationData'] = responseFromServerCall.data;
           req.session['caseTypeId'] = responseFromServerCall.data.caseTypeId;
           req.session['jurisdiction'] = responseFromServerCall.data.jurisdiction;
           super.redirect(req, res, DATA_VERIFICATION);
+        }
+        else {
+          console.log('could not get 200 response from case finder api');
         }
       } catch (error) {
         console.log(error);
