@@ -41,8 +41,8 @@ const limiter = rateLimit({
 });
 app.locals.ENV = env;
 app.use(CASE_SEARCH_URL, limiter); //PRL-4123 - Apply the rate limiting middleware to case-finder
-app.enable('trust proxy');
 app.disable('x-powered-by'); //PRL-4121
+app.disable('trust proxy');
 new PropertiesVolume().enableFor(app);
 new SessionStorage().enableFor(app);
 app.use(cookies());
