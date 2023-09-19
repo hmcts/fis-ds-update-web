@@ -18,8 +18,11 @@ services:
     tokenKey: PCQ_TOKEN
 port: PORT
 session:
+  secret:
+  secureCookie: 
   redis:
     host: REDIS_HOST
+    key: 
   secureCookie: SECURE_COOKIE
 e2e:
   userTestPassword: TEST_PASSWORD
