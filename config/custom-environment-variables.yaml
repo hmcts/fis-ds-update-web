@@ -19,7 +19,6 @@ services:
 port: PORT
 session:
   secret:
-  secureCookie: 
   redis:
     host: REDIS_HOST
     key: 
