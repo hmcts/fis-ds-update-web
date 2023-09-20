@@ -20,6 +20,7 @@ import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
+import { CSRFToken } from 'modules/csrf';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
@@ -40,6 +41,7 @@ new PropertiesVolume().enableFor(app);
 new SessionStorage().enableFor(app);
 app.use(cookies());
 new AppInsights().enable();
+new CSRFToken().enableFor(app);
 new HealthCheck().enableFor(app);
 new ErrorHandler().enableFor(app, logger);
 new ErrorHandler().handleNextErrorsFor(app);
