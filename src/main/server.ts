@@ -10,6 +10,7 @@ import type { LoggerInstance } from 'winston';
 
 import { TestApiRoutes } from './api/endpoints';
 import { AppInsights } from './modules/appinsights';
+import { CSRFToken } from './modules/csrf';
 import { ErrorHandler } from './modules/error-handler';
 import { FileUpload } from './modules/fileupload';
 import { HealthCheck } from './modules/health';
@@ -20,7 +21,6 @@ import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
-import { CSRFToken } from 'modules/csrf';
 
 const { Logger } = require('@hmcts/nodejs-logging');
 
