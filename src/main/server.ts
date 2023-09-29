@@ -33,7 +33,6 @@ const logger: LoggerInstance = Logger.getLogger('server');
 export const app = express();
 
 app.locals.ENV = env;
-app.enable('trust proxy');
 new PropertiesVolume().enableFor(app);
 new SessionStorage().enableFor(app);
 app.use(cookies());
