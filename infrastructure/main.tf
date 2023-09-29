@@ -8,7 +8,7 @@ locals {
 
 data "azurerm_key_vault" "key_vault" {
   name = local.vaultName
-  resource_group_name = local.vaultName
+  resource_group_name = "${var.product}-kv-${var.env}"
 }
 
 module "fis-ds-update-session-storage" {
