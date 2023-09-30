@@ -1,11 +1,12 @@
 import config from 'config';
+import ConnectRedis from 'connect-redis';
 import cookieParser from 'cookie-parser';
 import { Application } from 'express';
 import session from 'express-session';
 import * as redis from 'redis';
 import FileStoreFactory from 'session-file-store';
 
-const RedisStore = require('connect-redis').default;
+const RedisStore = ConnectRedis(session);
 const FileStore = FileStoreFactory(session);
 
 export const cookieMaxAge = 21 * (60 * 1000); // 21 minutes
@@ -49,6 +50,8 @@ export class SessionStorage {
       console.log('inside redis client ');
       console.log(client);
       console.log('after client console');
+      console.log('config.get("session.redis.key")')
+      console.log(config.get('session.redis.key'));
       return new RedisStore({ client });
     }
 
