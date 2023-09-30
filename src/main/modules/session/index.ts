@@ -30,6 +30,8 @@ export class SessionStorage {
         store: this.getStore(app),
       })
     );
+
+    console.log('inside session');
   }
 
   private getStore(app: Application) {
@@ -44,6 +46,8 @@ export class SessionStorage {
       });
 
       app.locals.redisClient = client;
+      console.log('inside redis client ');
+      console.log(client);
       return new RedisStore({ client });
     }
 
