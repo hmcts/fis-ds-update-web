@@ -48,6 +48,7 @@ export class SessionStorage {
       app.locals.redisClient = client;
       console.log('inside redis client ');
       console.log(client);
+      console.log('after client console');
       return new RedisStore({ client });
     }
 
