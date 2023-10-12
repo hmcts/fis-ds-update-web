@@ -33,7 +33,7 @@ export class GetController {
 
     if (req.query.hasOwnProperty('logged-in')) {
       req.session.loggedInSystemUserType = req.query['logged-in'] as string;
-      return res.redirect(Urls.START_HOME);
+      req.session.regenerate(() => res.redirect(Urls.START_HOME));
     } else {
       try {
         const name = this.getName(req) as string;

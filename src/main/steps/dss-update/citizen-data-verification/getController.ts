@@ -16,18 +16,23 @@ export default class CitizenDataVerificationGetController extends GetController 
   }
 
   public async get(req: AppRequest, res: Response): Promise<void> {
+    console.log('inside get controller of data verficiation');
     if (res.locals.isError || res.headersSent) {
       return;
     }
     try {
+      console.log('inside try');
       if (!req.session.hasOwnProperty('verificationData')) {
+        console.log('inside verification data if loop');
         req.session['verificationData'] = {};
       }
       if (!req.session.hasOwnProperty('isDataVerified')) {
+        console.log('inside isDataVerified  if loop');
         req.session['isDataVerified'] = false;
       }
       super.get(req, res, {});
     } catch (error) {
+      console.log('error found please log');
       console.log(error);
       res.redirect('/error');
     }
