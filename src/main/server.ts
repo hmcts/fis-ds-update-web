@@ -34,7 +34,7 @@ export const app = express();
 
 app.locals.ENV = env;
 new PropertiesVolume().enableFor(app);
-new SessionStorage().enableFor(app);
+new SessionStorage().enableFor(app, logger);
 app.use(cookies());
 new AppInsights().enable();
 new HealthCheck().enableFor(app);
