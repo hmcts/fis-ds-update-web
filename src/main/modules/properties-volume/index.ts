@@ -9,8 +9,8 @@ export class PropertiesVolume {
       propertiesVolume.addTo(config);
 
       this.setSecret('secrets.fis-kv.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
-      this.setSecret('secrets.fis-kv.redis-access-key', 'session.redis.key');
-      this.setSecret('secrets.fis-kv.redis-access-key', 'session.secret');
+      this.setSecret('secrets.fis-kv.redis-access-key-v6', 'session.redis.key');
+      this.setSecret('secrets.fis-kv.redis-access-key-v6', 'session.secret');
     }
   }
 
