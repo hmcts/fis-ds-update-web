@@ -23,3 +23,8 @@ module "fis-ds-update-session-storage" {
   public_network_access_enabled = false
 }
 
+resource "azurerm_key_vault_secret" "redis_access_key_v6" {
+  name         = "redis-access-key-v6"
+  value        = module.fis-ds-update-session-storage.access_key
+  key_vault_id = data.azurerm_key_vault.key_vault.id
+}
