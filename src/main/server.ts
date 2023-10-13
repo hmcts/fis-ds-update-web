@@ -22,13 +22,10 @@ import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
 
 const { Logger } = require('@hmcts/nodejs-logging');
-
-const { setupDev } = require('./development');
-
 const env = process.env.NODE_ENV || 'development';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-const developmentMode = env === 'development';
+//const developmentMode = env === 'development';
 const logger: LoggerInstance = Logger.getLogger('server');
 export const app = express();
 
@@ -42,7 +39,7 @@ new ErrorHandler().enableFor(app, logger);
 new ErrorHandler().handleNextErrorsFor(app);
 new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
-app.locals.developmentMode = process.env.NODE_ENV !== 'production';
+//app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
@@ -58,7 +55,7 @@ new LanguageToggle().enableFor(app);
 new TestApiRoutes().enableFor(app);
 new Routes().enableFor(app);
 
-setupDev(app, developmentMode);
+//setupDev(app, developmentMode);
 
 const port: number = parseInt(process.env.PORT || '3100', 10);
 if (app.locals.ENV === 'development') {
