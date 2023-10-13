@@ -17,8 +17,8 @@ session:
     key:
   secureCookie: 'false'
 api:
-  cos: FIS_COS_API
-  serviceAuth: RPE_API
+  cos: 'http://fis-cos-api-demo.service.core-compute-demo.internal'
+  serviceAuth: 'http://rpe-service-auth-provider-demo.service.core-compute-demo.internal'
 uploadPolicy:
   documentSize: 20
   multimediaSize: 500
