@@ -5,13 +5,13 @@ import { get, set } from 'lodash';
 
 export class PropertiesVolume {
   enableFor(server: Application): void {
-    if (server.locals.ENV !== 'development') {
-      propertiesVolume.addTo(config);
+    console.log('server.locals.ENV');
+    console.log(server.locals.ENV);
+    propertiesVolume.addTo(config);
 
-      this.setSecret('secrets.fis-kv.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
-      this.setSecret('secrets.fis-kv.redis-access-key', 'session.redis.key');
-      this.setSecret('secrets.fis-kv.redis-access-key', 'session.secret');
-    }
+    this.setSecret('secrets.fis-kv.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
+    this.setSecret('secrets.fis-kv.redis-access-key-v6', 'session.redis.key');
+    this.setSecret('secrets.fis-kv.redis-access-key-v6', 'session.secret');
   }
 
   private setSecret(fromPath: string, toPath: string): void {

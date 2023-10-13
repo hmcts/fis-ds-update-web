@@ -18,4 +18,5 @@ nodejs:
     fis-kv:
       secrets:
         - redis-access-key
+        - redis-access-key-v6
         - AppInsightsInstrumentationKey

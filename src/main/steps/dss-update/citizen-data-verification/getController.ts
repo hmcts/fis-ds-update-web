@@ -20,6 +20,8 @@ export default class CitizenDataVerificationGetController extends GetController 
       return;
     }
     try {
+      console.log('From session from case finder');
+      console.log(req.session);
       if (!req.session.hasOwnProperty('verificationData')) {
         req.session['verificationData'] = {};
       }

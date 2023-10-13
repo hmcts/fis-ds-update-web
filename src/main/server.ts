@@ -4,7 +4,6 @@ import * as bodyParser from 'body-parser';
 import config = require('config');
 import cookies from 'cookie-parser';
 import express, { RequestHandler } from 'express';
-import rateLimit from 'express-rate-limit';
 import favicon from 'serve-favicon';
 import toobusy from 'toobusy-js';
 import type { LoggerInstance } from 'winston';
@@ -21,29 +20,18 @@ import { PropertiesVolume } from './modules/properties-volume';
 import { SessionStorage } from './modules/session';
 import { Webpack } from './modules/webpack';
 import { Routes } from './routes';
-import { CASE_SEARCH_URL } from './steps/urls';
 
 const { Logger } = require('@hmcts/nodejs-logging');
-
-const { setupDev } = require('./development');
-
 const env = process.env.NODE_ENV || 'development';
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-const developmentMode = env === 'development';
+//const developmentMode = env === 'development';
 const logger: LoggerInstance = Logger.getLogger('server');
 export const app = express();
 
-const limiter = rateLimit({
-  windowMs: 60 * 1000, //1 minute
-  max: 40, //Limit each IP to 20 reqs/min (POST+GET)
-  message: 'Too many requests from this IP, please try again later.',
-});
 app.locals.ENV = env;
-app.use(CASE_SEARCH_URL, limiter); //PRL-4123 - Apply the rate limiting middleware to case-finder
-app.disable('x-powered-by'); //PRL-4121
 new PropertiesVolume().enableFor(app);
-new SessionStorage().enableFor(app);
+new SessionStorage().enableFor(app, logger);
 app.use(cookies());
 new AppInsights().enable();
 new HealthCheck().enableFor(app);
@@ -51,7 +39,7 @@ new ErrorHandler().enableFor(app, logger);
 new ErrorHandler().handleNextErrorsFor(app);
 new Nunjucks().enableFor(app);
 new Webpack().enableFor(app);
-app.locals.developmentMode = process.env.NODE_ENV !== 'production';
+//app.locals.developmentMode = process.env.NODE_ENV !== 'production';
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: false }) as RequestHandler);
@@ -67,7 +55,7 @@ new LanguageToggle().enableFor(app);
 new TestApiRoutes().enableFor(app);
 new Routes().enableFor(app);
 
-setupDev(app, developmentMode);
+//setupDev(app, developmentMode);
 
 const port: number = parseInt(process.env.PORT || '3100', 10);
 if (app.locals.ENV === 'development') {
