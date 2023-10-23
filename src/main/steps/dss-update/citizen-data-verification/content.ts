@@ -178,12 +178,15 @@ export const generateContent: TranslationFn = content => {
       ).Field;
     });
     dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
-      formFields[`InputFields_${index}`] = InputFields(
-        `question${index}`,
-        dssQuestionAnswer['question'],
-        true,
-        dssQuestionAnswer['answer']
-      ).Field;
+      if(dssQuestionAnswer['question'] != null) {
+        formFields[`InputFields_${index}`] = InputFields(
+          `question${index}`,
+          dssQuestionAnswer['question'],
+          true,
+          dssQuestionAnswer['answer']
+        ).Field;
+      }
+      
     });
   } else {
     const temp_verificationData = content['additionalData']!['req']['session'].hasOwnProperty('tempValidationData');
@@ -193,11 +196,14 @@ export const generateContent: TranslationFn = content => {
         formFields[`DateFields_${index}`] = DateFields(`question${index}`, dssQuestionAnswer['question'], false).Field;
       });
       dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
-        formFields[`InputFields_${index}`] = InputFields(
-          `question${index}`,
-          dssQuestionAnswer['question'],
-          false
-        ).Field;
+        if(dssQuestionAnswer['question'] != null) {
+          formFields[`InputFields_${index}`] = InputFields(
+            `question${index}`,
+            dssQuestionAnswer['question'],
+            false
+          ).Field;
+        }
+        
       });
     } else {
       if (Object.entries(content['additionalData']!['req']['session']?.['tempValidationData']).length === 0) {
@@ -209,11 +215,13 @@ export const generateContent: TranslationFn = content => {
           ).Field;
         });
         dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
+          if(dssQuestionAnswer['question'] != null) {
           formFields[`InputFields_${index}`] = InputFields(
             `question${index}`,
             dssQuestionAnswer['question'],
             false
           ).Field;
+          }
         });
       } else {
         const tempdata = content['additionalData']!['req']['session']['tempValidationData'];
