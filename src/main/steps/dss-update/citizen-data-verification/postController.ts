@@ -52,12 +52,17 @@ export default class CitizenDataVerificationPostController extends PostControlle
     const InputFieldPairs = {};
     dssQuestionAnswerPairs.forEach((question, index) => {
       const field = question['answer'];
+      if(field != null) {
       const answerField = field
         .replace(/^\s+|\s+$/gm, '')
         .split(' ')
         .join('')
         .toLowerCase();
       InputFieldPairs[`InputFields_${index}`] = answerField;
+      }
+      else {
+        InputFieldPairs[`InputFields_${index}`] = '';
+      }
     });
 
     const matcherData = { ...datePairs, ...InputFieldPairs };
