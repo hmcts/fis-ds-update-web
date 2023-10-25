@@ -14,3 +14,4 @@ nodejs:
       secrets:
         - redis-access-key
         - AppInsightsInstrumentationKey
+        - redis-access-key-v6
