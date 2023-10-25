@@ -178,7 +178,7 @@ export const generateContent: TranslationFn = content => {
       ).Field;
     });
     dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
-      if(dssQuestionAnswer['question'] != null) {
+      if (dssQuestionAnswer['question'] !== null) {
         formFields[`InputFields_${index}`] = InputFields(
           `question${index}`,
           dssQuestionAnswer['question'],
@@ -195,7 +195,7 @@ export const generateContent: TranslationFn = content => {
         formFields[`DateFields_${index}`] = DateFields(`question${index}`, dssQuestionAnswer['question'], false).Field;
       });
       dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
-        if(dssQuestionAnswer['question'] != null) {
+        if (dssQuestionAnswer['question'] !== null) {
           formFields[`InputFields_${index}`] = InputFields(
             `question${index}`,
             dssQuestionAnswer['question'],
@@ -213,12 +213,12 @@ export const generateContent: TranslationFn = content => {
           ).Field;
         });
         dssQuestionAnswerPairs.forEach((dssQuestionAnswer, index) => {
-          if(dssQuestionAnswer['question'] != null) {
-          formFields[`InputFields_${index}`] = InputFields(
-            `question${index}`,
-            dssQuestionAnswer['question'],
-            false
-          ).Field;
+          if (dssQuestionAnswer['question'] !== null) {
+            formFields[`InputFields_${index}`] = InputFields(
+              `question${index}`,
+              dssQuestionAnswer['question'],
+              false
+            ).Field;
           }
         });
       } else {
