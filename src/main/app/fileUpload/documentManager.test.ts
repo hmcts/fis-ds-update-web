@@ -7,7 +7,7 @@ describe('Test URL endpoints', () => {
     expect(DOCUMENT_MANAGEMENT_CONFIGURATIONS.UPLOAD_URL).toBe('/doc/dss-orhestration/upload-for-dss-update');
   });
   test('should match the document remove url', () => {
-    expect(DOCUMENT_MANAGEMENT_CONFIGURATIONS.REMOVE_URL).toBe('/doc/dss-orhestration/{documentId}/delete');
+    expect(DOCUMENT_MANAGEMENT_CONFIGURATIONS.REMOVE_URL).toBe('/doc/dss-orhestration/dss/{documentId}/delete');
   });
 });
 jest.mock('axios');
