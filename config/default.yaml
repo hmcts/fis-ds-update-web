@@ -8,6 +8,7 @@ health:
 session:
   secret: 'local'
   name: 'fis_ds_update'
+  maxAge: 1260000
   PORT: 6380
   TLS: true
   CONNECTION_TIMEOUT: 15000

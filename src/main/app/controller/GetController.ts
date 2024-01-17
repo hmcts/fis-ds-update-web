@@ -32,6 +32,14 @@ export class GetController {
     }
 
     if (req.query.hasOwnProperty('logged-in')) {
+      req.session.verificationData = {};
+      req.session['caseRefId'] = '';
+      req.session['caseTypeId'] = '';
+      req.session.isDataVerified = false;
+      req.session['jurisdiction'] = '';
+      req.session['caseDocuments'] = [];
+      //req.session.cookie. = '';
+
       req.session.loggedInSystemUserType = req.query['logged-in'] as string;
       return res.redirect(Urls.START_HOME);
     } else {

@@ -50,16 +50,20 @@ export default class CitizenDataVerificationPostController extends PostControlle
     });
 
     const InputFieldPairs = {};
+
     dssQuestionAnswerPairs.forEach((question, index) => {
       const field = question['answer'];
-      const answerField = field
-        .replace(/^\s+|\s+$/gm, '')
-        .split(' ')
-        .join('')
-        .toLowerCase();
-      InputFieldPairs[`InputFields_${index}`] = answerField;
+      if (field !== null) {
+        const answerField = field
+          .replace(/^\s+|\s+$/gm, '')
+          .split(' ')
+          .join('')
+          .toLowerCase();
+        InputFieldPairs[`InputFields_${index}`] = answerField;
+      } else {
+        dssQuestionAnswerPairs.splice(index, 1);
+      }
     });
-
     const matcherData = { ...datePairs, ...InputFieldPairs };
     const transformedFormData = Object.fromEntries(
       Object.entries(formData).map(([key, value]: AnyType) => [
@@ -94,8 +98,10 @@ export default class CitizenDataVerificationPostController extends PostControlle
 
       const mapped_dssQuestionAnswerPairs = dssQuestionAnswerPairs.map((item, index) => {
         let { answer } = item;
-        answer = formDataToSessionValue[`InputFields_${index}`];
-        return { ...item, answer };
+        if (answer !== null) {
+          answer = formDataToSessionValue[`InputFields_${index}`];
+          return { ...item, answer };
+        }
       });
 
       const mapped_dssQuestionAnswerDatePairs = dssQuestionAnswerDatePairs.map((item, index) => {
