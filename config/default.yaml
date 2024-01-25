@@ -38,3 +38,6 @@ cookies:
   expiryTime: 365
   cookieName: 'ds-web-update-cookie-preferences'
 loggedInUsers: ['legalRep', 'police']
+services:
+  case:
+    url: 'http://ccd-data-store-api-aat.service.core-compute-aat.internal'

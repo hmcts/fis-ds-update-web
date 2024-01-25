@@ -12,8 +12,8 @@ import { Form, FormFields, FormFieldsFn } from '../../../app/form/Form';
 import { isNumeric } from '../../../app/form/validation';
 import { RpeApi } from '../../../app/s2s/rpeAuth';
 import { DATA_VERIFICATION } from '../../urls';
-/* The UploadDocumentController class extends the PostController class and overrides the
-PostDocumentUploader method */
+import { getSystemUser } from '../../../app/auth/oidc';
+
 @autobind
 export default class UploadDocumentController extends PostController<AnyObject> {
   constructor(protected readonly fields: FormFields | FormFieldsFn) {
@@ -22,15 +22,21 @@ export default class UploadDocumentController extends PostController<AnyObject> 
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async serverCallForCaseIdValidations(req: AppRequest<AnyObject>) {
-    const baseURL = `${config.get('api.cos')}/case/dss-orchestration/${req.body.applicantCaseId}`;
+    const baseURL = `${config.get('services.case.url')}/cases/${req.body.applicantCaseId}`;
     const seviceAuthToken = await RpeApi.getRpeToken();
+    const systemUserDetails = await getSystemUser();
     const s2sToken = seviceAuthToken.data;
-    const fetchRequest = await axios.get(baseURL, {
+
+    return await axios.get(baseURL, {
       headers: {
+        // TODO: will likely need a system update call here
+        Authorization: 'Bearer ' + systemUserDetails.accessToken,
         ServiceAuthorization: `Bearer ${s2sToken}`,
+        experimental: 'true',
+        Accept: '*/*',
+        'Content-Type': 'application/json',
       },
     });
-    return fetchRequest;
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
