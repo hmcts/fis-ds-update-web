@@ -26,7 +26,8 @@ export const en = () => ({
 export const cy = () => ({
   serviceName: 'DSS Update Case',
   title: 'Existing case details - welsh',
-  whereToFindInfoHint: 'You can find this information in the email you received after submitting your tribunal forms. - welsh',
+  whereToFindInfoHint:
+    'You can find this information in the email you received after submitting your tribunal forms. - welsh',
   subtitle: 'Case reference number - welsh',
   caseNameHint: 'This number will be 16 digits long - welsh.',
   errorSummaryMessage: 'There is a problem',
