@@ -68,7 +68,7 @@ export default class UploadDocumentController extends PostController<AnyObject> 
         if (responseFromServerCall.status === 200) {
           req.session['caseRefId'] = req.body.applicantCaseId;
           req.session['verificationData'] = responseFromServerCall.data;
-          req.session['caseTypeId'] = responseFromServerCall.data.caseTypeId;
+          req.session['caseTypeId'] = responseFromServerCall.data.case_type;
           req.session['jurisdiction'] = responseFromServerCall.data.jurisdiction;
           super.redirect(req, res, DATA_VERIFICATION);
         }

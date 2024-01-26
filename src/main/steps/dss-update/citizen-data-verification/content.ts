@@ -160,6 +160,7 @@ export const form: FormContent = {
 };
 
 export const generateContent: TranslationFn = content => {
+  //TODO: generate subject details page content regardless of below logic
   const verificationData = content['additionalData']!['req']['session']['verificationData'];
   const isDataVerified = content['additionalData']!['req']['session']['isDataVerified'];
 
