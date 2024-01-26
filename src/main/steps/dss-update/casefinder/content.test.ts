@@ -4,6 +4,7 @@ import { cy, en } from './content';
 const enContent = {
   serviceName: 'DSS Update Case',
   title: 'Existing case details',
+  whereToFindInfoHint: 'You can find this information in the email you received after submitting your tribunal forms.',
   subtitle: 'Case reference number',
   caseNameHint: 'This number will be 16 digits long.',
   errorSummaryMessage: 'There is a problem',
@@ -22,6 +23,7 @@ const enContent = {
 const cyContent = {
   serviceName: 'DSS Update Case',
   title: 'Existing case details - welsh',
+  whereToFindInfoHint: 'You can find this information in the email you received after submitting your tribunal forms. - welsh',
   subtitle: 'Case reference number - welsh',
   caseNameHint: 'This number will be 16 digits long - welsh.',
   errorSummaryMessage: 'There is a problem',
