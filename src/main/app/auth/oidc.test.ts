@@ -1,6 +1,6 @@
 import axios, { AxiosRequestHeaders, AxiosResponse, AxiosStatic } from 'axios';
 
-import { OidcResponse, getSystemUser, UserDetails } from './oidc';
+import { OidcResponse, UserDetails, getSystemUser } from './oidc';
 
 const config = require('config');
 
