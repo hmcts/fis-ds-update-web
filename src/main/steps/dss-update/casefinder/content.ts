@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { TranslationFn } from '../../../app/controller/GetController';
 import { FormContent } from '../../../app/form/Form';
-//import { isFieldFilledIn } from '../../../app/form/validation';
+import { isFieldFilledIn, isNotNumeric } from '../../../app/form/validation';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const en = () => ({
@@ -40,13 +40,23 @@ export const cy = () => ({
   },
 });
 
+export const form: FormContent = {
+  fields: {
+    applicantCaseId: {
+      type: 'text',
+      classes: 'govuk-input--width-20',
+      label: 'Enter your case reference',
+      validator: value => isFieldFilledIn(value) || isNotNumeric(value),
+    },
+  },
+  submit: {
+    text: l => l.continue,
+  },
+};
+
 const languages = {
   en,
   cy,
-};
-
-export const form: FormContent = {
-  fields: {},
 };
 
 export const generateContent: TranslationFn = content => {
