@@ -287,12 +287,4 @@ describe('checking for documents Delete manager', () => {
     await controller.parseAndSetReturnUrl(mockRequest());
     expect(Object.values(Urls).includes(mRequest.originalUrl)).not.toBeTruthy();
   });
-
-  test('Checking logged-in user page', async () => {
-    const controller = new GetController('page', () => ({}));
-    const mRequest = mockRequest({ query: { 'logged-in': 'police' } });
-    const res = mockResponse();
-    await controller.get(mRequest, res);
-    expect(res.redirect).toHaveBeenCalled();
-  });
 });

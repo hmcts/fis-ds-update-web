@@ -12,7 +12,7 @@ const mockedAxios = axios as jest.Mocked<AxiosStatic>;
 
 describe('getSystemUser', () => {
   const getSystemUserTestToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyIsInJvbGVzIjpbImNhc2V3b3JrZXItZGl2b3JjZS1zeXN0ZW11cGRhdGUiLCJjYXNld29ya2VyLWNhYSIsImNhc2V3b3JrZXIiLCJjYXNld29ya2VyLWRpdm9yY2UiXX0.NDab3XAV8NWQTuuxBQ9mpwTIdw4KMWWiJ37Dp3EHG7s';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QHRlc3QuY29tIiwiZ2l2ZW5fbmFtZSI6IkpvaG4iLCJmYW1pbHlfbmFtZSI6IkRvcmlhbiIsInVpZCI6IjEyMyIsInJvbGVzIjpbImNhc2V3b3JrZXItc3B0cmlicy1zeXN0ZW11cGRhdGUiLCJjYXNld29ya2VyLXN0X2NpYy1jYXNld29ya2VyIl19.2oMuSQ6eC_fS0Dwijs_UIRsKwZpvjJTk-nSG8WPfbaM';
 
   const accessTokenResponse: AxiosResponse<OidcResponse> = {
     status: 200,

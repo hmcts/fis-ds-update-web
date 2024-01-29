@@ -9,6 +9,7 @@ node_modules/
 *swp
 *log
 .DS_Store
+.swc
 
 src/main/public/img/lib/*
 src/main/public/js/lib/**/*.js
