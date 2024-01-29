@@ -31,7 +31,7 @@ describe('getSystemUser', () => {
     givenName: 'John',
     familyName: 'Dorian',
     id: '123',
-    roles: ['caseworker-divorce-systemupdate', 'caseworker-caa', 'caseworker', 'caseworker-divorce'],
+    roles: ['caseworker-sptribs-systemupdate', 'caseworker-st_cic-caseworker'],
   };
 
   test('Cache enabled', async () => {
