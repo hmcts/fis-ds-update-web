@@ -11,6 +11,9 @@ export class PropertiesVolume {
       this.setSecret('secrets.fis-kv.AppInsightsInstrumentationKey', 'appInsights.instrumentationKey');
       this.setSecret('secrets.fis-kv.redis-access-key', 'session.redis.key');
       this.setSecret('secrets.fis-kv.redis-access-key', 'session.secret');
+      this.setSecret('secrets.fis-kv.idam-system-user-name', 'services.idam.systemUsername');
+      this.setSecret('secrets.fis-kv.idam-system-user-password', 'services.idam.systemPassword');
+      this.setSecret('secrets.fis-kv.idam-ui-secret', 'services.idam.clientSecret');
     }
   }
 
