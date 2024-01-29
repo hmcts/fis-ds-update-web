@@ -23,13 +23,12 @@ export default class UploadDocumentController extends PostController<AnyObject> 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   public async serverCallForCaseIdValidations(req: AppRequest<AnyObject>) {
     const baseURL = `${config.get('services.case.url')}/cases/${req.body.applicantCaseId}`;
-    const seviceAuthToken = await RpeApi.getRpeToken();
+    const serviceAuthToken = await RpeApi.getRpeToken();
     const systemUserDetails = await getSystemUser();
-    const s2sToken = seviceAuthToken.data;
+    const s2sToken = serviceAuthToken.data;
 
     return await axios.get(baseURL, {
       headers: {
-        // TODO: will likely need a system update call here
         Authorization: 'Bearer ' + systemUserDetails.accessToken,
         ServiceAuthorization: `Bearer ${s2sToken}`,
         experimental: 'true',
