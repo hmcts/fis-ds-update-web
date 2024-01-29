@@ -88,7 +88,7 @@ export const isAlphaNumeric: Validator = value => {
   }
 };
 
-export const isNumeric: Validator = value => {
+export const isNotNumeric: Validator = value => {
   if (value && !(value as string).match(/^\d+$/)) {
     return ValidationError.NOT_NUMERIC;
   }

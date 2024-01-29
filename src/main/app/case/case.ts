@@ -10,6 +10,7 @@ export interface Case {
 
 export interface CaseWithId extends Case {
   caseId: string;
+  applicantCaseId: string;
 }
 
 export enum Checkbox {

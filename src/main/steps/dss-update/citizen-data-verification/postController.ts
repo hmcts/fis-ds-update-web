@@ -20,7 +20,6 @@ export default class CitizenDataVerificationPostController extends PostControlle
   }
 
   public async post(req: AppRequest<AnyObject>, res: Response): Promise<void> {
-    // console.log(req.body);
     const fields = typeof this.fields === 'function' ? this.fields(req.session.userCase) : this.fields;
     const form = new Form(fields);
     const { ...formData } = form.getParsedBody(req.body);

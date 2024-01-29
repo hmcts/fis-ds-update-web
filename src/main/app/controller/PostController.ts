@@ -43,7 +43,7 @@ export class PostController<T extends AnyObject> {
       target = nextUrl || getNextStepUrl(req, req.session.userCase);
     }
 
-    req.session?.save(err => {
+    req.session.save(err => {
       if (err) {
         throw err;
       }

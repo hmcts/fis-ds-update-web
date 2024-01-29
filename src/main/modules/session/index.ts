@@ -23,7 +23,7 @@ export class SessionStorage {
           httpOnly: true,
           maxAge: config.get('session.maxAge'),
           sameSite: 'lax', // required for the oauth2 redirect
-          secure: true,
+          secure: !app.locals.developmentMode,
         },
         rolling: true, // Renew the cookie for another 20 minutes on each request
         store: this.getStore(app),
@@ -47,14 +47,9 @@ export class SessionStorage {
       client.connect();
 
       app.locals.redisClient = client;
-      console.log('inside redis client ');
-      console.log(client);
-      console.log('after client console');
-      console.log('config.get("session.redis.key")');
-      console.log(config.get('session.redis.key'));
       return new RedisStore({ client });
     }
 
-    return new FileStore({ path: '/tmp' });
+    return new FileStore({ path: '/tmp/sessions' });
   }
 }
