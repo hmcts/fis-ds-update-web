@@ -27,6 +27,7 @@ export interface AppSession extends Session {
   errors: FormError[] | undefined;
   addresses: [];
   // eslint-disable-next-line @typescript-eslint/ban-types
+  caseRefId: string;
   verificationData: {};
   tempValidationData?: {};
   returnUrl?: string;

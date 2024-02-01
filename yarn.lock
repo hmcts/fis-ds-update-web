@@ -5711,6 +5711,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clone@npm:2.x":
+  version: 2.1.2
+  resolution: "clone@npm:2.1.2"
+  checksum: aaf106e9bc025b21333e2f4c12da539b568db4925c0501a1bf4070836c9e848c892fa22c35548ce0d1132b08bbbfa17a00144fe58fccdab6fa900fec4250f67d
+  languageName: node
+  linkType: hard
+
 "clone@npm:^1.0.2":
   version: 1.0.4
   resolution: "clone@npm:1.0.4"
@@ -8105,6 +8112,7 @@ __metadata:
     jest: ^29.6.4
     jest-extended: ^4.0.1
     jest_workaround: ^0.79.19
+    jwt-decode: 4.0.0
     lint-staged: ^14.0.1
     lodash: ^4.17.21
     mini-css-extract-plugin: ^2.7.6
@@ -8114,6 +8122,7 @@ __metadata:
     moment: ^2.29.4
     multer: ^1.4.5-lts.1
     negotiator: ^0.6.3
+    node-cache: 5.1.2
     nodemon: ^3.0.1
     npm-run-all: ^4.1.5
     nunjucks: ^3.2.4
@@ -10569,6 +10578,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jwt-decode@npm:4.0.0":
+  version: 4.0.0
+  resolution: "jwt-decode@npm:4.0.0"
+  checksum: 390e2edcb31a92e86c8cbdd1edeea4c0d62acd371f8a8f0a8878e499390c0ecf4c658b365c4e941e4ef37d0170e4ca650aaa49f99a45c0b9695a235b210154b0
+  languageName: node
+  linkType: hard
+
 "keyv@npm:^4.0.0, keyv@npm:^4.5.3":
   version: 4.5.4
   resolution: "keyv@npm:4.5.4"
@@ -11825,6 +11841,15 @@ __metadata:
     lower-case: ^2.0.2
     tslib: ^2.0.3
   checksum: 0b2ebc113dfcf737d48dde49cfebf3ad2d82a8c3188e7100c6f375e30eafbef9e9124aadc3becef237b042fd5eb0aad2fd78669c20972d045bbe7fea8ba0be5c
+  languageName: node
+  linkType: hard
+
+"node-cache@npm:5.1.2":
+  version: 5.1.2
+  resolution: "node-cache@npm:5.1.2"
+  dependencies:
+    clone: 2.x
+  checksum: b0bdd81a6fee4754fb984a05246b510bb35dc54721116d465899bf4229ee3287fdafb47da526900ee9924fb402ed5c7d8050049d37d8bf2d26dbafc23a2c3205
   languageName: node
   linkType: hard
 
