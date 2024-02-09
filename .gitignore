@@ -27,6 +27,7 @@ npm-debug.log.*
 .settings/
 dist/
 public/
+.swc
 
 .yarn/*
 !.yarn/patches
