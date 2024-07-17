@@ -1,5 +1,5 @@
 provider "azurerm" {
- features {}
+  features {}
 }
 
 locals {
@@ -7,7 +7,7 @@ locals {
 }
 
 data "azurerm_key_vault" "key_vault" {
-  name = local.vaultName
+  name                = local.vaultName
   resource_group_name = "${var.product}-${var.env}"
 }
 
