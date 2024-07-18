@@ -14,7 +14,7 @@ describe('Steps', () => {
 
     it('returns the next step when correct details a passed', () => {
       mockReq.originalUrl = HOME_URL;
-      mockReq.path = HOME_URL;
+      //mockReq.path = HOME_URL;
       const data = {};
       expect(data).not.toBe('');
     });
@@ -33,14 +33,14 @@ describe('Steps', () => {
 
     it('returns the next step when correct details a passed', () => {
       mockReq.originalUrl = HOME_URL;
-      mockReq.path = HOME_URL;
+      //mockReq.path = HOME_URL;
       const data = {};
       expect(data).not.toBe('');
     });
 
     it('getNextStepUrl', () => {
       const mRequest = mockReq;
-      mRequest.path = HOME_URL + '/:h';
+      //mRequest.path = HOME_URL + '/:h';
       mRequest.route = {
         path: '',
       };
