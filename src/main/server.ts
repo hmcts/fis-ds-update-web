@@ -40,6 +40,7 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, please try again later.',
 });
 app.locals.ENV = env;
+app.enable('trust proxy');
 app.use(CASE_SEARCH_URL, limiter); //PRL-4123 - Apply the rate limiting middleware to case-finder
 app.disable('x-powered-by'); //PRL-4121
 new PropertiesVolume().enableFor(app);
