@@ -3203,90 +3203,90 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-arm64@npm:1.7.1":
-  version: 1.7.1
-  resolution: "@swc/core-darwin-arm64@npm:1.7.1"
+"@swc/core-darwin-arm64@npm:1.7.2":
+  version: 1.7.2
+  resolution: "@swc/core-darwin-arm64@npm:1.7.2"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-x64@npm:1.7.1":
-  version: 1.7.1
-  resolution: "@swc/core-darwin-x64@npm:1.7.1"
+"@swc/core-darwin-x64@npm:1.7.2":
+  version: 1.7.2
+  resolution: "@swc/core-darwin-x64@npm:1.7.2"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm-gnueabihf@npm:1.7.1":
-  version: 1.7.1
-  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.7.1"
+"@swc/core-linux-arm-gnueabihf@npm:1.7.2":
+  version: 1.7.2
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.7.2"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-gnu@npm:1.7.1":
-  version: 1.7.1
-  resolution: "@swc/core-linux-arm64-gnu@npm:1.7.1"
+"@swc/core-linux-arm64-gnu@npm:1.7.2":
+  version: 1.7.2
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.7.2"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-musl@npm:1.7.1":
-  version: 1.7.1
-  resolution: "@swc/core-linux-arm64-musl@npm:1.7.1"
+"@swc/core-linux-arm64-musl@npm:1.7.2":
+  version: 1.7.2
+  resolution: "@swc/core-linux-arm64-musl@npm:1.7.2"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-gnu@npm:1.7.1":
-  version: 1.7.1
-  resolution: "@swc/core-linux-x64-gnu@npm:1.7.1"
+"@swc/core-linux-x64-gnu@npm:1.7.2":
+  version: 1.7.2
+  resolution: "@swc/core-linux-x64-gnu@npm:1.7.2"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-musl@npm:1.7.1":
-  version: 1.7.1
-  resolution: "@swc/core-linux-x64-musl@npm:1.7.1"
+"@swc/core-linux-x64-musl@npm:1.7.2":
+  version: 1.7.2
+  resolution: "@swc/core-linux-x64-musl@npm:1.7.2"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-win32-arm64-msvc@npm:1.7.1":
-  version: 1.7.1
-  resolution: "@swc/core-win32-arm64-msvc@npm:1.7.1"
+"@swc/core-win32-arm64-msvc@npm:1.7.2":
+  version: 1.7.2
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.7.2"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-win32-ia32-msvc@npm:1.7.1":
-  version: 1.7.1
-  resolution: "@swc/core-win32-ia32-msvc@npm:1.7.1"
+"@swc/core-win32-ia32-msvc@npm:1.7.2":
+  version: 1.7.2
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.7.2"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@swc/core-win32-x64-msvc@npm:1.7.1":
-  version: 1.7.1
-  resolution: "@swc/core-win32-x64-msvc@npm:1.7.1"
+"@swc/core-win32-x64-msvc@npm:1.7.2":
+  version: 1.7.2
+  resolution: "@swc/core-win32-x64-msvc@npm:1.7.2"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
 "@swc/core@npm:^1.3.80":
-  version: 1.7.1
-  resolution: "@swc/core@npm:1.7.1"
+  version: 1.7.2
+  resolution: "@swc/core@npm:1.7.2"
   dependencies:
-    "@swc/core-darwin-arm64": 1.7.1
-    "@swc/core-darwin-x64": 1.7.1
-    "@swc/core-linux-arm-gnueabihf": 1.7.1
-    "@swc/core-linux-arm64-gnu": 1.7.1
-    "@swc/core-linux-arm64-musl": 1.7.1
-    "@swc/core-linux-x64-gnu": 1.7.1
-    "@swc/core-linux-x64-musl": 1.7.1
-    "@swc/core-win32-arm64-msvc": 1.7.1
-    "@swc/core-win32-ia32-msvc": 1.7.1
-    "@swc/core-win32-x64-msvc": 1.7.1
+    "@swc/core-darwin-arm64": 1.7.2
+    "@swc/core-darwin-x64": 1.7.2
+    "@swc/core-linux-arm-gnueabihf": 1.7.2
+    "@swc/core-linux-arm64-gnu": 1.7.2
+    "@swc/core-linux-arm64-musl": 1.7.2
+    "@swc/core-linux-x64-gnu": 1.7.2
+    "@swc/core-linux-x64-musl": 1.7.2
+    "@swc/core-win32-arm64-msvc": 1.7.2
+    "@swc/core-win32-ia32-msvc": 1.7.2
+    "@swc/core-win32-x64-msvc": 1.7.2
     "@swc/counter": ^0.1.3
     "@swc/types": ^0.1.12
   peerDependencies:
@@ -3315,7 +3315,7 @@ __metadata:
   peerDependenciesMeta:
     "@swc/helpers":
       optional: true
-  checksum: ffe6d363dd63392803ef4888959d0af4cfc78a102b38a70054cb1702e164f0d095bf3d26560d16b5f5d28cd585372c841ad6cd912acf4ef1aa3ad969130eedff
+  checksum: 251da1c8e7d54dc8b1783ad88667dc519cdc33baa92d2f5470ca0cb0e02ec6f132bb3d513c6a99826c41443ff0ee097428f2bef64cc8c05d14b796537acaea75
   languageName: node
   linkType: hard
 
