@@ -2290,10 +2290,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hmcts/cookie-manager@npm:^0.0.5":
-  version: 0.0.5
-  resolution: "@hmcts/cookie-manager@npm:0.0.5"
-  checksum: 475dbc36a0d4b0a7b14ce87b715bdbe87c60724969a41d5b43e8a9ae024cbf92696706031c0a5d37455adbf35431cb8c7315f78264151a533ac0868bcaf6c440
+"@hmcts/cookie-manager@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "@hmcts/cookie-manager@npm:1.1.0"
+  checksum: 209ecaa7286a43f1306e86557e73f45839798cf7d9ee79dc9e573e871dd3ef19abb2a3a4f152d0800393101054e72921d5a61f6c48b861519c1b68e5d8beeca3
   languageName: node
   linkType: hard
 
@@ -9329,7 +9329,7 @@ __metadata:
     "@babel/core": ^7.22.11
     "@babel/preset-env": ^7.22.10
     "@babel/preset-typescript": ^7.22.11
-    "@hmcts/cookie-manager": ^0.0.5
+    "@hmcts/cookie-manager": ^1.0.0
     "@hmcts/nodejs-healthcheck": ^1.8.0
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/properties-volume": ^0.0.14
